@@ -20,8 +20,8 @@ export default function Custom404() {
         </div>
       </div>
       <div className="flex justify-center items-center">
-        <div className="bg-red-500 text-white py-2 px-4 rounded-md mb-16">
-          <a>Back to Home</a>
+        <div className="bg-red-500 text-white py-2 px-4 rounded-md mb-16 hover:cursor-pointer">
+          <a href="../">Back to Home</a>
         </div>
       </div>
      
