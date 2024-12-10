@@ -1,19 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import pnf from '../../public/images/pagenotfound.png'
+import Hero2 from "./components/Hero2";
 
 
 export default function Custom404() {
   return (
     <div>
-      <div className="bg-purple-100 p-28 px-72">
-        <div>
-          <h1 className="text-3xl font-bold text-black-600">404 Not Found</h1>
-        </div>
-        <div>
-          <span>Home.Pages<span className="text-red-700">.404 Not Found</span></span>
-        </div>
-      </div>
+      <Hero2 name='404 Not Found' add1='Home . Page' add2=' . 404 Not Found'/>
+     
       <div>
         <div className="flex justify-center items-center py-6">
           <Image src={pnf} alt="pnf.png"></Image>

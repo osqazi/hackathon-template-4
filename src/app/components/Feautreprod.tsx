@@ -16,7 +16,15 @@ const FeaturedProducts: React.FC = () => {
   return (
     <div className="bg-white py-10">
       <h3 className="text-center text-2xl font-bold mb-6">Featured Products</h3>
-      <div className="flex justify-center gap-8 h-96 w-max-80">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 lg:mx-60">
+          {products.map((product) => (
+            <div key={product.id} className="border rounded-lg p-2 shadow-lg text-center h-96">
+              <img src={product.img} alt={product.name} className="w-full h-72 object-cover mb-4" />
+              <h3 className="font-medium text-lg">{product.name}</h3>
+            </div>
+          ))}
+        </div>
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 flex-grow-1">
         {products.map((product) => (
           <div key={product.id} className="p-4 border rounded shadow-md">
             <img
@@ -27,7 +35,7 @@ const FeaturedProducts: React.FC = () => {
             <h4 className="mt-4">{product.name}</h4>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };
