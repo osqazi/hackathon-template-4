@@ -36,8 +36,7 @@ export default function Faq() {
               <div className="form-group mb-6">
                 <input
                   type="text"
-                  className="form-control py-4 px-2 border border-gray-200 rounded-md w-full"
-                  id="exampleFormControlInput1"
+                  className="form-control py-4 px-2 border border-gray-200 rounded-md w-full"                  
                   placeholder="Your Name *"
                   required
                 />
@@ -46,15 +45,13 @@ export default function Faq() {
                 <input
                   type="text"
                   className="form-control py-4 px-2 border border-gray-200 rounded-md w-full"
-                  id="exampleFormControlInput2"
                   placeholder="Subject *"
                   required
                 />
               </div>
               <div className="form-group mb-6">
   <textarea
-    className="form-control py-4 px-2 border border-gray-200 rounded-md w-full"
-    id="exampleFormControlTextarea1"
+    className="form-control py-4 px-2 border border-gray-200 rounded-md w-full"    
     placeholder="Type Your Message *"
     rows="10"
   ></textarea>
@@ -63,8 +60,7 @@ export default function Faq() {
               <div className="form-group">
                 <input
                   type="button"
-                  className="form-control py-3 px-3 border border-gray-200 rounded-md text-white bg-pink-600 w-full sm:w-32 hover:bg-pink-400 hover:cursor-pointer"
-                  id="exampleFormControlInput3"
+                  className="form-control py-3 px-3 border border-gray-200 rounded-md text-white bg-pink-600 w-full sm:w-32 hover:bg-pink-400 hover:cursor-pointer"                  
                   value={"Send Mail"}
                   required
                 />
