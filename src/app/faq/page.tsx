@@ -52,13 +52,14 @@ export default function Faq() {
                 />
               </div>
               <div className="form-group mb-6">
-                <textarea
-                  className="form-control py-4 px-2 border border-gray-200 rounded-md w-full"
-                  id="exampleFormControlTextarea1"
-                  placeholder="Type Your Message *"
-                  rows=10
-                ></textarea>
-              </div>
+  <textarea
+    className="form-control py-4 px-2 border border-gray-200 rounded-md w-full"
+    id="exampleFormControlTextarea1"
+    placeholder="Type Your Message *"
+    rows="10"
+  ></textarea>
+</div>
+
               <div className="form-group">
                 <input
                   type="button"
