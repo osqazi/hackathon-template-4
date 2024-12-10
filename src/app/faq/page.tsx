@@ -53,7 +53,7 @@ export default function Faq() {
   <textarea
     className="form-control py-4 px-2 border border-gray-200 rounded-md w-full"    
     placeholder="Type Your Message *"
-    rows=10
+    rows={10}
   ></textarea>
 </div>
 
