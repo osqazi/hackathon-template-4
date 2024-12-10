@@ -59,7 +59,7 @@ export default function Faq() {
 
               <div className="form-group">
                 <input
-                  type="button"
+                  type="submit"
                   className="form-control py-3 px-3 border border-gray-200 rounded-md text-white bg-pink-600 w-full sm:w-32 hover:bg-pink-400 hover:cursor-pointer"                  
                   value={"Send Mail"}
                   required
