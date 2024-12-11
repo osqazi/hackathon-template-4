@@ -35,19 +35,19 @@ const Footer: React.FC<FooterProps> = () => {
             <h3 className="text-lg font-bold mb-4">Categories</h3>
             <ul className="text-gray-600">
               <li>
-                <a href="/PnF">Laptops & Computers</a>
+                <a href="../PnF">Laptops & Computers</a>
               </li>
               <li>
-                <a href="/PnF">Cameras & Photography</a>
+                <a href="../PnF">Cameras & Photography</a>
               </li>
               <li>
-                <a href="/PnF">Smart Phones & Tablets</a>
+                <a href="../PnF">Smart Phones & Tablets</a>
               </li>
               <li>
-                <a href="/PnF">Video Games & Consoles</a>
+                <a href="../PnF">Video Games & Consoles</a>
               </li>
               <li>
-                <a href="/PnF">Waterproof Headphones</a>
+                <a href="../PnF">Waterproof Headphones</a>
               </li>
             </ul>
           </div>
@@ -56,16 +56,16 @@ const Footer: React.FC<FooterProps> = () => {
             <h3 className="text-lg font-bold mb-4">Customer Care</h3>
             <ul className="text-gray-600">
               <li>
-                <a href="/login">My Account</a>
+                <a href="../login">My Account</a>
               </li>
               <li>
-                <a href="/Pnf">Returns</a>
+                <a href="../Pnf">Returns</a>
               </li>
               <li>
-                <a href="/Pnf">Orders History</a>
+                <a href="../Pnf">Orders History</a>
               </li>
               <li>
-                <a href="/Pnf">Order Tracking</a>
+                <a href="../Pnf">Order Tracking</a>
               </li>
             </ul>
           </div>
@@ -74,22 +74,22 @@ const Footer: React.FC<FooterProps> = () => {
             <h3 className="text-lg font-bold mb-4">Pages</h3>
             <ul className="text-gray-600">
               <li>
-                <a href="/Pnf">Blog</a>
+                <a href="../Pnf">Blog</a>
               </li>
               <li>
-                <a href="/Pnf">Browse the Shop</a>
+                <a href="../Pnf">Browse the Shop</a>
               </li>
               <li>
-                <a href="/Pnf">Category</a>
+                <a href="../Pnf">Category</a>
               </li>
               <li>
-                <a href="/Pnf">Pre-Built Pages</a>
+                <a href="../Pnf">Pre-Built Pages</a>
               </li>
               <li>
-                <a href="/Pnf">Visual Composer Elements</a>
+                <a href="../Pnf">Visual Composer Elements</a>
               </li>
               <li>
-                <a href="/Pnf">WooCommerce Pages</a>
+                <a href="../Pnf">WooCommerce Pages</a>
               </li>
             </ul>
           </div>
