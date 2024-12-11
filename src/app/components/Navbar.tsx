@@ -138,7 +138,7 @@ const Navbar = () => {
             <a href="../blog">Blog</a>
           </li>
           <li className="hover:text-pink-500">
-            <a href="../shop">Shop</a>
+            <a href="../Shop">Shop</a>
           </li>
           <li className="hover:text-pink-500">
             <a href="../contact">Contact</a>
