@@ -80,9 +80,14 @@ export default function Contact() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-24 gap-14 mx-3 md:mx-0 lg:mx-0">
           <div className="col-span-1">
             <div className="text-2xl font-bold py-16">
-              <h1 className="mb-8 text-4xl text-purple-950 flex justify-center md:justify-start lg:justify-start">
+              <h1 className="mb-7 text-4xl text-purple-950 flex justify-center md:justify-start lg:justify-start">
                 Get in Touch
               </h1>
+              <p className="text-purple-400 text-[16px] font-normal mb-8">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mattis
+                neque ultrices tristique amet erat vitae eget dolor los vitae
+                lobortis quis bibendum quam.
+              </p>
               <form className="text-sm font-normal">
                 <div className="lg:flex lg:justify-between gap-6">
                   <div className="form-group mb-6 flex-1">
