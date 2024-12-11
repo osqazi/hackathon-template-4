@@ -16,7 +16,7 @@ export default function Login() {
                 <input
                   type="email"
                   className="form-control py-3 px-2 border border-gray-200 rounded-md w-full"
-                  id="exampleFormControlInput1"
+                  id="email"
                   placeholder="Email Address"
                   required
                 />
@@ -25,7 +25,7 @@ export default function Login() {
                 <input
                   type="password"
                   className="form-control py-3 px-2 border border-gray-200 rounded-md w-full"
-                  id="exampleFormControlInput2"
+                  id="password"
                   placeholder="Password"
                   required
                 />
@@ -35,7 +35,6 @@ export default function Login() {
                 <input
                   type="button"
                   className="form-control py-3 px-4 border border-gray-200 rounded-md text-white bg-pink-600 w-full hover:bg-pink-400 hover:cursor-pointer"
-                  id="exampleFormControlInput3"
                   value={"Sign In"}
                   required
                 />
