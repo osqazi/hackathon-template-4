@@ -8,7 +8,7 @@ export default function ShopGrid() {
             return (
                 <div className="col-span-1" key={items.id}>
               <div>
-                <div className="bg-green-100">
+                <div className="bg-stone-50 rounded-md">
                   <img src={items.pic} alt="pic" className="p-4"></img>
                 </div>
                 <div>
