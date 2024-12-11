@@ -3,7 +3,7 @@ import shopItems from "../shopItems";
 export default function ShopGrid() {
   return (
     <div>
-      <div className="grid grid-cols-1 gap-14 mx-52 my-28 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-14 lg:mx-52 md:mx-44 mx-1 my-28 md:grid-cols-3 lg:grid-cols-4">
           {shopItems.map((items, i) => {
             return (
                 <div className="col-span-1" id={i}>
