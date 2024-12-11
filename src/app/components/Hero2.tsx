@@ -3,10 +3,10 @@ export default function Hero2(props:any) {
     <div>
       <div className="bg-purple-100 p-28 lg:px-72">
         <div>
-          <h1 className="text-3xl font-bold text-black-600">{props.name}</h1>
+          <h1 className="lg:text-3xl font-bold text-black-600 text-2xl">{props.name}</h1>
         </div>
         <div>
-          <span>
+          <span className="text-nowrap">
           {props.add1}<span className="text-red-700">{props.add2}</span>
           </span>
         </div>
