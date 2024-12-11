@@ -139,7 +139,7 @@ export default function Contact() {
             </div>
           </div>
           <div className="col-span-1">
-            <div className="">
+            <div className="lg:size-[650px] md:size-[550px] flex">
               <Image src={pagePic} alt="pagePic"></Image>
             </div>
           </div>
