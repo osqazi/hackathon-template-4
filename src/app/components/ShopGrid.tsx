@@ -9,7 +9,7 @@ export default function ShopGrid() {
                 <div className="col-span-1" key={items.id}>
               <div>
                 <div className="bg-stone-100 rounded-md lg:flex lg:justify-center">
-                  <img src={items.pic} alt="pic" className="p-1 lg:h-40 lg:w-40 md:h-50 md:w-40 object-fill"></img>
+                  <img src={items.pic} alt="pic" className="h-40 w-40 object-cover"></img>
                 </div>
                 <div>
                   <p className="text-center font-bold p-2 text-[14px] text-nowrap">
