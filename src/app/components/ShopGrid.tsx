@@ -8,11 +8,11 @@ export default function ShopGrid() {
             return (
                 <div className="col-span-1" key={items.id}>
               <div>
-                <div className="bg-stone-50 rounded-md">
-                  <img src={items.pic} alt="pic" className="p-4"></img>
+                <div className="bg-stone-100 rounded-md lg:flex lg:justify-center">
+                  <img src={items.pic} alt="pic" className="p-1 lg:h-40 lg:w-40 md:h-50 md:w-40 object-fill"></img>
                 </div>
                 <div>
-                  <p className="text-center font-bold py-3 text-[14px] text-nowrap">
+                  <p className="text-center font-bold p-2 text-[14px] text-nowrap">
                     {items.name}
                   </p>
                   <div>
@@ -22,7 +22,7 @@ export default function ShopGrid() {
                       <li className="h-3 w-3 bg-purple-700 rounded-full"></li>
                     </ul>
                   </div>
-                  <div className="flex justify-center gap-6 pt-3 text-[14px]">
+                  <div className="flex justify-center gap-6 pt-1 text-[14px]">
                     <p>`${items.newprice}`</p>
                     <p className="text-red-600 line-through">`${items.oldprice}`</p>
                   </div>
