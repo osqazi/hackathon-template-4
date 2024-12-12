@@ -8,8 +8,8 @@ export default function ShopGrid() {
             return (
                 <div className="col-span-1" key={items.id}>
               <div>
-                <div className="bg-stone-100 p-12 lg:p-8 md:p-10 rounded-md lg:h-50 lg:w-40  md:h-50 md:w-40 h-auto w-auto flex justify-center">
-                  <img src={items.pic} alt="pic" className="object-fill m-2"></img>
+                <div className="bg-stone-100 p-10 lg:p-4 md:p-6 rounded-md lg:h-50 lg:w-40  md:h-50 md:w-40 h-auto w-auto flex justify-center">
+                  <img src={items.pic} alt="pic" className="object-fill m-2 h-50 w-40"></img>
                 </div>
                 <div>
                   <p className="text-center font-bold p-2 text-[14px] text-nowrap">
