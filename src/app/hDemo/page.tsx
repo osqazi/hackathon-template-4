@@ -194,15 +194,21 @@ export default function HektoDemo() {
               </li>
             </ul>
           ))}
-          <div className="py-12 bg-gray-200 rounded-sm px-8">
+          <div className="py-12 bg-gray-100 rounded-sm px-8">
             <div className="flex justify-between font-bold text-lg">
                 <p>Subtotals:</p>
                 <p>$219.00</p>
             </div>
-            <div className="flex justify-between font-bold text-lg py-10">
+            <div className="my-4">
+            <hr className="border-gray-300 border-2" />
+                </div>
+            <div className="flex justify-between font-bold text-lg pt-10">
                 <p>Totals:</p>
                 <p>$325.00</p>
             </div>
+            <div className="my-4">
+            <hr className="border-gray-300 border-2" />
+                </div>
             <label className="flex items-center space-x-2 pt-10 pb-8">
                   <input 
                     type="checkbox" 
