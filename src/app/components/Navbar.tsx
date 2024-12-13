@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import {
   Select,
@@ -7,18 +7,18 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const NavLinks = [
-    { name: 'Home', href: '../', specialSelect: true },
-    { name: 'Pages', href: '../pages' },
-    { name: 'Products', href: '../products' },
-    { name: 'Blog', href: '../blog' },
-    { name: 'Shop', href: '../Shop' },
-    { name: 'Contact', href: '../contact' }
+    { name: "Home", href: "../", specialSelect: true },
+    { name: "Pages", href: "../pages" },
+    { name: "Products", href: "../products" },
+    { name: "Blog", href: "../blog" },
+    { name: "Shop", href: "../Shop" },
+    { name: "Contact", href: "../contact" },
   ];
 
   return (
@@ -40,7 +40,9 @@ const Navbar = () => {
           <div className="w-full lg:w-auto flex justify-between lg:justify-end items-center gap-4 mt-2 lg:mt-0">
             <span>
               <select className="w-auto bg-transparent focus:text-black hover:cursor-pointer">
-                <option value="English" className="bg-white text-black">English</option>
+                <option value="English" className="bg-white text-black">
+                  English
+                </option>
                 <option value="Urdu">Urdu</option>
               </select>
             </span>
@@ -51,7 +53,9 @@ const Navbar = () => {
               </select>
             </span>
             <span>
-              <a href="../login" className="hover:cursor-pointer">Login <i className="fa-regular fa-user"></i></a>
+              <a href="../login" className="hover:cursor-pointer">
+                Login <i className="fa-regular fa-user"></i>
+              </a>
             </span>
             <span>
               Wishlist <i className="fa-regular fa-heart"></i>
@@ -75,25 +79,25 @@ const Navbar = () => {
             onClick={() => setMenuOpen(!menuOpen)}
           >
             {menuOpen ? (
-              <i className="fa-solid fa-times text-2xl"></i> // Close icon
+              <i className="fa-solid fa-times text-2xl"></i>
             ) : (
-              <i className="fa-solid fa-bars text-2xl"></i> // Menu icon
+              <i className="fa-solid fa-bars text-2xl"></i>
             )}
           </button>
 
           {/* Sidebar Navigation for Mobile */}
           {menuOpen && (
-            <div 
+            <div
               className="fixed inset-0 bg-black bg-opacity-50 z-40"
               onClick={() => setMenuOpen(false)}
             >
-              <div 
+              <div
                 className="fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform transition-transform duration-300 ease-in-out"
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="p-4 border-b flex justify-between items-center">
                   <h1 className="text-2xl font-bold text-purple-600">Pages</h1>
-                  <button 
+                  <button
                     onClick={() => setMenuOpen(false)}
                     className="text-purple-600"
                   >
@@ -104,35 +108,31 @@ const Navbar = () => {
                   {NavLinks.map((link, index) => (
                     <li key={index} className="hover:text-pink-500">
                       {link.specialSelect ? (
-                        <Select 
-                          onValueChange={(e) => {
-                            if (e === 'Home') window.location.href = '../';
-                            if (e === 'Faq') window.location.href = '../faq';
-                            if (e === 'HKDemo') window.location.href = '../hDemo';
-                            if (e === 'OrdComp') window.location.href = '../orderComp';
-
-                          }}
-                        >
-                          <SelectTrigger className="border-none focus:ring-0">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent className="shadow-none border-none p-0">
-                            <SelectGroup className="p-0 m-0">
-                              <SelectItem value="Home" className="p-0 m-0">
-                                Home
-                              </SelectItem>
-                              <SelectItem value="Faq" className="p-0 m-0">
-                                FAQ
-                              </SelectItem>
-                              <SelectItem value="HKDemo" className="p-0 m-0">
-                                HK Demo
-                              </SelectItem>
-                              <SelectItem value="OrdComp" className="p-0 m-0">
-                                Order Completed
-                              </SelectItem>
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
+                        <div>
+                          <Select
+                            defaultValue="Home"
+                            onValueChange={(e) => {
+                              if (e === "Home") window.location.href = "../";
+                              if (e === "Faq") window.location.href = "../faq";
+                              if (e === "HKDemo")
+                                window.location.href = "../hDemo";
+                              if (e === "OrdComp")
+                                window.location.href = "../orderComp";
+                            }}
+                          >
+                            <SelectTrigger className="border-none focus:ring-0">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent className="mt-2 bg-gray-100 p-2 border rounded-md">
+                              <SelectGroup>
+                                <SelectItem value="Home">Home</SelectItem>
+                                <SelectItem value="Faq">FAQ</SelectItem>
+                                <SelectItem value="HKDemo">HK Demo</SelectItem>
+                                <SelectItem value="OrdComp">Order Completed</SelectItem>
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                        </div>
                       ) : (
                         <a href={link.href}>{link.name}</a>
                       )}
@@ -162,24 +162,22 @@ const Navbar = () => {
             {NavLinks.map((link, index) => (
               <li key={index} className="hover:text-pink-500">
                 {link.specialSelect ? (
-                  <Select 
-                    defaultValue="Home" 
+                  <Select
+                    defaultValue="Home"
                     onValueChange={(e) => {
-                      if (e === 'Home') window.location.href = '../';
-                      if (e === 'Faq') window.location.href = '../faq';
+                      if (e === "Home") window.location.href = "../";
+                      if (e === "Faq") window.location.href = "../faq";
                     }}
                   >
                     <SelectTrigger className="border-none focus:ring-0">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className="shadow-none border-none p-0">
-                      <SelectGroup className="p-0 m-0">
-                        <SelectItem value="Home" className="p-0 m-0">
-                          Home
-                        </SelectItem>
-                        <SelectItem value="Faq" className="p-0 m-0">
-                          FAQ
-                        </SelectItem>
+                    <SelectContent className="mt-2 bg-gray-100 p-2 border rounded-md">
+                      <SelectGroup>
+                        <SelectItem value="Home">Home</SelectItem>
+                        <SelectItem value="Faq">FAQ</SelectItem>
+                        <SelectItem value="HKDemo">HK Demo</SelectItem>
+                        <SelectItem value="OrdComp">Order Completed</SelectItem>
                       </SelectGroup>
                     </SelectContent>
                   </Select>
