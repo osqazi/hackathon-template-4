@@ -3,11 +3,11 @@ import shopItems2 from "../shopItems2";
 
 export default function ShopList() {
   return (
-    <div className="lg:mx-52 md:mx-44 my-28 mx-10">
+    <div className="lg:mx-52 md:mx-44 my-28">
       {shopItems2.map((Item, i) => {
         return (
-          <div key={i}>
-            <div className="lg:flex md: md:flex gap-8 items-center mb-16">
+          <div key={i} className="flex justify-center">
+            <div className="lg:flex md: md:flex gap-8 items-center mb-16 shadow-md ">
               <div className="">
                 <img
                   src={Item.pic}
@@ -44,10 +44,10 @@ export default function ShopList() {
                    {Item.detail}
                   </h1>
                 </div>
-                <div className=" flex gap-10 mx-3 mt-8 text-lg">
-                  <i className="fa-solid fa-cart-shopping"></i>
-                  <i className="fa-regular fa-heart"></i>
-                  <i className="fa-solid fa-magnifying-glass"></i>
+                <div className=" flex gap-10 mx-3 mt-8 mb-4 text-lg">
+                  <a><i className="fa-solid fa-cart-shopping hover:cursor-pointer"></i></a>
+                  <a><i className="fa-regular fa-heart hover:cursor-pointer"></i></a>
+                  <a><i className="fa-solid fa-magnifying-glass hover:cursor-pointer"></i></a>
                 </div>
               </div>
             </div>

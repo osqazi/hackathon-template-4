@@ -11,9 +11,9 @@ export default function Shop() {
   return (
     <div>
       <Hero2
-        name="Shop Grid Default"
+        name="Shop"
         add1="Home . Pages"
-        add2=". Shop Grid Default"
+        add2=". Shop"
       />
       <div>
         <div className="mt-28 lg:mx-52 md:mx-44 mx-1">
@@ -28,7 +28,7 @@ export default function Shop() {
             </div>
             
             <div className="lg:flex md:flex gap-2">
-              <div className="text-lg">
+              <div className="text-lg mb-2">
                 <label htmlFor="pages" className="p-2">Per Page:</label>
                 <input
                   id="pages"

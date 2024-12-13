@@ -53,14 +53,14 @@ const Navbar = () => {
               </select>
             </span>
             <span>
-              <a href="../login" className="hover:cursor-pointer">
+              <a href="../login" className="hover:cursor-pointer flex justify-center items-center gap-1">
                 Login <i className="fa-regular fa-user"></i>
               </a>
             </span>
-            <span>
+            <span className="hover:cursor-pointer flex justify-center items-center gap-1">
               Wishlist <i className="fa-regular fa-heart"></i>
             </span>
-            <span>
+            <span className="flex justify-center">
               <i className="fa-solid fa-cart-shopping text-2xl ml-4"></i>
             </span>
           </div>
