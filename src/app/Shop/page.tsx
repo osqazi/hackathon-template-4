@@ -11,23 +11,23 @@ export default function Shop() {
       />
       <div>
         <div className="mt-28 lg:mx-52 md:mx-44 mx-1">
-          <div className="md:flex lg:flex text-center">
+          <div className="md:flex lg:flex text-center gap-2">
             <div>
-            <h1 className="font-bold text-2xl text-purple-900">
+            <h1 className="font-bold text-xlg text-nowrap text-purple-900">
               Ecommerce Acceories & Fashion item
             </h1>
             <h4 className="text-purple-900 lg:text-start md:text-start">About 9,620 results (0.62 seconds)</h4>
             </div>
             
-            <div className="lg:flex md:flex gap-6">
-              <div className="text-lg ">
+            <div className="lg:flex md:flex gap-2">
+              <div className="text-lg">
                 <label id="pages" className="p-2">Per Page:</label>
                 <input
                   type="number"
                   name="pages"
                   defaultValue={1}
                   required
-                  className="border border-gray-300 lg:w-20 text-center p-1"
+                  className="border border-gray-300 lg:w-10 w-20 md:w-10 text-center p-1"
                 ></input>
               </div>
               <div>
