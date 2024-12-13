@@ -34,7 +34,11 @@ const Navbar = () => {
     {/* Action Items Section */}
     <div className="w-full lg:w-auto flex justify-between lg:justify-end items-center gap-4 mt-2 lg:mt-0">
       <span>
-        <Select defaultValue="English">
+        <select className="w-auto bg-transparent focus:text-black">
+          <option value="English" className="bg-white text-black">English</option>
+          <option value="Urdu">Urdu</option>
+        </select>
+        {/* <Select defaultValue="English">
           <SelectTrigger className="w-auto border-transparent shadow-none border-none">
             <SelectValue />
           </SelectTrigger>
@@ -44,7 +48,7 @@ const Navbar = () => {
               <SelectItem value="Urdu">Urdu</SelectItem>
             </SelectGroup>
           </SelectContent>
-        </Select>
+        </Select> */}
       </span>
       <span>
         <Select defaultValue="USD">
