@@ -74,8 +74,8 @@ export default function RelatedProducts() {
       <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2">
         {relProd.map((item, i) => {
           return (
-            <div>
-              <div className="col-span-1" key={item.id}>
+            <div key={item.id}>
+              <div className="col-span-1">
                 <div className="lg:w-64 md:w-52 shadow-4-sides lg:hover:cursor-pointer mb-4 p-2">
                 <div className="flex justify-center lg:h-72 w-full lg:hover:h-80 lg:ease-in">
                   <img
