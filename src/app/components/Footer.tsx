@@ -103,13 +103,13 @@ const Footer: React.FC<FooterProps> = () => {
             </div>
             <div className="flex gap-4 text-2xl">
               <div>
-                <i className="fa-brands fa-facebook text-lg"></i>
+                <a href="https://www.facebook.com/osqazi"><i className="fa-brands fa-facebook"></i></a>
               </div>
               <div>
-                <i className="fa-brands fa-square-instagram"></i>
+                <a href="https://www.instagram.com/osqazi.khatri"><i className="fa-brands fa-square-instagram"></i></a>
               </div>
               <div>
-                <i className="fa-brands fa-square-twitter"></i>
+                <a href="https://x.com/osqazi"><i className="fa-brands fa-square-twitter"></i></a>
               </div>
             </div>
           </div>
