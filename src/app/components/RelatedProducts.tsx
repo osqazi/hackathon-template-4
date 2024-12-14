@@ -1,6 +1,7 @@
 export default function RelatedProducts() {
   const relProd = [
     {
+      id:"1",
       name: "Mens Fashion Wear",
       Rating: (
         <div className="flex items-center mt-2 lg:justify-start md:justify-start justify-center">
@@ -16,6 +17,7 @@ export default function RelatedProducts() {
       pic: "/images/products/Item5.png",
     },
     {
+      id:"2",
       name: "Womens Fashion",
       Rating: (
         <div className="flex items-center mt-2 lg:justify-start md:justify-start justify-center">
@@ -31,6 +33,7 @@ export default function RelatedProducts() {
       pic: "/images/products/Item6.png",
     },
     {
+      id:"3",
       name: "Wolx Dummy Fashion",
       Rating: (
         <div className="flex items-center mt-2 lg:justify-start md:justify-start justify-center">
@@ -46,6 +49,7 @@ export default function RelatedProducts() {
       pic: "/images/products/Item7.png",
     },
     {
+      id:"4",
       name: "Top Wall Digital Clock",
       Rating: (
         <div className="flex items-center mt-2 lg:justify-start md:justify-start justify-center">
@@ -71,7 +75,7 @@ export default function RelatedProducts() {
         {relProd.map((item, i) => {
           return (
             <div>
-              <div className="col-span-1">
+              <div className="col-span-1" key={item.id}>
                 <div className="lg:w-64 md:w-52 shadow-4-sides lg:hover:cursor-pointer mb-4 p-2">
                 <div className="flex justify-center lg:h-72 w-full lg:hover:h-80 lg:ease-in">
                   <img
