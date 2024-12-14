@@ -101,7 +101,7 @@ const Footer: React.FC<FooterProps> = () => {
               <i className="fa-regular fa-copyright"></i>
               <p>Owais Qazi - All Rights Reserved</p>
             </div>
-            <div className="flex gap-4 text-2xl">
+            <div className="flex gap-2 text-2xl">
               <div>
                 <a href="https://www.facebook.com/osqazi"><i className="fa-brands fa-facebook"></i></a>
               </div>
