@@ -91,7 +91,7 @@ export default function ProductDetail() {
           </div>
         </div>
       </div>
-      <div className="lg:px-40 md:px-28 bg-gray-200 mb-20 pb-20">
+      <div className="lg:px-40 md:px-28 bg-gray-200 mb-20 pb-20 px-3 text-justify lg:text-start md:text-start">
         <ul className="lg:flex md:flex gap-20 pt-16 text-center">
           <a>
             <li className="font-bold text-lg text-purple-900 hover:cursor-pointer mb-1">
@@ -128,25 +128,25 @@ export default function ProductDetail() {
           <p className="text-purple-900 text-lg font-bold mt-6 mb-3">More details:</p>
           <ul>
             <li className="pb-2">
-              <div className="flex text-purple-900 items-center gap-1 lg:text-nowrap">
+              <div className="flex text-purple-900 gap-1 lg:text-nowrap">
               <i className="fa-solid fa-arrow-right font-bold text-2xl"></i>
                 <p>Aliquam dis vulputate vulputate integer sagittis. Faucibus ds diam arcu, nulla lobortis justo netus dis. Eu in fringilla vulputate nunc nec. Dui, massa viverr .</p>
               </div>
             </li>
             <li className="pb-2">
-              <div className="flex text-purple-900 items-center gap-1 lg:text-nowrap">
+              <div className="flex text-purple-900 gap-1 lg:text-nowrap">
               <i className="fa-solid fa-arrow-right font-bold text-2xl"></i>
                 <p>Aliquam dis vulputate vulputate integer sagittis. Faucibus ds diam arcu, nulla lobortis justo netus dis. Eu in fringilla vulputate nunc nec. Dui, massa viverr .</p>
               </div>
             </li>
             <li className="pb-2">
-              <div className="flex text-purple-900 items-center gap-1 lg:text-nowrap">
+              <div className="flex text-purple-900 gap-1 lg:text-nowrap">
               <i className="fa-solid fa-arrow-right font-bold text-2xl"></i>
                 <p>Aliquam dis vulputate vulputate integer sagittis. Faucibus ds diam arcu, nulla lobortis justo netus dis. Eu in fringilla vulputate nunc nec. Dui, massa viverr .</p>
               </div>
             </li>
             <li className="pb-2">
-              <div className="flex text-purple-900 items-center gap-1 lg:text-nowrap">
+              <div className="flex text-purple-900 gap-1 lg:text-nowrap">
               <i className="fa-solid fa-arrow-right font-bold text-2xl"></i>
                 <p>Aliquam dis vulputate vulputate integer sagittis. Faucibus ds diam arcu, nulla lobortis justo netus dis. Eu in fringilla vulputate nunc nec. Dui, massa viverr .</p>
               </div>

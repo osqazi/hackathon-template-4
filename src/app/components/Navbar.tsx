@@ -8,9 +8,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const router = useRouter();
 
   const NavLinks = [
     { name: "Home", href: "../", specialSelect: true },
@@ -53,9 +56,9 @@ const Navbar = () => {
               </select>
             </span>
             <span>
-              <a href="../login" className="hover:cursor-pointer flex justify-center items-center gap-1">
+              <Link href="../login" className="hover:cursor-pointer flex justify-center items-center gap-1">
                 Login <i className="fa-regular fa-user"></i>
-              </a>
+              </Link>
             </span>
             <span className="hover:cursor-pointer flex justify-center items-center gap-1">
               Wishlist <i className="fa-regular fa-heart"></i>
@@ -111,30 +114,30 @@ const Navbar = () => {
                         <div>
                           <Select
                             defaultValue="Home"
-                            onValueChange={(e) => {
-                              if (e === "Home") window.location.href = "../";
-                              if (e === "Faq") window.location.href = "../faq";
-                              if (e === "HKDemo")
-                                window.location.href = "../hDemo";
-                              if (e === "OrdComp")
-                                window.location.href = "../orderComp";
-                            }}
+                            // onValueChange={(e) => {
+                            //   if (e === "Home") window.location.href = "../";
+                            //   if (e === "Faq") window.location.href = "../faq";
+                            //   if (e === "hKDemo")
+                            //     window.location.href = "../hDemo";
+                            //   if (e === "ordComp")
+                            //     window.location.href = "../orderComp";
+                            // }}
                           >
                             <SelectTrigger className="border-none focus:ring-0">
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent className="mt-2 bg-gray-100 p-2 border rounded-md">
                               <SelectGroup>
-                                <SelectItem value="Home">Home</SelectItem>
-                                <SelectItem value="Faq">FAQ</SelectItem>
-                                <SelectItem value="HKDemo">HK Demo</SelectItem>
-                                <SelectItem value="OrdComp">Order Completed</SelectItem>
+                                <Link href={'../Home'}><SelectItem value="Home" className="hover:cursor-pointer">Home</SelectItem></Link>
+                                <Link href={'../faq'}><SelectItem value="Faq" className="hover:cursor-pointer">FAQ</SelectItem></Link>
+                                <Link href={'../hDemo'}><SelectItem value="hKDemo" className="hover:cursor-pointer">HK Demo</SelectItem></Link>
+                                <Link href={'../orderComp'}><SelectItem value="ordComp" className="hover:cursor-pointer">Order Completed</SelectItem></Link>
                               </SelectGroup>
                             </SelectContent>
                           </Select>
                         </div>
                       ) : (
-                        <a href={link.href}>{link.name}</a>
+                        <Link href={link.href}>{link.name}</Link>
                       )}
                     </li>
                   ))}
@@ -165,8 +168,10 @@ const Navbar = () => {
                   <Select
                     defaultValue="Home"
                     onValueChange={(e) => {
-                      if (e === "Home") window.location.href = "../";
-                      if (e === "Faq") window.location.href = "../faq";
+                      if (e === "Home") router.push('/');
+                      if (e === "Faq") router.push('/faq');
+                      if (e === "hDemo") router.push('/hDemo');
+                      if (e === "orderComp") router.push('/orderComp');
                     }}
                   >
                     <SelectTrigger className="border-none focus:ring-0">
@@ -176,13 +181,13 @@ const Navbar = () => {
                       <SelectGroup>
                         <SelectItem value="Home">Home</SelectItem>
                         <SelectItem value="Faq">FAQ</SelectItem>
-                        <SelectItem value="HKDemo">HK Demo</SelectItem>
-                        <SelectItem value="OrdComp">Order Completed</SelectItem>
+                        <SelectItem value="hDemo">HK Demo</SelectItem>
+                        <SelectItem value="orderComp">Order Completed</SelectItem>
                       </SelectGroup>
                     </SelectContent>
                   </Select>
                 ) : (
-                  <a href={link.href}>{link.name}</a>
+                  <Link href={link.href}>{link.name}</Link>
                 )}
               </li>
             ))}

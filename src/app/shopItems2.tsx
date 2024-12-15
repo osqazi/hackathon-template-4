@@ -7,6 +7,7 @@ const shopItems2 = [
     detail:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
     pic: "/images/shopItems2/Item1.png",
+    href: "../products"
   },
   {
     id: 2, // Numeric id
@@ -16,6 +17,7 @@ const shopItems2 = [
     detail:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
     pic: "/images/shopItems2/Item2.png",
+    href: "../products"
   },
   {
     id: 3, // Numeric id
@@ -25,6 +27,7 @@ const shopItems2 = [
     detail:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
     pic: "/images/shopItems2/Item3.png",
+    href: "../products"
   },
   {
     id: 4, // Numeric id
@@ -34,6 +37,7 @@ const shopItems2 = [
     detail:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
     pic: "/images/shopItems2/Item4.png",
+    href: "../products"
   },
   {
     id: 5, // Numeric id
@@ -43,6 +47,7 @@ const shopItems2 = [
     detail:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
     pic: "/images/shopItems2/Item5.png",
+    href: "../products"
   },
   {
     id: 6, // Numeric id
@@ -52,6 +57,7 @@ const shopItems2 = [
     detail:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
     pic: "/images/shopItems2/Item6.png",
+    href: "../products"
   },
   {
     id: 7, // Numeric id
@@ -61,6 +67,7 @@ const shopItems2 = [
     detail:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
     pic: "/images/shopItems2/Item7.png",
+    href: "../products"
   },
   
 ];

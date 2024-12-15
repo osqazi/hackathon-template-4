@@ -1,11 +1,12 @@
 import shopItems from "../shopItems";
+import Link from "next/link";
 
 export default function ShopGrid() {
   return (
     <div>
       <div className="grid grid-cols-1 gap-14 lg:mx-52 md:mx-44 mx-1 my-28 md:grid-cols-3 lg:grid-cols-4">
         {shopItems.map((items) => (
-          <div className="col-span-1" key={items.id}>
+          <Link href={`${items.href}/${items.name}`} key={items.id}><div className="col-span-1" >
             <div className="flex flex-col h-full">
               <div className="bg-stone-100 p-6 lg:p-4 md:p-6 rounded-md flex justify-center items-center h-64">
                 <img 
@@ -32,7 +33,7 @@ export default function ShopGrid() {
                 </div>
               </div>
             </div>
-          </div>
+          </div></Link>
         ))}
       </div>
     </div>

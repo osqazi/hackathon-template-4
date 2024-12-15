@@ -1,4 +1,5 @@
 import Hero2 from "../components/Hero2";
+import Link from "next/link";
 
 export default function HektoDemo() {
   const items = [
@@ -8,6 +9,7 @@ export default function HektoDemo() {
       size: "XL",
       pic: "/images/HDemo/Item1.png",
       price: "$32.00",
+      href: "../products"
     },
     {
       name: "Ut diam consequat",
@@ -15,6 +17,7 @@ export default function HektoDemo() {
       size: "XL",
       pic: "/images/HDemo/Item2.png",
       price: "$32.00",
+      href: "../products"
     },
     {
       name: "Ut diam consequat",
@@ -22,6 +25,7 @@ export default function HektoDemo() {
       size: "XL",
       pic: "/images/HDemo/Item3.png",
       price: "$32.00",
+      href: "../products"
     },
     {
       name: "Ut diam consequat",
@@ -29,6 +33,7 @@ export default function HektoDemo() {
       size: "XL",
       pic: "/images/HDemo/Item4.png",
       price: "$32.00",
+      href: "../products"
     },
     {
       name: "Ut diam consequat",
@@ -36,6 +41,7 @@ export default function HektoDemo() {
       size: "XL",
       pic: "/images/HDemo/Item5.png",
       price: "$32.00",
+      href: "../products"
     },
   ];
 
@@ -166,7 +172,7 @@ export default function HektoDemo() {
         {/* FAQ Section */}
         <div className="col-span-1 mx-2 lg:mx-0 md:mx-0">
           {items.map((item, index) => (
-            <ul key={index}>
+            <Link href={`${item.href}/${item.name}` } key={index}><ul>
               <li className="hover:bg-sky-100 hover:cursor-pointer">
                 <div className="flex justify-between">
                   <div className="flex gap-6">
@@ -192,7 +198,7 @@ export default function HektoDemo() {
                   <hr />
                 </div>
               </li>
-            </ul>
+            </ul></Link>
           ))}
           <div className="py-12 bg-gray-100 rounded-sm px-8">
             <div className="flex justify-between font-bold text-lg">

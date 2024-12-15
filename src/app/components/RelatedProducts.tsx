@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function RelatedProducts() {
   const relProd = [
     {
@@ -15,6 +17,7 @@ export default function RelatedProducts() {
       ),
       Price: "$43.00",
       pic: "/images/products/Item5.png",
+      href: "../products",
     },
     {
       id:"2",
@@ -31,6 +34,7 @@ export default function RelatedProducts() {
       ),
       Price: "$43.00",
       pic: "/images/products/Item6.png",
+      href: "../products",
     },
     {
       id:"3",
@@ -47,6 +51,7 @@ export default function RelatedProducts() {
       ),
       Price: "$43.00",
       pic: "/images/products/Item7.png",
+      href: "../products",
     },
     {
       id:"4",
@@ -63,18 +68,19 @@ export default function RelatedProducts() {
       ),
       Price: "$43.00",
       pic: "/images/products/Item8.png",
+      href: "../products",
     },
   ];
 
   return (
-    <div className="lg:mx-44 md:mx-32 mx-2 mb-20">
+    <div className="lg:mx-44 md:mx-32 mx-3 mb-20">
       <p className="font-bold text-purple-900 text-3xl mb-10">
         Related Products
       </p>
       <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2">
         {relProd.map((item, i) => {
           return (
-            <div key={item.id}>
+            <Link href={`${item.href}/${item.name}`} key={item.id}><div key={item.id}>
               <div className="col-span-1">
                 <div className="lg:w-64 md:w-52 shadow-4-sides lg:hover:cursor-pointer mb-4 p-2">
                 <div className="flex justify-center lg:h-72 w-full lg:hover:h-80 lg:ease-in">
@@ -93,7 +99,7 @@ export default function RelatedProducts() {
                 </div>
               </div>
               </div>
-            </div>
+            </div></Link>
 
           );
         })}

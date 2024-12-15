@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 interface FooterProps {
   // Add any custom props if needed
@@ -35,19 +36,19 @@ const Footer: React.FC<FooterProps> = () => {
             <h3 className="text-lg font-bold mb-4">Categories</h3>
             <ul className="text-gray-600">
               <li>
-                <a href="../PnF">Laptops & Computers</a>
+                <Link href="../PnF">Laptops & Computers</Link>
               </li>
               <li>
-                <a href="../PnF">Cameras & Photography</a>
+                <Link href="../PnF">Cameras & Photography</Link>
               </li>
               <li>
-                <a href="../PnF">Smart Phones & Tablets</a>
+                <Link href="../PnF">Smart Phones & Tablet</Link>
               </li>
               <li>
-                <a href="../PnF">Video Games & Consoles</a>
+                <Link href="../PnF">Video Games & Console</Link>
               </li>
               <li>
-                <a href="../PnF">Waterproof Headphones</a>
+                <Link href="../PnF">Waterproof Headphones</Link>
               </li>
             </ul>
           </div>
@@ -56,16 +57,16 @@ const Footer: React.FC<FooterProps> = () => {
             <h3 className="text-lg font-bold mb-4">Customer Care</h3>
             <ul className="text-gray-600">
               <li>
-                <a href="../login">My Account</a>
+                <Link href="../login">My Account</Link>
               </li>
               <li>
-                <a href="../Pnf">Returns</a>
+                <Link href="../Pnf">Returns</Link>
               </li>
               <li>
-                <a href="../Pnf">Orders History</a>
+                <Link href="../Pnf">Orders History</Link>
               </li>
               <li>
-                <a href="../Pnf">Order Tracking</a>
+                <Link href="../Pnf">Order Tracking</Link>
               </li>
             </ul>
           </div>
@@ -74,22 +75,22 @@ const Footer: React.FC<FooterProps> = () => {
             <h3 className="text-lg font-bold mb-4">Pages</h3>
             <ul className="text-gray-600">
               <li>
-                <a href="../Pnf">Blog</a>
+                <Link href="../Pnf">Blog</Link>
               </li>
               <li>
-                <a href="../Pnf">Browse the Shop</a>
+                <Link href="../Pnf">Browse the Shop</Link>
               </li>
               <li>
-                <a href="../Pnf">Category</a>
+                <Link href="../Pnf">Category</Link>
               </li>
               <li>
-                <a href="../Pnf">Pre-Built Pages</a>
+                <Link href="../Pnf">Pre-Built Pages</Link>
               </li>
               <li>
-                <a href="../Pnf">Visual Composer Elements</a>
+                <Link href="../Pnf">Visual Composer Elements</Link>
               </li>
               <li>
-                <a href="../Pnf">WooCommerce Pages</a>
+                <Link href="../Pnf">WooCommerce Pages</Link>
               </li>
             </ul>
           </div>
@@ -103,13 +104,13 @@ const Footer: React.FC<FooterProps> = () => {
             </div>
             <div className="flex gap-2 text-2xl">
               <div>
-                <a href="https://www.facebook.com/osqazi"><i className="fa-brands fa-facebook"></i></a>
+                <Link href="https://www.facebook.com/osqazi"><i className="fa-brands fa-facebook"></i></Link>
               </div>
               <div>
-                <a href="https://www.instagram.com/osqazi.khatri"><i className="fa-brands fa-square-instagram"></i></a>
+                <Link href="https://www.instagram.com/osqazi.khatri"><i className="fa-brands fa-square-instagram"></i></Link>
               </div>
               <div>
-                <a href="https://x.com/osqazi"><i className="fa-brands fa-square-twitter"></i></a>
+                <Link href="https://x.com/osqazi"><i className="fa-brands fa-square-twitter"></i></Link>
               </div>
             </div>
           </div>

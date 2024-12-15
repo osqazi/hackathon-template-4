@@ -1,12 +1,12 @@
-import { Item } from "@radix-ui/react-select";
 import shopItems2 from "../shopItems2";
+import Link from "next/link";
 
 export default function ShopList() {
   return (
     <div className="lg:mx-52 md:mx-44 my-28">
       {shopItems2.map((Item, i) => {
         return (
-          <div key={i} className="flex justify-center">
+          <Link href={`${Item.href}/${Item.name}`} key={Item.id}><div className="flex justify-center">
             <div className="lg:flex md: md:flex gap-8 items-center mb-16 shadow-md ">
               <div className="">
                 <img
@@ -51,7 +51,7 @@ export default function ShopList() {
                 </div>
               </div>
             </div>
-          </div>
+          </div></Link>
         );
       })}
     </div>

@@ -16,7 +16,7 @@ export default function OrderComplete() {
       </div>
       <div className="flex justify-center items-center">
         <div className="bg-red-500 text-white py-2 px-4 rounded-md mb-16 hover:cursor-pointer">
-          <a href="../">Continue Shopping</a>
+          <Link href="../">Continue Shopping</Link>
         </div>
       </div>
      

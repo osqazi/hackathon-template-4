@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
 
 const TopCateg = () => {
   // State to track which circle is hovered
@@ -15,8 +16,7 @@ const TopCateg = () => {
       {/* Category Circles */}
       <div className="flex justify-center flex-wrap gap-12"> {/* Ensures proper spacing and wraps on smaller screens */}
         {images.map((image, index) => (
-          <div
-            key={index}
+          <Link href={`../products/${index}`} key={index}><div
             className="relative group"
             onMouseEnter={() => setHovered(index)}
             onMouseLeave={() => setHovered(null)}
@@ -42,7 +42,7 @@ const TopCateg = () => {
                 View Shop
               </button>
             )}
-          </div>
+          </div></Link>
         ))}
       </div>
     </div>

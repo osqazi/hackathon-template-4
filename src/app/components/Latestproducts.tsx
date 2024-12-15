@@ -1,14 +1,15 @@
 import React from "react";
+import Link from "next/link";
 
 const LatestProduct = () => {
   // Dummy product data
   const products = [
-    { id: 1, name: "Comfort Handy Craft", price: "$42.00", oldPrice: "$65.00", img: "/images/img1.png", isSale: false },
-    { id: 2, name: "Comfort Handy Craft", price: "$42.00", oldPrice: "$65.00", img: "/images/img2.png", isSale: true },
-    { id: 3, name: "Comfort Handy Craft", price: "$42.00", oldPrice: "$65.00", img: "/images/img3.png", isSale: false },
-    { id: 4, name: "Comfort Handy Craft", price: "$42.00", oldPrice: "$65.00", img: "/images/img4.png", isSale: false },
-    { id: 5, name: "Comfort Handy Craft", price: "$42.00", oldPrice: "$65.00", img: "/images/img5.png", isSale: false },
-    { id: 6, name: "Comfort Handy Craft", price: "$42.00", oldPrice: "$65.00", img: "/images/img6.png", isSale: false },
+    { id: 1, name: "Comfort Handy Craft", price: "$42.00", oldPrice: "$65.00", img: "/images/img1.png", isSale: false, href: "../products" },
+    { id: 2, name: "Comfort Handy Craft", price: "$42.00", oldPrice: "$65.00", img: "/images/img2.png", isSale: true, href: "../products" },
+    { id: 3, name: "Comfort Handy Craft", price: "$42.00", oldPrice: "$65.00", img: "/images/img3.png", isSale: false, href: "../products" },
+    { id: 4, name: "Comfort Handy Craft", price: "$42.00", oldPrice: "$65.00", img: "/images/img4.png", isSale: false, href: "../products" },
+    { id: 5, name: "Comfort Handy Craft", price: "$42.00", oldPrice: "$65.00", img: "/images/img5.png", isSale: false, href: "../products" },
+    { id: 6, name: "Comfort Handy Craft", price: "$42.00", oldPrice: "$65.00", img: "/images/img6.png", isSale: false, href: "../products" },
   ];
 
   return (
@@ -26,7 +27,7 @@ const LatestProduct = () => {
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((product) => (
-            <div key={product.id} className="border rounded-md shadow-md p-4 bg-white relative group">
+            <Link href={`${product.href}/${product.name}`} key={product.id}><div className="border rounded-md shadow-md p-4 bg-white relative group">
               {/* Product Image */}
               <div className="relative">
                 <img
@@ -59,7 +60,7 @@ const LatestProduct = () => {
                 <span className="text-pink-500 font-semibold">{product.price}</span>
                 <span className="text-gray-500 ml-3 line-through">{product.oldPrice}</span>
               </div>
-            </div>
+            </div></Link>
           ))}
         </div>
       </div>
