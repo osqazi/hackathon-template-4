@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Hero2 from "../components/Hero2";
 export default function Blog() {
   const blogs = [
     {
@@ -32,6 +33,7 @@ export default function Blog() {
 
   return (
     <div>
+      <Hero2 name="Blog Page" add1="Home . Pages" add2=". Blog Page" />      
       <div className="lg:mx-44 md:mx-32 mx-2 mt-28">
         <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:gap-[420px] md:gap-[360px]">
           <div className="col-span-1 lg:w-[700px] md:w-[550px] w-auto">
@@ -45,7 +47,7 @@ export default function Blog() {
                       className="object-contain w-full"
                     ></img>
                   </div>
-                  <div className="flex gap-4 text-purple-900 lg:mt-8 md:mt-6 mt-3">
+                  <div className="flex gap-4 text-purple-900 lg:mt-8 md:mt-6 mt-3 lg:justify-start md:justify-start justify-center">
                     <div className="flex gap-2 items-center">
                       <i className="fa-solid fa-pen-nib text-pink-600"></i>
                       <p className=" bg-pink-200 lg:px-12 md:px-6 px-2">{blog.author}</p>
@@ -58,10 +60,10 @@ export default function Blog() {
                   <p className="text-xl text-purple-900 font-bold my-5">
                     {blog.title}
                   </p>
-                  <p className="text-purple-900 text-sm">{blog.desc}</p>
-                  <div className="flex gap-2 items-center my-5">
+                  <p className="text-purple-900 text-sm lg:text-start md:text-start text-justify">{blog.desc}</p>
+                  <div className="flex gap-2 items-center lg:my-5 md:my-4 mt-2 mb-5 lg:justify-start md:justify-start justify-center">
                     <Link href={`${blog.href}${blog.id}`}>
-                      <p className="text-purple-900 font-bold text-sm">
+                      <p className="text-purple-900 font-bold text-sm ">
                         Read More
                       </p>
                     </Link>
@@ -94,10 +96,10 @@ export default function Blog() {
             </div>
           </div>
 
-          <div className="col-span-1 w-full text-center lg:text-start md: text-start">
+          <div className="col-span-1 w-full">
             <div>
-                <p className="font-bold text-lg">Search</p>
-                <div className="lg:flex justify-between border border-gray-300 rounded-sm mt-3">
+                <p className="font-bold text-lg flex lg:justify-start md:justify-start justify-center mt-8 lg:mt-0 md:mt-0">Search</p>
+                <div className="lg:flex justify-between border border-gray-300 rounded-sm mt-3 flex ">
             <input
               type="text"
               className="px-2 py-2 outline-none placeholder:text-gray-200"
@@ -108,25 +110,25 @@ export default function Blog() {
             </button>
           </div>
             </div>
-            <div className="mt-10 w-full">
-                <h1 className="font-bold text-lg mb-4">Categories</h1>
-                <div className="flex justify-between gap-4 mb-2">
+            <div className="mt-10 w-full ">
+                <h1 className="font-bold text-lg mb-4 flex lg:justify-start md:justify-start justify-center">Categories</h1>
+                <div className="flex lg:justify-between justify-center md:justify-between gap-8 mb-2 ">
                 <button className="bg-pink-500 w-40 py-2 pl-2 rounded-sm text-white font-normal text-start">Hobbies (14)</button>
                 <button className=" w-40 py-2  pl-2 rounded-sm text-gray-700 font-normal text-start">Women (21)</button>
                 </div>
-                <div className="flex justify-between gap-4 mb-2">
+                <div className="flex lg:justify-between justify-center md:justify-between gap-8 mb-2">
                 <button className=" w-40 py-2  pl-2 rounded-sm text-gray-700 font-normal text-start">Women (21)</button>
                 <button className=" w-40 py-2  pl-2 rounded-sm text-gray-700 font-normal text-start">Women (21)</button>
                 </div>
-                <div className="flex justify-between gap-4 mb-2">
+                <div className="flex lg:justify-between justify-center md:justify-between gap-8 mb-2">
                 <button className=" w-40 py-2  pl-2 rounded-sm text-gray-700 font-normal text-start">Women (21)</button>
                 <button className=" w-40 py-2  pl-2 rounded-sm text-gray-700 font-normal text-start">Women (21)</button>
                 </div>
                     
             </div>
             <div className="mt-10">
-            <h1 className="font-bold text-lg mb-4">Recent Post</h1>
-            <div>
+            <h1 className="font-bold text-lg mb-4 flex justify-center lg:justify-start md:justify-start">Recent Post</h1>
+            <div className="flex justify-center lg:justify-start md:justify-start">
               <ul>
                 <li>
                   <div className="flex gap-2 mb-6">
@@ -183,8 +185,8 @@ export default function Blog() {
             
             </div>
             <div className="mt-10">
-            <h1 className="font-bold text-lg mb-4">Sale Product</h1>
-            <div>
+            <h1 className="font-bold text-lg mb-4 flex justify-center lg:justify-start">Sale Product</h1>
+            <div  className="flex lg:justify-start md:justify-start justify-center">
               <ul>
                 <li>
                   <div className="flex gap-2 mb-6">
@@ -229,8 +231,8 @@ export default function Blog() {
             
             </div>
             <div className="mt-10">
-            <h1 className="font-bold text-lg mb-4">Offer Product</h1>
-            <div className="flex gap-4 mb-6">
+            <h1 className="font-bold text-lg mb-4 flex lg:justify-start md:justify-start justify-center">Offer Product</h1>
+            <div className="flex gap-4 mb-6 lg:justify-start md:justify-start justify-center">
             <div>
               <div>
                 <img src="/images/blog/img11.png" alt="img.png" className="object-cover w-32 h-20">
@@ -252,7 +254,7 @@ export default function Blog() {
               </div>
             </div>
             </div>
-            <div className="flex gap-4 mb-6">
+            <div className="flex gap-4 mb-6 lg:justify-start md:justify-start justify-center">
             <div>
               <div>
                 <img src="/images/blog/img12.png" alt="img.png" className="object-cover w-32 h-20">
@@ -276,8 +278,8 @@ export default function Blog() {
             </div>
             </div>
             <div className="mt-10">
-            <h1 className="font-bold text-lg mb-6">Follow</h1>
-            <div className="flex gap-4">
+            <h1 className="font-bold text-lg mb-6 text-center lg:text-start md:text-start">Follow</h1>
+            <div className="flex gap-4 lg:justify-start md:justify-start justify-center">
               <div>
               <Link href="https://www.facebook.com/osqazi"><i className="fa-brands fa-facebook text-blue-600 text-2xl"></i></Link>
               </div>
@@ -289,15 +291,15 @@ export default function Blog() {
               </div>
             </div>
             </div>
-            <div className="mt-10">
+            <div className="mt-10 text-center lg:text-start md:text-start">
             <h1 className="font-bold text-lg mb-6">Tags</h1>
             <div>
               <ul className="lg:flex gap-6">
-                <li className="underline text-purple-900 text-lg  hover:text-pink-500 hover:cursor-pointer">General</li>
-                <li className="underline text-purple-900 text-lg  hover:text-pink-500 hover:cursor-pointer">Atsanil</li>
-                <li className="underline text-purple-900 text-lg  hover:text-pink-500 hover:cursor-pointer">Insas.</li>
-                <li className="underline text-purple-900 text-lg  hover:text-pink-500 hover:cursor-pointer">Bibsaas</li>
-                <li className="underline text-purple-900 text-lg  hover:text-pink-500 hover:cursor-pointer">Nulla.</li>
+                <li className="underline text-purple-900 text-lg  hover:text-pink-500 hover:cursor-pointer my-2 lg:my-0 md:my-0">General</li>
+                <li className="underline text-purple-900 text-lg  hover:text-pink-500 hover:cursor-pointer my-2 lg:my-0 md:my-0">Atsanil</li>
+                <li className="underline text-purple-900 text-lg  hover:text-pink-500 hover:cursor-pointer my-2 lg:my-0 md:my-0">Insas.</li>
+                <li className="underline text-purple-900 text-lg  hover:text-pink-500 hover:cursor-pointer my-2 lg:my-0 md:my-0">Bibsaas</li>
+                <li className="underline text-purple-900 text-lg  hover:text-pink-500 hover:cursor-pointer my-2 lg:my-0 md:my-0">Nulla.</li>
               </ul>
             </div>
             </div>
@@ -309,7 +311,7 @@ export default function Blog() {
         </div>
       </div>
        {/* Brand Image */}
-       <div className="flex justify-center sm:p-16">
+       <div className="flex justify-center my-5">
         <img
           src="/images/brand.png"
           alt="Brand"

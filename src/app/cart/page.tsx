@@ -1,3 +1,5 @@
+import Hero2 from "../components/Hero2";
+
 export default function ShoppingCart() {
     interface Cart {
       product: {
@@ -77,9 +79,11 @@ export default function ShoppingCart() {
     ];
   
     return (
+      <div>
+        <Hero2 name="Shopping Cart" add1="Home . Pages" add2=". Shopping Cart" />
       <div className="lg:mx-60 md:mx-48 my-32">
-        <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-40">
-            <div className="col-span-1">
+        <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-72">
+            <div className="col-span-1 lg:w-[600px] md:w-[400px]">
           <table className="w-full border-collapse">
             <thead>
               <tr>
@@ -93,10 +97,10 @@ export default function ShoppingCart() {
               {cartItems.map((item) => (
                 <tr key={item.id} className="border-b border-gray-300">
                   <td className="py-4">
-                    <div className="flex gap-4 items-center">
-                        <div>
+                    <div className="lg:flex md:flex gap-4 items-center">
+                        <div className="flex-none">
                             <div className="flex justify-end">
-                            <button className="bg-black h-5 w-5 rounded-full absolute text-white text-lg items-center justify-center flex font-bold">+</button>
+                            <button className="bg-black h-5 w-5 rounded-full absolute text-white text-lg items-center justify-center flex font-bold">x</button>
                             </div>
                       <img
                         src={item.pic}
@@ -135,7 +139,7 @@ export default function ShoppingCart() {
 
           </div>
           </div>
-          <div className="col-span-1 lg:w-[38rem] md:w-[30rem] w-auto">
+          <div className="col-span-1 lg:w-[24rem] md:w-[20rem] w-auto">
           <div className="py-12 bg-gray-100 rounded-sm px-8">
             <div className="flex justify-between font-bold text-lg">
                 <p>Subtotals:</p>
@@ -213,6 +217,7 @@ export default function ShoppingCart() {
           </div>
         </div>
         </div>
+      </div>
       </div>
     );
   }
