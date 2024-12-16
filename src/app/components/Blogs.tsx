@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 const Blogs = () => {
   const blogs = [
@@ -42,8 +43,8 @@ const Blogs = () => {
         {/* Blog Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogs.map((blog) => (
-            <div
-              key={blog.id}
+            <Link href={`/blog/${blog.id}`} key={blog.id}><div
+              
               className="bg-white rounded-lg shadow-md overflow-hidden"
             >
               {/* Blog Image */}
@@ -77,6 +78,7 @@ const Blogs = () => {
                 </a>
               </div>
             </div>
+            </Link>
           ))}
         </div>
       </div>

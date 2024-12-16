@@ -1,5 +1,5 @@
 import Link from "next/link";
-export default function Blog() {
+export default function Blogs() {
   const blogs = [
     {
       id: 1,
@@ -7,7 +7,7 @@ export default function Blog() {
       desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit facilisis quis auctor pretium ipsum, eu rutrum. Condimentum eu malesuada vitae ultrices in in neque, porta dignissim. Adipiscing purus, cursus vulputate id id dictum at.",
       author: "Surf Auxion",
       date: "Aug 09 2020",
-      href: "/blog/",
+      href: "/blogs/",
       pic: "/images/blog/img1.png",
     },
     {
@@ -16,7 +16,7 @@ export default function Blog() {
       desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit facilisis quis auctor pretium ipsum, eu rutrum. Condimentum eu malesuada vitae ultrices in in neque, porta dignissim. Adipiscing purus, cursus vulputate id id dictum at.",
       author: "Surf Auxion",
       date: "Aug 09 2020",
-      href: "/blog/",
+      href: "/blogs/",
       pic: "/images/blog/img2.png",
     },
     {
@@ -25,14 +25,14 @@ export default function Blog() {
       desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit facilisis quis auctor pretium ipsum, eu rutrum. Condimentum eu malesuada vitae ultrices in in neque, porta dignissim. Adipiscing purus, cursus vulputate id id dictum at.",
       author: "Surf Auxion",
       date: "Aug 09 2020",
-      href: "/blog/",
+      href: "/blogs/",
       pic: "/images/blog/img3.png",
     },
   ];
 
   return (
     <div>
-      <div className="lg:mx-44 md:mx-32 mx-2 mt-28">
+      <div className="mx-44 mt-28">
         <div className="grid grid-cols-2 gap-[420px]">
           <div className="col-span-1 w-[700px]">
             {blogs.map((blog, i) => {
@@ -59,7 +59,7 @@ export default function Blog() {
                     {blog.title}
                   </p>
                   <p className="text-purple-900 text-sm">{blog.desc}</p>
-                  <div className="flex gap-2 items-center my-5">
+                  <div className="flex gap-2 items-center mt-5">
                     <Link href={`${blog.href}${blog.id}`}>
                       <p className="text-purple-900 font-bold text-sm">
                         Read More
