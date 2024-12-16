@@ -108,7 +108,7 @@ export default function ShoppingCart() {
                         className="w-28 h-28 object-cover p-1"
                       />
                       </div>
-                      <div>
+                      <div className="lg:mx-0 md:mx-0 mx-1">
                         <h3 className="text-lg font-bold">{item.product.name}</h3>
                         <p className="text-gray-500 text-sm">
                           Color: {item.product.color}
