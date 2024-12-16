@@ -33,7 +33,7 @@ export default function Blog() {
   return (
     <div>
       <div className="lg:mx-44 md:mx-32 mx-2 mt-28">
-        <div className="grid grid-cols-2 gap-[420px]">
+        <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:gap-[420px] md:gap-[360px]">
           <div className="col-span-1 w-[700px]">
             {blogs.map((blog, i) => {
               return (
