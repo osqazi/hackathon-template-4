@@ -34,7 +34,7 @@ export default function Blog() {
     <div>
       <div className="lg:mx-44 md:mx-32 mx-2 mt-28">
         <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:gap-[420px] md:gap-[360px]">
-          <div className="col-span-1 w-[700px]">
+          <div className="col-span-1 lg:w-[700px] md:w-[550px] w-auto">
             {blogs.map((blog, i) => {
               return (
                 <div key={blog.id}>
