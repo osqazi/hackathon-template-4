@@ -45,7 +45,7 @@ export default function Blog() {
                       className="object-contain w-full"
                     ></img>
                   </div>
-                  <div className="flex gap-4 text-purple-900 mt-8">
+                  <div className="flex gap-4 text-purple-900 lg:mt-8 md:mt-6 mt-3">
                     <div className="flex gap-2 items-center">
                       <i className="fa-solid fa-pen-nib text-pink-600"></i>
                       <p className=" bg-pink-200 lg:px-12 md:px-6 px-2">{blog.author}</p>
