@@ -292,7 +292,7 @@ export default function Blog() {
             <div className="mt-10">
             <h1 className="font-bold text-lg mb-6">Tags</h1>
             <div>
-              <ul className="flex gap-6">
+              <ul className="lg:flex gap-6">
                 <li className="underline text-purple-900 text-lg  hover:text-pink-500 hover:cursor-pointer">General</li>
                 <li className="underline text-purple-900 text-lg  hover:text-pink-500 hover:cursor-pointer">Atsanil</li>
                 <li className="underline text-purple-900 text-lg  hover:text-pink-500 hover:cursor-pointer">Insas.</li>
