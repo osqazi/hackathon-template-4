@@ -48,11 +48,11 @@ export default function Blog() {
                   <div className="flex gap-4 text-purple-900 mt-8">
                     <div className="flex gap-2 items-center">
                       <i className="fa-solid fa-pen-nib text-pink-600"></i>
-                      <p className=" bg-pink-200 px-12">{blog.author}</p>
+                      <p className=" bg-pink-200 lg:px-12 md:px-6 px-2">{blog.author}</p>
                     </div>
                     <div className="flex gap-2 items-center">
                       <i className="fa-solid fa-calendar-days text-yellow-500"></i>
-                      <p className=" bg-pink-200 px-10">{blog.date}</p>
+                      <p className=" bg-pink-200 lg:px-10 md:px-4 px-2">{blog.date}</p>
                     </div>
                   </div>
                   <p className="text-xl text-purple-900 font-bold my-5">
