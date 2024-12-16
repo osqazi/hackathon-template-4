@@ -94,7 +94,7 @@ export default function Blog() {
             </div>
           </div>
 
-          <div className="col-span-1 w-full flex justify-center text-center lg:flex-none md:flex-none lg:text-start md: text-start">
+          <div className="col-span-1 w-full text-center lg:text-start md: text-start">
             <div>
                 <p className="font-bold text-lg">Search</p>
                 <div className="lg:flex justify-between border border-gray-300 rounded-sm mt-3">
