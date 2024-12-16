@@ -56,7 +56,7 @@ const Navbar = () => {
               </select>
             </span>
             <span>
-              <Link href="../login" className="hover:cursor-pointer flex justify-center items-center gap-1">
+              <Link href={'/login'} className="hover:cursor-pointer flex justify-center items-center gap-1">
                 Login <i className="fa-regular fa-user"></i>
               </Link>
             </span>
@@ -64,7 +64,7 @@ const Navbar = () => {
               Wishlist <i className="fa-regular fa-heart"></i>
             </span>
             <span className="flex justify-center">
-              <i className="fa-solid fa-cart-shopping text-2xl ml-4"></i>
+              <Link href={'/cart'}><i className="fa-solid fa-cart-shopping text-2xl ml-4"></i></Link>
             </span>
           </div>
         </div>
@@ -130,6 +130,8 @@ const Navbar = () => {
                               <SelectGroup>
                                 <Link href={'../'}><SelectItem value="Home" className="hover:cursor-pointer">Home</SelectItem></Link>
                                 <Link href={'../faq'}><SelectItem value="Faq" className="hover:cursor-pointer">FAQ</SelectItem></Link>
+                                <Link href={'../aboutus'}><SelectItem value="Faq" className="hover:cursor-pointer">About Us</SelectItem></Link>
+                                <Link href={'../cart'}><SelectItem value="Faq" className="hover:cursor-pointer">Cart</SelectItem></Link>
                                 <Link href={'../hDemo'}><SelectItem value="hKDemo" className="hover:cursor-pointer">HK Demo</SelectItem></Link>
                                 <Link href={'../orderComp'}><SelectItem value="ordComp" className="hover:cursor-pointer">Order Completed</SelectItem></Link>
                               </SelectGroup>
@@ -172,6 +174,8 @@ const Navbar = () => {
                       if (e === "Faq") router.push('/faq');
                       if (e === "hDemo") router.push('/hDemo');
                       if (e === "orderComp") router.push('/orderComp');
+                      if (e === "cart") router.push('/cart');
+                      if (e === "aboutus") router.push('/aboutus');
                     }}
                   >
                     <SelectTrigger className="border-none focus:ring-0">
@@ -181,6 +185,8 @@ const Navbar = () => {
                       <SelectGroup>
                         <SelectItem value="Home">Home</SelectItem>
                         <SelectItem value="Faq">FAQ</SelectItem>
+                        <SelectItem value="aboutus">About Us</SelectItem>
+                        <SelectItem value="cart">Cart</SelectItem>
                         <SelectItem value="hDemo">HK Demo</SelectItem>
                         <SelectItem value="orderComp">Order Completed</SelectItem>
                       </SelectGroup>
