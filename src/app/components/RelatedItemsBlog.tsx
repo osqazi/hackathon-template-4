@@ -1,101 +1,103 @@
 import Link from "next/link";
 
-export default function RelatedProducts() {
-  const relProd = [
+export default function RelatedItemsBlog() {
+  const relProdBlog = [
     {
       id:"1",
       name: "Mens Fashion Wear",
       Rating: (
-        <div className="flex items-center mt-2 lg:justify-start md:justify-start justify-center">
+        <div className="flex items-center lg:justify-start md:justify-start justify-center">
           <i className="fa-solid fa-star text-yellow-400"></i>
           <i className="fa-solid fa-star text-yellow-400"></i>
           <i className="fa-solid fa-star text-yellow-400"></i>
           <i className="fa-solid fa-star text-yellow-400"></i>
           <i className="fa-solid fa-star text-gray-400"></i>
-          <p>(22)</p>
+          
         </div>
       ),
-      Price: "$43.00",
-      pic: "/images/products/Item5.png",
+      Price: "$32.00",
+      oldPrice:"$56.00",
+      pic: "/images/blog/img17.png",
       href: "../products",
     },
     {
       id:"2",
       name: "Womens Fashion",
       Rating: (
-        <div className="flex items-center mt-2 lg:justify-start md:justify-start justify-center">
+        <div className="flex items-center lg:justify-start md:justify-start justify-center">
           <i className="fa-solid fa-star text-yellow-400"></i>
           <i className="fa-solid fa-star text-yellow-400"></i>
           <i className="fa-solid fa-star text-yellow-400"></i>
           <i className="fa-solid fa-star text-yellow-400"></i>
           <i className="fa-solid fa-star text-yellow-400"></i>
-          <p>(22)</p>
+          
         </div>
       ),
-      Price: "$43.00",
-      pic: "/images/products/Item6.png",
+      Price: "$32.00",
+      oldPrice:"$56.00",
+      pic: "/images/blog/img18.png",
       href: "../products",
     },
     {
       id:"3",
       name: "Wolx Dummy Fashion",
       Rating: (
-        <div className="flex items-center mt-2 lg:justify-start md:justify-start justify-center">
+        <div className="flex items-center lg:justify-start md:justify-start justify-center">
           <i className="fa-solid fa-star text-yellow-400"></i>
           <i className="fa-solid fa-star text-yellow-400"></i>
           <i className="fa-solid fa-star text-yellow-400"></i>
           <i className="fa-solid fa-star text-yellow-400"></i>
           <i className="fa-solid fa-star text-gray-400"></i>
-          <p>(22)</p>
+          
         </div>
       ),
-      Price: "$43.00",
-      pic: "/images/products/Item7.png",
+      Price: "$32.00",
+      oldPrice:"$56.00",
+      pic: "/images/blog/img19.png",
       href: "../products",
     },
     {
       id:"4",
       name: "Top Wall Digital Clock",
       Rating: (
-        <div className="flex items-center mt-2 lg:justify-start md:justify-start justify-center">
+        <div className="flex items-center lg:justify-start md:justify-start justify-center">
           <i className="fa-solid fa-star text-yellow-400"></i>
           <i className="fa-solid fa-star text-yellow-400"></i>
           <i className="fa-solid fa-star text-yellow-400"></i>
           <i className="fa-solid fa-star text-gray-400"></i>
           <i className="fa-solid fa-star text-gray-400"></i>
-          <p>(22)</p>
+          
         </div>
       ),
-      Price: "$43.00",
-      pic: "/images/products/Item8.png",
+      Price: "$32.00",
+      oldPrice:"$56.00",
+      pic: "/images/blog/img20.png",
       href: "../products",
     },
   ];
 
   return (
-    <div className="lg:mx-44 md:mx-32 mx-3 mb-20">
-      <p className="font-bold text-purple-900 text-3xl mb-10">
-        Related Products
-      </p>
-      <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2">
-        {relProd.map((item, i) => {
+    <div className=" mt-12">
+      <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-4">
+        {relProdBlog.map((item, i) => {
           return (
             <Link href={`${item.href}/${item.name}`} key={item.id}><div key={item.id}>
               <div className="col-span-1">
-                <div className="lg:w-64 md:w-52 shadow-4-sides lg:hover:cursor-pointer mb-4 p-2">
-                <div className="flex justify-center lg:h-72 w-full lg:hover:h-80 lg:ease-in">
+                <div className="lg:w-48 md:w-36 lg:hover:cursor-pointer mb-4">
+                <div className="flex justify-center lg:h-52 w-full ">
                   <img
                     src={item.pic}
                     alt="img"
                     className="object-cover h-full w-full"
                   ></img>
                 </div>
-                <div className="flex justify-between text-purple-900  my-3 items-center">
-                  <p className="font-bold mx-1">{item.name}</p>
-                  <p>{item.Rating}</p>
-                </div>
                 <div>
+                <p className="mx-3">{item.name}</p>
+                </div>
+                <div className="flex justify-between text-purple-900 my-1 items-center text-xs">
                 <p className="text-purple-900">{item.Price}</p>
+                <p className="text-pink-500 line-through">{item.oldPrice}</p>
+                <p>{item.Rating}</p>
                 </div>
               </div>
               </div>

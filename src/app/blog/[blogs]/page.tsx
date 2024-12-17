@@ -1,4 +1,5 @@
 import Hero2 from "@/app/components/Hero2";
+import RelatedItemsBlog from "@/app/components/RelatedItemsBlog";
 import Link from "next/link";
 export default function Blogs() {
   const blogs = [
@@ -21,7 +22,7 @@ export default function Blogs() {
 
       <div className="lg:mx-44 md:mx-32 mx-2 mt-28">
         <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:gap-[420px] md:gap-[360px]">
-          <div className="col-span-1 lg:w-[700px] md:w-[550px] w-auto">
+          <div className="col-span-1 lg:w-[800px] md:w-[650px] w-auto">
             {blogs.map((blog, i) => {
               return (
                 <div key={blog.id}>
@@ -49,14 +50,14 @@ export default function Blogs() {
                   <p className="text-xl text-purple-900 font-bold my-5">
                     {blog.title}
                   </p>
-                  <p className="text-purple-900 text-sm lg:text-start md:text-start text-justify">
+                  <p className="text-purple-900 text-sm lg:text-start md:text-start text-justify leading-6">
                     {blog.desc}
                   </p>
-                  <p className="mt-20 text-justify text-purple-900 text-sm">
+                  <p className="mt-20 text-justify text-purple-900 text-sm leading-6">
                     {blog.detail}
                   </p>
-                  <div className="bg-gray-200 border-pink-600 border-l-4 my-16">
-                    <p className="text-justify">
+                  <div className="bg-green-50 border-pink-600 border-l-4 my-16 py-8">
+                    <p className="text-justify text-lg leading-relaxed text-purple-400 italic">
                       “Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                       Commodo dictum sapien, amet, consequat. Lorem ipsum dolor
                       sit amet, consectetur adipiscing elit. Commodo dictum
@@ -66,28 +67,183 @@ export default function Blogs() {
                 </div>
               );
             })}
-            <div className="flex justify-center items-center gap-5">
-              <Link href={"#"}>
-                <div className="bg-pink-600 text-white h-6 w-8 text-center rounded-sm">
-                  1
+
+            <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4 mt-14">
+              <div className="col-span-1 relative">
+                {/* Video */}
+                <div>
+                  <video
+                    src="img15.mp4"
+                    poster="/images/blog/img15.png"
+                    className="w-96 h-52 hover:cursor-pointer object-cover"
+                  ></video>
                 </div>
-              </Link>
-              <Link href={"#"}>
-                <div className="text-gray-500 h-6 w-8 text-center rounded-sm border border-gray-500">
-                  2
+
+                {/* Play Button Overlay */}
+                <div className="absolute inset-0 flex justify-center items-center z-50 h-52">
+                  <div className="bg-white bg-opacity-75 text-red-700 rounded-full p-4 text-4xl">
+                    ▶
+                  </div>
                 </div>
-              </Link>
-              <Link href={"#"}>
-                <div className="text-gray-500 h-6 w-8 text-center rounded-sm border border-gray-500">
-                  3
+              </div>
+              <div className="col-span-1">
+                <div>
+                  <img
+                    src="/images/blog/img16.png"
+                    className="object-cover w-96 h-52"
+                  ></img>
                 </div>
-              </Link>
-              <Link href={"#"}>
-                <div className="text-gray-500 h-6 w-8 text-center rounded-sm border border-gray-500">
-                  4
-                </div>
-              </Link>
+              </div>
             </div>
+            <div>
+              <p className="text-justify text-purple-900 text-sm mt-12 leading-6">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit
+                dapibus est, nunc, montes, lacus consequat integer viverra. Sit
+                morbi etiam quam rhoncus. Velit in arcu platea donec vitae ante
+                posuere malesuada.Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit. Velit dapibus est, nunc, montes, lacus
+                consequat integer viverra. Sit morbi etiam quam rhoncus. Velit
+                in arcu platea donec vitae ante posuere malesuada.Lorem ipsum
+                dolor sit amet, consectetur adipiscing elit. Velit dapibus est,
+                nunc,
+              </p>
+            </div>
+            <div>
+              <RelatedItemsBlog/>
+            </div>
+            <div>
+              <p className="text-justify text-purple-900 text-sm mt-12 leading-6">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit
+                dapibus est, nunc, montes, lacus consequat integer viverra. Sit
+                morbi etiam quam rhoncus. Velit in arcu platea donec vitae ante
+                posuere malesuada.Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit. Velit dapibus est, nunc, montes, lacus
+                consequat integer viverra. Sit morbi etiam quam rhoncus. Velit
+                in arcu platea donec vitae ante posuere malesuada.Lorem ipsum
+                dolor sit amet, consectetur adipiscing elit. Velit dapibus est,
+                nunc,
+              </p>
+            </div>
+            <div>
+              <p className="text-justify text-purple-900 text-sm mt-16 leading-6">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit
+                dapibus est, nunc, montes, lacus consequat integer viverra. Sit
+                morbi etiam quam rhoncus. Velit in arcu platea donec vitae ante
+                posuere malesuada.Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit. Velit dapibus est, nunc, montes, lacus
+                consequat integer viverra. Sit morbi etiam quam rhoncus. Velit
+                in arcu platea donec vitae ante posuere malesuada.Lorem ipsum
+                dolor sit amet, consectetur adipiscing elit. Velit dapibus est,
+                nunc,
+              </p>
+            </div>
+            <div className="mt-10 flex justify-center">
+              <div className="flex gap-4 lg:justify-start md:justify-start justify-center">
+                <div>
+                  <Link href="https://www.facebook.com/osqazi">
+                    <i className="fa-brands fa-facebook text-blue-600 text-2xl"></i>
+                  </Link>
+                </div>
+                <div>
+                  <Link href="https://www.instagram.com/osqazi.khatri">
+                    <i className="fa-brands fa-square-instagram text-pink-500 text-2xl"></i>
+                  </Link>
+                </div>
+                <div>
+                  <Link href="https://x.com/osqazi">
+                    <i className="fa-brands fa-square-twitter text-sky-400 text-2xl"></i>
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-between text-gray-400 bg-blue-50 px-6 py-4 mt-6">
+              <Link href={'#'}><div className="flex gap-2">
+              <p>&lt;--</p>
+                <p>Previous Post</p>
+              </div></Link>
+              <Link href={'#'}><div className="flex gap-2">
+                <p>Next Post</p>
+                <p>--&gt;</p>
+              </div></Link>
+            </div>
+            <div className="shadow-4-sides mt-24">
+              <div className="flex p-3 gap-3 items-center">
+                <div>
+                  <img src="/images/blog/img21.png" alt="img.png" className="h-32 w-32 object-cover"></img>
+                </div>
+                <div>
+                  <div className="flex gap-4">
+                    <p className="font-bold text-lg text-purple-900">Sapien ac</p>
+                    <p className="text-gray-400">Jan 09 2020</p>
+                  </div>
+                  <p className="text-purple-300 leading-relaxed mt-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. At in vitae rutrum vulputate consectetur.</p>
+                </div>
+              </div>
+            </div>
+            <div className="shadow-4-sides mt-10">
+              <div className="flex p-3 gap-3 items-center">
+                <div>
+                  <img src="/images/blog/img22.png" alt="img.png" className="h-32 w-32 object-cover"></img>
+                </div>
+                <div>
+                  <div className="flex gap-4">
+                    <p className="font-bold text-lg text-purple-900">Augue conva</p>
+                    <p className="text-gray-400">Aug 18 2020</p>
+                  </div>
+                  <p className="text-purple-300 leading-relaxed mt-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. At in vitae rutrum vulputate consectetur.</p>
+                </div>
+              </div>
+            </div>
+            <form className="text-sm font-normal mt-28">
+                <div className="lg:flex lg:justify-between gap-6">
+                  <div className="form-group mb-6 flex-1">
+                    <input
+                      type="text"
+                      className="form-control py-4 px-2 border border-gray-400 shadow-md rounded-md w-full"
+                      id="con_name"
+                      placeholder="Your Name *"
+                      required
+                    />
+                  </div>
+                  <div className="form-group mb-6 flex-1">
+                    <input
+                      type="email"
+                      className="form-control py-4 px-2 border border-gray-400 shadow-md rounded-md w-full"
+                      id="con_email"
+                      placeholder="Write Your Email *"
+                      required
+                    />
+                  </div>
+                </div>
+               
+                <div className="form-group mb-6">
+                  <textarea
+                    className="form-control py-4 px-2 border border-gray-400 shadow-md rounded-md w-full"
+                    id="con_message"
+                    placeholder="Write your comment*"
+                    rows={10}
+                  ></textarea>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="button"
+                    className="form-control py-3 text-lg px-3 border border-gray-200 rounded-md text-white bg-pink-600 w-full hover:bg-pink-400 hover:cursor-pointer"
+                    value={"Continue Shopping"}
+                    required
+                  />
+                </div>
+                <div className="mt-10 mb-24">
+                <label className="flex items-center space-x-2">
+                  <input 
+                    type="checkbox" 
+                    className="h-4 w-4 rounded text-green-600 border-gray-300"
+                  />
+                  <span className="text-purple-500">Save my name, email, and website in this browser for the next time I comment.</span>
+                </label>
+              </div>
+              </form>
+
+            
           </div>
 
           <div className="col-span-1 w-full">
