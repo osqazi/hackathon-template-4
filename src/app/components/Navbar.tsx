@@ -128,12 +128,12 @@ const Navbar = () => {
                             </SelectTrigger>
                             <SelectContent className="mt-2 bg-gray-100 p-2 border rounded-md">
                               <SelectGroup>
-                                <Link href={'../'}><SelectItem value="Home" className="hover:cursor-pointer">Home</SelectItem></Link>
-                                <Link href={'../faq'}><SelectItem value="Faq" className="hover:cursor-pointer">FAQ</SelectItem></Link>
-                                <Link href={'../aboutus'}><SelectItem value="Faq" className="hover:cursor-pointer">About Us</SelectItem></Link>
-                                <Link href={'../cart'}><SelectItem value="Faq" className="hover:cursor-pointer">Cart</SelectItem></Link>
-                                <Link href={'../hDemo'}><SelectItem value="hKDemo" className="hover:cursor-pointer">HK Demo</SelectItem></Link>
-                                <Link href={'../orderComp'}><SelectItem value="ordComp" className="hover:cursor-pointer">Order Completed</SelectItem></Link>
+                                <Link href={'/'}><SelectItem value="Home" className="hover:cursor-pointer">Home</SelectItem></Link>
+                                <Link href={'/faq'}><SelectItem value="Faq" className="hover:cursor-pointer">FAQ</SelectItem></Link>
+                                <Link href={'/aboutus'}><SelectItem value="Faq" className="hover:cursor-pointer">About Us</SelectItem></Link>
+                                <Link href={'/cart'}><SelectItem value="Faq" className="hover:cursor-pointer">Cart</SelectItem></Link>
+                                <Link href={'/hDemo'}><SelectItem value="hKDemo" className="hover:cursor-pointer">HK Demo</SelectItem></Link>
+                                <Link href={'/orderComp'}><SelectItem value="ordComp" className="hover:cursor-pointer">Order Completed</SelectItem></Link>
                               </SelectGroup>
                             </SelectContent>
                           </Select>

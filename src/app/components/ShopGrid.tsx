@@ -4,7 +4,7 @@ import ShopSidebar from "./ShopSidebar";
 
 export default function ShopGrid() {
   return (
-    <div className="flex flex-col lg:flex-row lg:mx-44 md:mx-44 mx-2 my-28">
+    <div className="flex flex-col lg:flex-row lg:mx-44 md:mx-20 mx-2 my-28">
       {/* Sidebar */}
       <div className="lg:w-1/4 w-full">
         <ShopSidebar />

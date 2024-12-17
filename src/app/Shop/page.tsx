@@ -16,7 +16,7 @@ export default function Shop() {
         add2=". Shop"
       />
       <div>
-        <div className="mt-28 lg:mx-52 md:mx-44 mx-1">
+        <div className="mt-28 lg:mx-44 md:mx-20 mx-1">
           <div className="md:flex lg:flex text-center gap-2">
             <div>
               <h1 className="font-bold text-xlg text-nowrap text-purple-900">
