@@ -40,7 +40,7 @@ const Navbar = () => {
           </div>
 
           {/* Action Items Section */}
-          <div className="w-full lg:w-auto flex justify-between lg:justify-end items-center gap-4 mt-2 lg:mt-0">
+          <div className="w-full lg:w-auto flex justify-between lg:justify-end items-center gap-4 mt-2 lg:mt-0 px-2">
             <span>
               <select className="w-auto bg-transparent focus:text-black hover:cursor-pointer">
                 <option value="English" className="bg-white text-black">
