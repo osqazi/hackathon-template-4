@@ -238,9 +238,8 @@ const ShopSidebar = () => {
                       name: "Sky",
                     },
                   ].map((color, i) => (
-                    <Link href={"#"}>
+                    <Link href={"#"} key={i}>
                       <div
-                        key={i}
                         className="flex items-center justify-center lg:justify-start space-x-1 hover:cursor-pointer"
                       >
                         <p className="text-2xl">{color.icon}</p>
