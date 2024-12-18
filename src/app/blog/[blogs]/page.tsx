@@ -21,8 +21,9 @@ export default function Blogs() {
       <Hero2 name="Single Blog" add1="Home . Pages" add2=". Single Blog" />
 
       <div className="lg:mx-44 md:mx-32 mx-2 mt-28">
-        <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:gap-[420px] md:gap-[360px]">
-          <div className="col-span-1 lg:w-[800px] md:w-[650px] w-auto">
+      <div className="grid lg:grid-cols-[70%_30%] md:grid-cols-[70%_30%] grid-cols-1 gap-6">
+
+          <div className="col-span-1">
             {blogs.map((blog, i) => {
               return (
                 <div key={blog.id}>
