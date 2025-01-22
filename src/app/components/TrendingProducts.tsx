@@ -1,42 +1,75 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { client } from "@/sanity/lib/client";
 
-const TrendingProducts: React.FC = () => {
-  const products = [
-    { id: 1, name: "Cantilever Chair", price: "$26.00", oldPrice: "$42.00", image: "/images/c1.png", href: "../products" },
-    { id: 2, name: "Cantilever Chair", price: "$26.00", oldPrice: "$42.00", image: "/images/c2.png", href: "../products" },
-    { id: 3, name: "Cantilever Chair", price: "$26.00", oldPrice: "$42.00", image: "/images/c3.png", href: "../products" },
-    { id: 4, name: "Cantilever Chair", price: "$26.00", oldPrice: "$42.00", image: "/images/c4.png", href: "../products" },
-  ];
+// Define TypeScript interface for product data
+interface Product {
+  _id: string;
+  name: string;
+  img: string;
+  price: number;
+  discount: number;
+  onSale: boolean;
+  rating_5: number;
+}
+
+const TrendingProduct: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchTrendingProducts = async () => {
+      const query = `*[_type == "products" && defined(rating_5)] | order(rating_5 desc) [0...4] {
+        _id,
+        name,
+        "img": image.asset->url,
+        price,
+        discount,
+        onSale,
+        rating_5
+      }`;
+
+      try {
+        const data: Product[] = await client.fetch(query);
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching trending products:", error);
+      }
+    };
+
+    fetchTrendingProducts();
+  }, []);
 
   return (
-    <div className="py-8 px-4">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-6">Trending Products</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-10">
+    <section className="py-16 bg-light-gray">
+      <div className="container mx-auto px-4">
+        <h2 className="text-4xl font-bold text-center text-dark-blue mb-6">Trending Products</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {products.map((product) => (
-            <Link href={`${product.href}/${product.name}`} key={product.id}><div className="border rounded-lg p-2 shadow-lg text-center h-96">
-              <img src={product.image} alt={product.name} className="w-full h-72 object-cover mb-4" />
-              <h3 className="font-medium text-lg">{product.name}</h3>
-              <p className="text-gray-500">
-                <span className="text-pink-500">{product.price}</span> <span className="line-through">{product.oldPrice}</span>
-              </p>
-            </div></Link>
+            <Link href={`../products/${product.name}`} key={product._id}>
+              <div className="border rounded-md shadow-md p-4 bg-white relative group">
+                <div className="relative">
+                  <img src={product.img} alt={product.name} className="w-full h-auto object-cover rounded-md" />
+                  {product.onSale && (
+                    <div className="absolute top-4 left-4 bg-blue-500 text-white px-3 py-1 text-sm font-bold rounded-full">
+                      Sale
+                    </div>
+                  )}
+                </div>
+
+                <h3 className="mt-4 text-lg font-medium text-dark-blue">{product.name}</h3>
+                <div className="flex items-center mt-2">
+                  <span className="text-pink-500 font-semibold">${product.discount}</span>
+                  {product.discount > 0 && (
+                    <span className="text-gray-500 ml-3 line-through">${product.price}</span>
+                  )}
+                </div>
+              </div>
+            </Link>
           ))}
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div className="bg-pink-50 p-6 rounded-lg text-center">
-            <p className="font-bold text-xl">23% off in all products</p>
-            <button className="text-pink-500 underline mt-2">Shop Now</button>
-          </div>
-          <div className="bg-pink-50 p-6 rounded-lg text-center">
-            <p className="font-bold text-xl">23% off in all products</p>
-            <button className="text-pink-500 underline mt-2">View Collection</button>
-          </div>
-        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default TrendingProducts;
+export default TrendingProduct;
