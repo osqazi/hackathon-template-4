@@ -41,7 +41,7 @@ const Hero = () => {
             alt="Furniture"
             className="w-full max-w-xs lg:max-w-md rounded-md"
           />
-          <div className="absolute top-4 lg:top-8 right-4 lg:right-8 bg-blue-500 text-white text-sm lg:text-lg font-bold rounded-full h-16 lg:h-20 p-2 lg:p-4 w-16 lg:w-20 flex items-center justify-center">
+          <div className="absolute top-4 lg:top-8 right-4 lg:right-8 bg-blue-500 text-white text-sm lg:text-lg font-bold rounded-full h-16 lg:h-20 p-2 lg:p-4 w-16 lg:w-20 flex items-center justify-center text-center">
             50% off
           </div>
         </div>

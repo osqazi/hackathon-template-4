@@ -8,7 +8,7 @@ interface Product {
   name: string;
   img: string;
   price: number;
-  discount: number;
+  discountPercentage: number;
   onSale: boolean;
 }
 
@@ -22,7 +22,7 @@ const LatestProduct: React.FC = () => {
         name,
         "img": image.asset->url,
         price,
-        discount,
+        discountPercentage,
         onSale
       }`;
       
@@ -57,8 +57,8 @@ const LatestProduct: React.FC = () => {
 
                 <h3 className="mt-4 text-lg font-medium text-dark-blue">{product.name}</h3>
                 <div className="flex items-center mt-2">
-                  <span className="text-pink-500 font-semibold">${product.discount}</span>
-                  {product.discount > 0 && (
+                  <span className="text-pink-500 font-semibold">${product.price - (product.price * product.discountPercentage / 100)}</span>
+                  {product.discountPercentage > 0 && (
                     <span className="text-gray-500 ml-3 line-through">${product.price}</span>
                   )}
                 </div>

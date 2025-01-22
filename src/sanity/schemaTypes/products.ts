@@ -74,12 +74,6 @@ export default {
       validation: (Rule: any) => Rule.min(0).error('Sold quantity must be a positive number.'),
     },
     {
-      name: 'discount',
-      type: 'number',
-      title: 'Discount',
-      validation: (Rule: any) => Rule.min(0).max(10000).warning('Discount must be between 0 and 100.'),
-    },
-    {
       name: 'onOffer',
       type: 'boolean',
       title: 'On Offer',
