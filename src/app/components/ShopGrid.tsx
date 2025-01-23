@@ -1,8 +1,71 @@
-import shopItems from "../shopItems";
+import { client } from "@/sanity/lib/client";
+import { useEffect, useState } from 'react';
 import Link from "next/link";
 import ShopSidebar from "./ShopSidebar";
 
+// Define interfaces
+interface ProductColor {
+  hex: string;
+}
+
+interface Item {
+  _id: string;
+  name: string;
+  image: {
+    asset: {
+      url: string;
+    };
+  };
+  href: string;
+  price: number;
+  discountPercentage: number;
+  description: string;
+  colors: ProductColor[];
+  rating_5: number;
+  rating_4: number;
+  rating_3: number;
+  rating_2: number;
+  rating_1: number;
+  createdOn: string;
+}
+
 export default function ShopGrid() {
+  const [products, setProducts] = useState<Item[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const query = `*[_type == "products"] {
+        _id,
+        name,
+        image{ asset->{ url } },
+        href,
+        price,
+        discountPercentage,
+        description,
+        colors,
+        rating_5,
+        rating_4,
+        rating_3,
+        rating_2,
+        rating_1,
+        createdOn
+      }`;
+      const result = await client.fetch<Item[]>(query);
+      // Sort by highest average rating first
+      result.sort((a, b) => calculateAverageRating(b) - calculateAverageRating(a));
+      setProducts(result);
+    };
+    fetchProducts();
+  }, []);
+
+  // Calculate average rating
+  const calculateAverageRating = (product: Item) => {
+    const { rating_5, rating_4, rating_3, rating_2, rating_1 } = product;
+    const totalRatings = rating_5 + rating_4 + rating_3 + rating_2 + rating_1;
+    const totalStars = rating_5 * 5 + rating_4 * 4 + rating_3 * 3 + rating_2 * 2 + rating_1;
+    return totalRatings > 0 ? totalStars / totalRatings : 0;
+  };
+
   return (
     <div className="flex flex-col lg:flex-row lg:mx-44 md:mx-20 mx-2 my-28">
       {/* Sidebar */}
@@ -11,34 +74,62 @@ export default function ShopGrid() {
       </div>
 
       {/* Shop Grid */}
-      <div className="lg:w-3/4 w-full grid grid-cols-1 gap-14 md:grid-cols-3 lg:grid-cols-4">
-        {shopItems.map((items) => (
-          <Link href={`${items.href}/${items.name}`} key={items.id}>
+      <div className="lg:w-3/4 w-full grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
+        {products.map((item, i) => (
+          <Link href={`/products/${item._id}`} key={item._id}>
             <div className="col-span-1">
-              <div className="flex flex-col h-full">
-                <div className="bg-stone-100 p-6 lg:p-4 md:p-6 rounded-md flex justify-center items-center h-64">
+              <div className="flex flex-col h-full shadow-md p-4 rounded-md">
+                
+                {/* Image Section */}
+                <div className="bg-stone-100 p-6 lg:p-4 md:p-6 rounded-md flex items-center justify-center h-64">
                   <img
-                    src={items.pic}
-                    alt="pic"
+                    src={item.image?.asset?.url}
+                    alt={item.name}
                     className="object-contain max-h-full max-w-full"
                   />
                 </div>
 
+                {/* Product Info Section */}
                 <div className="flex flex-col items-center justify-between flex-grow">
-                  <p className="text-center font-bold p-2 text-[14px] text-nowrap">
-                    {items.name}
+                  
+                  {/* Product Name */}
+                  <p className="text-center font-bold p-2 text-[14px] break-words whitespace-normal min-h-[3rem]">
+                    {item.name}
                   </p>
+
+                  {/* Product Colors */}
                   <div>
                     <ul className="flex justify-center gap-2">
-                      <li className="h-3 w-3 bg-yellow-600 rounded-full"></li>
-                      <li className="h-3 w-3 bg-pink-500 rounded-full"></li>
-                      <li className="h-3 w-3 bg-purple-700 rounded-full"></li>
+                      {item.colors?.map((color, index) => (
+                        <li
+                          key={index}
+                          className="h-3 w-3 rounded-full"
+                          style={{ backgroundColor: color.hex }}
+                        ></li>
+                      ))}
                     </ul>
                   </div>
+
+                  {/* Price Section */}
                   <div className="flex justify-center gap-6 pt-1 text-[14px]">
-                    <p>{`$${items.newprice}`}</p>
-                    <p className="text-red-600 line-through">{`$${items.oldprice}`}</p>
+                    <p>{`$${item.price - (item.price * item.discountPercentage / 100)}`}</p>
+                    <p className="text-red-600 line-through">{`$${item.price}`}</p>
                   </div>
+
+                  {/* Rating Stars */}
+                  <div className="mt-2">
+                    {Array.from({ length: 5 }, (_, i) => (
+                      <i
+                        key={i}
+                        className={`fa-solid fa-star ${
+                          i < calculateAverageRating(item)
+                            ? 'text-yellow-400'
+                            : 'text-gray-400'
+                        }`}
+                      ></i>
+                    ))}
+                  </div>
+                  
                 </div>
               </div>
             </div>

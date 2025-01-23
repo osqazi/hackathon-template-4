@@ -45,7 +45,7 @@ const TrendingProduct: React.FC = () => {
         <h2 className="text-4xl font-bold text-center text-dark-blue mb-6">Trending Products</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {products.map((product) => (
-            <Link href={`../products/${product.name}`} key={product._id}>
+            <Link href={`/products/${product._id}`} key={product._id}>
               <div className="border rounded-md shadow-md p-4 bg-white relative group">
                 <div className="relative">
                   <img src={product.img} alt={product.name} className="w-full h-auto object-cover rounded-md" />
