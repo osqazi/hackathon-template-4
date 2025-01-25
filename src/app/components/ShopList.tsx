@@ -77,7 +77,7 @@ export default function ShopList() {
       {/* Shop List */}
       <div className="lg:w-3/4 w-full">
         {products.map((item, i) => (
-          <Link href={`/products/${item._id}`} key={item._id}>
+          <Link href={`/[products]/${item._id}`} key={item._id}>
             <div className="flex justify-center">
               <div className="lg:flex md:flex gap-8 items-center mb-16 shadow-md">
                 <div>

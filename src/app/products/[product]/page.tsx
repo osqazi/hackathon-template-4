@@ -1,7 +1,67 @@
+"use client"
 import Hero2 from "@/app/components/Hero2";
 import RelatedProducts from "@/app/components/RelatedProducts";
+import { useState, useEffect } from "react";
+import { client } from "@/sanity/lib/client";
 
-export default function ProductDetail() {
+
+
+interface ProductColor {
+  hex: string;
+}
+
+interface ProductDet {
+  _id: string,
+  name: string;
+  image: {
+    asset: {
+      url: string;
+    };
+  };
+  href: string;
+  price: number;
+  discountPercentage:number;
+  description: string;
+  colors: ProductColor[];
+  rating_5: number;
+  rating_4: number;
+  rating_3: number;
+  rating_2: number;
+  rating_1: number;
+  createdOn: string;
+}
+
+export default function ProductDetail({params}:{params:{product:string}}) {
+  const prodID = params.product;
+  const [products, setProducts] = useState<ProductDet[]>([]);
+  
+    useEffect(() => {
+      const fetchProducts = async () => {
+        const query = `*[_type == "products" && _id == $id][0] {
+          _id,
+          name,
+          description,
+          image{ asset->{ url } },
+          price,
+          discountPercentage,
+          onSale
+        }`;
+        
+        try {
+          const data: ProductDet[] = await client.fetch(query, {id: prodID});
+          setProducts(data);
+        } catch (error) {
+          console.error("Error fetching products:", error);
+        }
+      };
+  
+      fetchProducts();
+    }, []);
+
+    
+  
+
+  
   return (
     <div>
       <Hero2
@@ -14,22 +74,22 @@ export default function ProductDetail() {
           <div className="col-span-1">
             <div className="mb-4">
               <img
-                src="/images/products/Item1.png"
-                alt="image"
-                className="lg:w-36 lg:h-40  w-full h-72 md:w-36 md:h-40  object-cover mb-4 "
+                src={products.image?.asset?.url}
+                alt={products.name}
+                className="lg:w-36 lg:h-40  w-full h-72 md:w-36 md:h-40  object-contain mb-4 "
               ></img>
             </div>
             <div>
               <img
-                src="/images/products/Item2.png"
-                alt="image"
+                src={products.image?.asset?.url}
+                alt={products.name}
                 className="lg:w-36 lg:h-40 w-full h-80  md:w-36 md:h-40 object-cover mb-4"
               ></img>
             </div>
             <div>
               <img
-                src="/images/products/Item3.png"
-                alt="image"
+                src={products.image?.asset?.url}
+                alt={products.name}
                 className="lg:w-36 lg:h-40 w-full h-80  md:w-36 md:h-40 object-cover mb-4"
               ></img>
             </div>
@@ -37,15 +97,15 @@ export default function ProductDetail() {
           <div className="col-span-1">
             <div className="flex">
               <img
-                src="/images/products/Item4.png"
-                alt="image"
+                src={products.image?.asset?.url}
+                alt={products.name}
                 className="object-cover h-[510px]"
               ></img>
             </div>
           </div>
           <div className="col-span-1 text-center lg:text-left md:text-left lg:px-12 md:px-8 px-2">
             <div className="mt-16">
-              <h1 className="text-2xl font-bold">Playwood arm chair</h1>
+              <h1 className="text-2xl font-bold">{products.name}</h1>
             </div>
             <div className="flex items-center mt-2 lg:justify-start md:justify-start justify-center">
               <i className="fa-solid fa-star text-yellow-400"></i>
@@ -56,17 +116,16 @@ export default function ProductDetail() {
               <p>(22)</p>
             </div>
             <div className="flex items-center gap-6 lg:justify-start md:justify-start justify-center">
-              <p className="my-4 font-bold">$32.00</p>
-              <p className="line-through text-red-600 font-bold">$39.00</p>
+              <p className="my-4 font-bold">${products.price - (products.price * products.discountPercentage / 100)}</p>
+              <p className="line-through text-red-600 font-bold">${products.price}</p>
             </div>
             <p className="font-bold">Color</p>
             <p className="my-4 text-purple-400">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-              tellus porttitor purus, et volutpat sit.
+              {products.description}
             </p>
             <div className="flex gap-8 lg:pl-12 md:pl-8 justify-center lg:justify-start md:lg:justify-start my-3 font-bold">
               <a>
-                <p>Add to Cart</p>
+                <p>Add to Cart <span className="fa-solid fa-cart-shopping hover:cursor-pointer"></span></p>
               </a>
               <a>
                 <i className="fa-regular fa-heart hover:cursor-pointer"></i>

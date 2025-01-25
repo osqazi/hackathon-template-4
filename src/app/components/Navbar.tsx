@@ -25,7 +25,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav>
+    <nav className="fixed w-full z-50">
       {/* Top Purple Section - Unchanged */}
       <div className="w-full bg-purple-600 text-white py-3">
         <div className="container mx-auto px-4 flex flex-wrap justify-between items-center text-sm gap-2">

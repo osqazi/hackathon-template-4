@@ -10,7 +10,7 @@ const ShopexOffer: React.FC = () => {
   ];
 
   return (
-    <div className="py-10 px-5 bg-gray-50 mx-32">
+    <div className="py-10 px-5 bg-gray-50 lg:mx-32 md:mx-10 mx-4">
       <h2 className="text-3xl font-bold text-center mb-5">What Shopex Offer!</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         {offers.map((offer) => (
