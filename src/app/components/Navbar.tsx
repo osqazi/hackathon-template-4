@@ -10,9 +10,12 @@ import {
 } from "@/components/ui/select";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useAtomValue } from "jotai";
+import { cartAtom } from "../store/cartAtom";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const counter = useAtomValue(cartAtom)
   const router = useRouter();
 
   const NavLinks = [
@@ -70,7 +73,7 @@ const Navbar = () => {
               <Link href={"/cart"}>
                 <i className="fa-solid fa-cart-shopping text-2xl ml-4"></i>
                 <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
-                  3
+                  {counter.length}
                 </span>
               </Link>
             </span>

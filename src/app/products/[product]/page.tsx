@@ -3,6 +3,8 @@ import Hero2 from "@/app/components/Hero2";
 import RelatedProducts from "@/app/components/RelatedProducts";
 import { useState, useEffect } from "react";
 import { client } from "@/sanity/lib/client";
+import { useAtom } from "jotai";
+import { cartAtom } from "@/app/store/cartAtom";
 
 interface ProductColor {
   hex: string;
@@ -32,6 +34,7 @@ interface ProductDet {
 export default function ProductDetail({ params }: { params: { product: string } }) {
   const prodID = params.product;
   const [product, setProduct] = useState<ProductDet | null>(null);
+  const [cart, addCart] = useAtom(cartAtom)
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -67,6 +70,13 @@ export default function ProductDetail({ params }: { params: { product: string } 
 
   if (!product) {
     return <p className="text-center text-xl font-bold mt-10">Loading Product...</p>;
+  }
+
+  const handler = () => {
+    addCart([...cart, {
+      id: prodID,
+    }]);
+    console.log(cart)
   }
 
   return (
@@ -113,11 +123,9 @@ export default function ProductDetail({ params }: { params: { product: string } 
             <p className="font-bold">Color</p>
             <p className="my-4 text-purple-400">{product.description}</p>
             <div className="flex gap-8 lg:pl-12 md:pl-8 justify-center lg:justify-start md:lg:justify-start my-3 font-bold">
-              <a>
-                <p>
+                <p onClick={handler} className="hover:cursor-pointer">
                   Add to Cart <span className="fa-solid fa-cart-shopping hover:cursor-pointer"></span>
                 </p>
-              </a>
               <a>
                 <i className="fa-regular fa-heart hover:cursor-pointer"></i>
               </a>
