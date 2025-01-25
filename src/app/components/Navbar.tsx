@@ -56,15 +56,23 @@ const Navbar = () => {
               </select>
             </span>
             <span>
-              <Link href={'/login'} className="hover:cursor-pointer flex justify-center items-center gap-1">
+              <Link
+                href={"/login"}
+                className="hover:cursor-pointer flex justify-center items-center gap-1"
+              >
                 Login <i className="fa-regular fa-user"></i>
               </Link>
             </span>
             <span className="hover:cursor-pointer flex justify-center items-center gap-1">
               Wishlist <i className="fa-regular fa-heart"></i>
             </span>
-            <span className="flex justify-center">
-              <Link href={'/cart'}><i className="fa-solid fa-cart-shopping text-2xl ml-4"></i></Link>
+            <span className="relative flex justify-center">
+              <Link href={"/cart"}>
+                <i className="fa-solid fa-cart-shopping text-2xl ml-4"></i>
+                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                  3
+                </span>
+              </Link>
             </span>
           </div>
         </div>
@@ -128,12 +136,54 @@ const Navbar = () => {
                             </SelectTrigger>
                             <SelectContent className="mt-2 bg-gray-100 p-2 border rounded-md">
                               <SelectGroup>
-                                <Link href={'/'}><SelectItem value="Home" className="hover:cursor-pointer">Home</SelectItem></Link>
-                                <Link href={'/faq'}><SelectItem value="Faq" className="hover:cursor-pointer">FAQ</SelectItem></Link>
-                                <Link href={'/aboutus'}><SelectItem value="Faq" className="hover:cursor-pointer">About Us</SelectItem></Link>
-                                <Link href={'/cart'}><SelectItem value="Faq" className="hover:cursor-pointer">Cart</SelectItem></Link>
-                                <Link href={'/hDemo'}><SelectItem value="hKDemo" className="hover:cursor-pointer">HK Demo</SelectItem></Link>
-                                <Link href={'/orderComp'}><SelectItem value="ordComp" className="hover:cursor-pointer">Order Completed</SelectItem></Link>
+                                <Link href={"/"}>
+                                  <SelectItem
+                                    value="Home"
+                                    className="hover:cursor-pointer"
+                                  >
+                                    Home
+                                  </SelectItem>
+                                </Link>
+                                <Link href={"/faq"}>
+                                  <SelectItem
+                                    value="Faq"
+                                    className="hover:cursor-pointer"
+                                  >
+                                    FAQ
+                                  </SelectItem>
+                                </Link>
+                                <Link href={"/aboutus"}>
+                                  <SelectItem
+                                    value="Faq"
+                                    className="hover:cursor-pointer"
+                                  >
+                                    About Us
+                                  </SelectItem>
+                                </Link>
+                                <Link href={"/cart"}>
+                                  <SelectItem
+                                    value="Faq"
+                                    className="hover:cursor-pointer"
+                                  >
+                                    Cart
+                                  </SelectItem>
+                                </Link>
+                                <Link href={"/hDemo"}>
+                                  <SelectItem
+                                    value="hKDemo"
+                                    className="hover:cursor-pointer"
+                                  >
+                                    HK Demo
+                                  </SelectItem>
+                                </Link>
+                                <Link href={"/orderComp"}>
+                                  <SelectItem
+                                    value="ordComp"
+                                    className="hover:cursor-pointer"
+                                  >
+                                    Order Completed
+                                  </SelectItem>
+                                </Link>
                               </SelectGroup>
                             </SelectContent>
                           </Select>
@@ -170,12 +220,12 @@ const Navbar = () => {
                   <Select
                     defaultValue="Home"
                     onValueChange={(e) => {
-                      if (e === "Home") router.push('/');
-                      if (e === "Faq") router.push('/faq');
-                      if (e === "hDemo") router.push('/hDemo');
-                      if (e === "orderComp") router.push('/orderComp');
-                      if (e === "cart") router.push('/cart');
-                      if (e === "aboutus") router.push('/aboutus');
+                      if (e === "Home") router.push("/");
+                      if (e === "Faq") router.push("/faq");
+                      if (e === "hDemo") router.push("/hDemo");
+                      if (e === "orderComp") router.push("/orderComp");
+                      if (e === "cart") router.push("/cart");
+                      if (e === "aboutus") router.push("/aboutus");
                     }}
                   >
                     <SelectTrigger className="border-none focus:ring-0">
@@ -188,7 +238,9 @@ const Navbar = () => {
                         <SelectItem value="aboutus">About Us</SelectItem>
                         <SelectItem value="cart">Cart</SelectItem>
                         <SelectItem value="hDemo">HK Demo</SelectItem>
-                        <SelectItem value="orderComp">Order Completed</SelectItem>
+                        <SelectItem value="orderComp">
+                          Order Completed
+                        </SelectItem>
                       </SelectGroup>
                     </SelectContent>
                   </Select>

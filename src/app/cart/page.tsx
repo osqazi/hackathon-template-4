@@ -81,7 +81,7 @@ export default function ShoppingCart() {
     return (
       <div>
         <Hero2 name="Shopping Cart" add1="Home . Pages" add2=". Shopping Cart" />
-      <div className="lg:mx-60 md:mx-48 my-32">
+      <div className="lg:mx-48 md:mx-40 my-32">
         <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-72">
             <div className="col-span-1 lg:w-[600px] md:w-[400px]">
           <table className="w-full border-collapse">
