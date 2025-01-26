@@ -1,83 +1,52 @@
+"use client"
+import { useAtom } from "jotai";
 import Hero2 from "../components/Hero2";
+import { cartAtom } from "../store/cartAtom";
+import { useState, useEffect } from "react";
 
 export default function ShoppingCart() {
-    interface Cart {
-      product: {
+    
+      interface Cart{
+
+        id: string;
         name: string;
-        color: string;
-        size: string;
-      };
-      id: number;
-      price: string;
-      quantity: number;
-      total: string;
-      pic: string;
-    }
+        price: number;
+        quantity: number;
+        pic: string;
+      }
+    
+    const [cart, setCart] = useState<Cart[]>([]);
+
+    useEffect(() => {
+      const storedCart = localStorage.getItem("cart");
+      if (storedCart) {
+        setCart(JSON.parse(storedCart));
+      }
+    }, []);
+
+    const AddQty = (id: string) => {
+      const updateCart = cart.map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+      );
+    };
+
+    const LessQty = (id: string) => {
+      const updateCart = cart.map((item) =>
+        item.quantity > 0 ? (item.id === id ? { ...item, quantity: item.quantity - 1 } : item) : item
+        
+    );
+    };
+    const RemoveItem = (id: string) => {
+      const updatedCart = cart.filter((item) => item.id !== id);
+      setCart(updatedCart);
+      localStorage.setItem("cart", JSON.stringify(updatedCart)); // Update localStorage
+    };
   
-    const cartItems: Cart[] = [
-      {
-        product: {
-          name: "Ut diam consequat",
-          color: "Brown",
-          size: "XL",
-        },
-        id: 1,
-        price: "$32.00",
-        quantity: 1,
-        total: "$219.00",
-        pic: "/images/cart/item1.png",
-      },
-      {
-        product: {
-          name: "Vel faucibus posuere",
-          color: "Brown",
-          size: "XL",
-        },
-        id: 2,
-        price: "$32.00",
-        quantity: 1,
-        total: "$219.00",
-        pic: "/images/cart/item2.png",
-      },
-      {
-        product: {
-          name: "Ac vitae vestibulum",
-          color: "Brown",
-          size: "XL",
-        },
-        id: 3,
-        price: "$32.00",
-        quantity: 1,
-        total: "$219.00",
-        pic: "/images/cart/item3.png",
-      },
-      {
-        product: {
-          name: "Elit massa diam",
-          color: "Brown",
-          size: "XL",
-        },
-        id: 4,
-        price: "$32.00",
-        quantity: 1,
-        total: "$219.00",
-        pic: "/images/cart/item4.png",
-      },
-      {
-        product: {
-          name: "Proin pharetra elementum",
-          color: "Brown",
-          size: "XL",
-        },
-        id: 5,
-        price: "$32.00",
-        quantity: 1,
-        total: "$219.00",
-        pic: "/images/cart/item5.png",
-      },
-      // More items...
-    ];
-  
+    // Calculate total for all items
+    const calculateTotal = () => {
+      return cart.reduce((total, item) => (total + item.price) * item.quantity, 0).toFixed(2);
+    };
+    
     return (
       <div>
         <Hero2 name="Shopping Cart" add1="Home . Pages" add2=". Shopping Cart" />
@@ -94,32 +63,32 @@ export default function ShoppingCart() {
               </tr>
             </thead>
             <tbody>
-              {cartItems.map((item) => (
+              {cart.map((item) => (
                 <tr key={item.id} className="border-b border-gray-300">
                   <td className="py-4">
                     <div className="lg:flex md:flex gap-4 items-center">
                         <div className="flex-none">
                             <div className="flex justify-end">
-                            <button className="bg-black h-5 w-5 rounded-full absolute text-white text-lg items-center justify-center flex font-bold">x</button>
+                            <button className="bg-black h-5 w-5 rounded-full absolute text-white text-lg items-center justify-center flex font-bold" onClick={()=>RemoveItem(item.id)}>x</button>
                             </div>
                       <img
                         src={item.pic}
-                        alt={item.product.name}
+                        alt={item?.name}
                         className="w-28 h-28 object-cover p-1"
                       />
                       </div>
                       <div className="lg:mx-0 md:mx-0 mx-1">
-                        <h3 className="text-lg font-bold">{item.product.name}</h3>
+                        <h3 className="text-lg font-bold">{item.name}</h3>
                         <p className="text-gray-500 text-sm">
-                          Color: {item.product.color}
+                          Color: BROWN
                         </p>
-                        <p className="text-gray-500 text-sm">Size: {item.product.size}</p>
+                        <p className="text-gray-500 text-sm">Size: XL</p>
                       </div>
                     </div>
                   </td>
                   <td className="py-4">{item.price}</td>
-                  <td className="py-4"><button className="bg-gray-400 px-1 mx-1 text-white text-lg mr-2">+</button >{item.quantity}<button className="bg-gray-400 px-1 mx-1 text-white text-lg ml-2">-</button></td>
-                  <td className="py-4">{item.total}</td>
+                  <td className="py-4"><button className="bg-gray-400 px-1 mx-1 text-white text-lg mr-2" onClick={()=>AddQty(item.id)}>+</button >{item.quantity}<button className="bg-gray-400 px-1 mx-1 text-white text-lg ml-2" onClick={()=>LessQty(item.id)}>-</button></td>
+                  <td className="py-4">${calculateTotal()}</td>
                 </tr>
               ))}
             </tbody>

@@ -3,8 +3,6 @@ import Hero2 from "@/app/components/Hero2";
 import RelatedProducts from "@/app/components/RelatedProducts";
 import { useState, useEffect } from "react";
 import { client } from "@/sanity/lib/client";
-import { useAtom } from "jotai";
-import { cartAtom } from "@/app/store/cartAtom";
 
 interface ProductColor {
   hex: string;
@@ -31,11 +29,15 @@ interface ProductDet {
   createdOn: string;
 }
 
-export default function ProductDetail({ params }: { params: { product: string } }) {
+export default function ProductDetail({
+  params,
+}: {
+  params: { product: string };
+}) {
   const prodID = params.product;
   const [product, setProduct] = useState<ProductDet | null>(null);
-  const [cart, addCart] = useAtom(cartAtom)
 
+  // Fetch Product Data
   useEffect(() => {
     const fetchProduct = async () => {
       const query = `*[_type == "products" && _id == $id][0] {
@@ -68,20 +70,49 @@ export default function ProductDetail({ params }: { params: { product: string } 
     fetchProduct();
   }, [prodID]);
 
-  if (!product) {
-    return <p className="text-center text-xl font-bold mt-10">Loading Product...</p>;
-  }
+  // Add to Cart Handler (localStorage and state update)
+  const addToCart = () => {
+    const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
 
-  const handler = () => {
-    addCart([...cart, {
-      id: prodID,
-    }]);
-    console.log(cart)
+    const exist = existingCart.some((item: any) => item.id === prodID);
+    if (!exist) {
+      const newCart = [
+        ...existingCart,
+        {
+          id: prodID,
+          name: product?.name,
+          price:
+            product?.price && product?.discountPercentage
+              ? product.price -
+                product.price * (product.discountPercentage / 100)
+              : 0, // Set default to 0 or any fallback value you prefer
+          quantity: 1,
+          pic: product?.image.asset.url,
+        },
+      ];
+      // Save to localStorage and trigger storage event for Navbar
+      localStorage.setItem("cart", JSON.stringify(newCart));
+
+      // Trigger the cart update event in the Navbar
+      window.dispatchEvent(new Event("storage"));
+    } else {
+      alert("Item already added to cart!");
+    }
+  };
+
+  if (!product) {
+    return (
+      <p className="text-center text-xl font-bold mt-10">Loading Product...</p>
+    );
   }
 
   return (
     <div>
-      <Hero2 name="Product Details" add1="Home . Pages" add2=". Product Details" />
+      <Hero2
+        name="Product Details"
+        add1="Home . Pages"
+        add2=". Product Details"
+      />
       <div className="flex justify-center mt-32 lg:mx-44 md:mx-32 mx-2 mb-32 shadow-4-sides">
         <div className="grid lg:grid-cols-[1fr,2fr,3fr] md:grid-cols-[1fr,2fr,3fr] grid-cols-1 p-6 md:gap-4 lg:gap-0">
           <div className="col-span-1">
@@ -116,57 +147,29 @@ export default function ProductDetail({ params }: { params: { product: string } 
             </div>
             <div className="flex items-center gap-6 lg:justify-start md:justify-start justify-center">
               <p className="my-4 font-bold">
-                ${product.price - (product.price * product.discountPercentage) / 100}
+                $
+                {product.price -
+                  (product.price * product.discountPercentage) / 100}
               </p>
-              <p className="line-through text-red-600 font-bold">${product.price}</p>
+              <p className="line-through text-red-600 font-bold">
+                ${product.price}
+              </p>
             </div>
             <p className="font-bold">Color</p>
             <p className="my-4 text-purple-400">{product.description}</p>
             <div className="flex gap-8 lg:pl-12 md:pl-8 justify-center lg:justify-start md:lg:justify-start my-3 font-bold">
-                <p onClick={handler} className="hover:cursor-pointer">
-                  Add to Cart <span className="fa-solid fa-cart-shopping hover:cursor-pointer"></span>
-                </p>
+              <p onClick={addToCart} className="hover:cursor-pointer">
+                Add to Cart{" "}
+                <span className="fa-solid fa-cart-shopping hover:cursor-pointer"></span>
+              </p>
               <a>
                 <i className="fa-regular fa-heart hover:cursor-pointer"></i>
               </a>
             </div>
-            <p className="font-bold">Categories:</p>
-            <p className="my-3 font-bold">Tags</p>
-            <div className="flex gap-10 items-center mb-16 lg:justify-start md:justify-start justify-center">
-              <p className="font-bold">Share</p>
-              <div className="flex gap-2">
-                <a>
-                  <i className="fa-brands fa-facebook text-blue-600 hover:cursor-pointer"></i>
-                </a>
-                <a>
-                  <i className="fa-brands fa-square-instagram text-pink-500 hover:cursor-pointer"></i>
-                </a>
-                <a>
-                  <i className="fa-brands fa-square-twitter hover:cursor-pointer"></i>
-                </a>
-              </div>
-            </div>
           </div>
         </div>
       </div>
-      <div className="lg:px-40 md:px-28 bg-gray-200 mb-20 pb-20 px-3 text-justify lg:text-start md:text-start">
-        <ul className="lg:flex md:flex gap-20 pt-16 text-center">
-          {["Description", "Additional info", "Reviews", "Video"].map((item) => (
-            <a key={item}>
-              <li className="font-bold text-lg text-purple-900 hover:cursor-pointer mb-1">{item}</li>
-            </a>
-          ))}
-        </ul>
-        <p className="text-purple-900 text-lg font-bold mt-10 mb-3">Various tempor:</p>
-        <p className="text-purple-800">
-          Aliquam dis vulputate integer sagittis. Faucibus dolor ornare faucibus vel sed et eleifend
-          habitasse amet...
-        </p>
-      </div>
       <RelatedProducts />
-      <div className="flex justify-center p-8 sm:p-16 mb-10">
-        <img src="/images/brand.png" alt="Brand" className="w-full max-w-[70rem] h-auto" />
-      </div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Select,
   SelectContent,
@@ -17,6 +17,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const counter = useAtomValue(cartAtom)
   const router = useRouter();
+  const [cartCount, setCartCount] = useState(0);
 
   const NavLinks = [
     { name: "Home", href: "../", specialSelect: true },
@@ -26,6 +27,30 @@ const Navbar = () => {
     { name: "Shop", href: "../Shop" },
     { name: "Contact", href: "../contact" },
   ];
+
+  useEffect(() => {
+    // Function to update cart count from localStorage
+    const updateCartCount = () => {
+      const cartItems = JSON.parse(localStorage.getItem("cart") || "[]");
+      setCartCount(cartItems.length);
+    };
+
+    // Initial count on component mount
+    updateCartCount();
+
+    // Listen for changes to localStorage (when items are added)
+    const handleStorageChange = () => {
+      updateCartCount();
+    };
+
+    // Add event listener to update cart count immediately
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      // Clean up event listener
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
 
   return (
     <nav className="fixed w-full z-50">
@@ -73,7 +98,7 @@ const Navbar = () => {
               <Link href={"/cart"}>
                 <i className="fa-solid fa-cart-shopping text-2xl ml-4"></i>
                 <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
-                  {counter.length}
+                  {cartCount}
                 </span>
               </Link>
             </span>
