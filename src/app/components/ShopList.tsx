@@ -32,13 +32,21 @@ interface Item {
 }
 
 interface CartItem extends Item {
+  id: string;
+  pic: string;
   quantity: number;
   total: number;
 }
 
 export default function ShopList() {
   const [products, setProducts] = useState<Item[]>([]);
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cart, setCart] = useState<CartItem[]>(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(localStorage.getItem("cart") || "[]");
+    }
+    return [];
+  });
+  
 
 
   useEffect(() => {
@@ -77,31 +85,28 @@ export default function ShopList() {
 
   const addToCart = (product: Item) => {
     setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item._id === product._id);
-  
-      if (existingItem) {
-        alert("Item already added to cart!"); // Show alert if item exists
-        return prevCart; // Return previous cart without changes
+      // Check if item is already in the cart (prevCart is the latest state)
+      const exist = prevCart.some((item) => item.id === product._id);
+      if (exist) {
+        alert("Item already added to cart!");
+        return prevCart; // Preserve the current cart
       }
   
-      // Add new item with correctly extracted image URL
-      const updatedCart = [
-        ...prevCart,
-        {
-          _id: product._id,
-          name: product.name,
-          pic: product.image.asset.url, // ✅ Store the image URL instead of the whole object
-          price: product.price,
-          discountPercentage: product.discountPercentage,
-          quantity: 1,
-          total: product.price, // Initial total is the price
-        },
-      ];
+      const newCartItem: CartItem = {
+        ...product,
+        id: product._id,
+        pic: product?.image.asset.url,
+        quantity: 1,
+        total: product.price - (product.price * product.discountPercentage) / 100,
+      };
   
-      localStorage.setItem("cart", JSON.stringify(updatedCart)); // ✅ Save updated cart in LocalStorage
+      const updatedCart = [...prevCart, newCartItem]; // Append new item
+      localStorage.setItem("cart", JSON.stringify(updatedCart)); // Save to localStorage
+      window.dispatchEvent(new Event("storage")); // Notify other components
       return updatedCart;
     });
   };
+  
 
   return (
     <div className="flex flex-col lg:flex-row lg:mx-44 md:mx-20 mx-2 my-28">
