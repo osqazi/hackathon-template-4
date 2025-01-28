@@ -87,6 +87,10 @@ export default function ProductDetail({
                 product.price * (product.discountPercentage / 100)
               : 0, // Set default to 0 or any fallback value you prefer
           quantity: 1,
+          total: product?.price && product?.discountPercentage
+              ? product.price -
+                product.price * (product.discountPercentage / 100)
+              : 0, // Set default to 0 or any fallback value you prefer
           pic: product?.image.asset.url,
         },
       ];

@@ -1,5 +1,4 @@
 "use client"
-import { useAtom } from "jotai";
 import Hero2 from "../components/Hero2";
 import { cartAtom } from "../store/cartAtom";
 import { useState, useEffect } from "react";
@@ -12,6 +11,7 @@ export default function ShoppingCart() {
         name: string;
         price: number;
         quantity: number;
+        total: number;
         pic: string;
       }
     
@@ -26,25 +26,40 @@ export default function ShoppingCart() {
 
     const AddQty = (id: string) => {
       const updateCart = cart.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+        item.id === id ? { ...item, quantity: item.quantity + 1, total: item.price * (item.quantity + 1)} : item
+        
       );
+      setCart(updateCart)
+      localStorage.setItem("cart", JSON.stringify(updateCart)); // Update localStorage
+      window.dispatchEvent(new Event("storage"));
     };
 
     const LessQty = (id: string) => {
       const updateCart = cart.map((item) =>
-        item.quantity > 0 ? (item.id === id ? { ...item, quantity: item.quantity - 1 } : item) : item
-        
+        item.quantity > 1 ? (item.id === id ? { ...item, quantity: item.quantity - 1, total: item.price * (item.quantity - 1) } : item) : item
     );
+
+    setCart(updateCart)
+    localStorage.setItem("cart", JSON.stringify(updateCart)); // Update localStorage
+    window.dispatchEvent(new Event("storage"));
     };
+
     const RemoveItem = (id: string) => {
       const updatedCart = cart.filter((item) => item.id !== id);
       setCart(updatedCart);
       localStorage.setItem("cart", JSON.stringify(updatedCart)); // Update localStorage
+      window.dispatchEvent(new Event("storage"));
     };
   
     // Calculate total for all items
     const calculateTotal = () => {
       return cart.reduce((total, item) => (total + item.price) * item.quantity, 0).toFixed(2);
+    };
+
+    const ClearCart = () => {
+      setCart([]); // Clear the cart state
+      localStorage.removeItem("cart"); // Remove cart data from localStorage
+      window.dispatchEvent(new Event("storage"));
     };
     
     return (
@@ -88,7 +103,7 @@ export default function ShoppingCart() {
                   </td>
                   <td className="py-4">{item.price}</td>
                   <td className="py-4"><button className="bg-gray-400 px-1 mx-1 text-white text-lg mr-2" onClick={()=>AddQty(item.id)}>+</button >{item.quantity}<button className="bg-gray-400 px-1 mx-1 text-white text-lg ml-2" onClick={()=>LessQty(item.id)}>-</button></td>
-                  <td className="py-4">${calculateTotal()}</td>
+                  <td className="py-4">${item.total}</td>
                 </tr>
               ))}
             </tbody>
@@ -103,6 +118,7 @@ export default function ShoppingCart() {
                   type="button"
                   className="form-control py-3 px-3 border border-gray-200 rounded-md text-white bg-pink-600 w-full lg:w-44 md:w-36 hover:bg-pink-400 hover:cursor-pointer"
                   value="Clear Cart"
+                  onClick={ClearCart}
                 />
             
 
@@ -112,14 +128,14 @@ export default function ShoppingCart() {
           <div className="py-12 bg-gray-100 rounded-sm px-8">
             <div className="flex justify-between font-bold text-lg">
                 <p>Subtotals:</p>
-                <p>$219.00</p>
+                <p>${calculateTotal()}</p>
             </div>
             <div className="my-4">
             <hr className="border-gray-300 border-2" />
                 </div>
             <div className="flex justify-between font-bold text-lg pt-10">
                 <p>Totals:</p>
-                <p>$325.00</p>
+                <p>${calculateTotal()}</p>
             </div>
             <div className="my-4">
             <hr className="border-gray-300 border-2" />

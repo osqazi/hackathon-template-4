@@ -15,7 +15,6 @@ import { cartAtom } from "../store/cartAtom";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const counter = useAtomValue(cartAtom)
   const router = useRouter();
   const [cartCount, setCartCount] = useState(0);
 

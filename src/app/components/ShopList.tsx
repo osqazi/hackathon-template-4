@@ -1,3 +1,4 @@
+"use client"
 import { client } from "@/sanity/lib/client";
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -30,8 +31,15 @@ interface Item {
   createdOn: string;
 }
 
+interface CartItem extends Item {
+  quantity: number;
+  total: number;
+}
+
 export default function ShopList() {
   const [products, setProducts] = useState<Item[]>([]);
+  const [cart, setCart] = useState<CartItem[]>([]);
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -67,6 +75,34 @@ export default function ShopList() {
     return totalRatings > 0 ? totalStars / totalRatings : 0;
   };
 
+  const addToCart = (product: Item) => {
+    setCart((prevCart) => {
+      const existingItem = prevCart.find((item) => item._id === product._id);
+  
+      if (existingItem) {
+        alert("Item already added to cart!"); // Show alert if item exists
+        return prevCart; // Return previous cart without changes
+      }
+  
+      // Add new item with correctly extracted image URL
+      const updatedCart = [
+        ...prevCart,
+        {
+          _id: product._id,
+          name: product.name,
+          pic: product.image.asset.url, // ✅ Store the image URL instead of the whole object
+          price: product.price,
+          discountPercentage: product.discountPercentage,
+          quantity: 1,
+          total: product.price, // Initial total is the price
+        },
+      ];
+  
+      localStorage.setItem("cart", JSON.stringify(updatedCart)); // ✅ Save updated cart in LocalStorage
+      return updatedCart;
+    });
+  };
+
   return (
     <div className="flex flex-col lg:flex-row lg:mx-44 md:mx-20 mx-2 my-28">
       {/* Sidebar */}
@@ -77,8 +113,8 @@ export default function ShopList() {
       {/* Shop List */}
       <div className="lg:w-3/4 w-full">
         {products.map((item, i) => (
-          <Link href={`/[products]/${item._id}`} key={item._id}>
-            <div className="flex justify-center">
+          // <Link href={`/products/${item._id}`} key={item._id}>
+            <div key={item._id} className="flex justify-center">
               <div className="lg:flex md:flex gap-8 items-center mb-16 shadow-md">
                 <div>
                   {/* Ensure images fit within their container */}
@@ -129,9 +165,9 @@ export default function ShopList() {
                     <h1 className="text-purple-400">{item.description}</h1>
                   </div>
                   <div className="flex gap-10 mx-3 mt-8 mb-4 text-lg">
-                    <a>
+                    <button onClick={()=>{addToCart(item); console.log(item)}}>
                       <i className="fa-solid fa-cart-shopping hover:cursor-pointer"></i>
-                    </a>
+                    </button>
                     <a>
                       <i className="fa-regular fa-heart hover:cursor-pointer"></i>
                     </a>
@@ -142,7 +178,7 @@ export default function ShopList() {
                 </div>
               </div>
             </div>
-          </Link>
+          // </Link>
         ))}
       </div>
     </div>
