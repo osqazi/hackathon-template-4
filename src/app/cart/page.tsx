@@ -53,7 +53,9 @@ export default function ShoppingCart() {
   
     // Calculate total for all items
     const calculateTotal = () => {
-      return cart.reduce((total, item) => (total + item.price) * item.quantity, 0).toFixed(2);
+      return cart.reduce((total, item) => total +  Number(item.price) * item.quantity, 0).toFixed(2);
+      
+      
     };
 
     const ClearCart = () => {
