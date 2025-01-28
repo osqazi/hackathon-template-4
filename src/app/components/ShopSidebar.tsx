@@ -13,7 +13,7 @@ const ShopSidebar = () => {
       {/* Filter Button positioned outside image container, centered in mobile view */}
       {!isOpen && (
         <button
-          className="lg:hidden absolute top-[-80px] left-1/2 transform -translate-x-1/2 text-black bg-white p-2 rounded z-50"
+          className="lg:hidden absolute top-[-40px] left-1/2 transform -translate-x-1/2 text-black bg-white p-2 rounded z-50"
           onClick={toggleSidebar}
         >
           <i className={`fa-solid fa-filter text-3xl text-blue-600 `} />
@@ -22,7 +22,7 @@ const ShopSidebar = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full bg-white text-black p-4 transform ${
+        className={` mt-36 fixed top-0 left-0 h-full bg-white text-black p-4 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 lg:translate-x-0 lg:relative lg:block lg:p-6 overflow-y-auto lg:overflow-visible max-h-full lg:max-h-none scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 ${
           isOpen ? "scrollbar-auto" : ""

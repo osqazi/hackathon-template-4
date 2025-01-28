@@ -20,7 +20,7 @@ interface Item {
   };
   href: string;
   price: number;
-  discountPercentage:number;
+  discountPercentage: number;
   description: string;
   colors: ProductColor[];
   rating_5: number;
@@ -46,9 +46,10 @@ export default function ShopList() {
     }
     return [];
   });
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   
-
-
   useEffect(() => {
     const fetchProducts = async () => {
       const query = `*[_type == "products"] {
@@ -67,13 +68,23 @@ export default function ShopList() {
         rating_1,
         createdOn
       }`;
+
       const result = await client.fetch<Item[]>(query);
       // Sort by highest average rating first
       result.sort((a, b) => calculateAverageRating(b) - calculateAverageRating(a));
-      setProducts(result);
+      
+      const itemsPerPage = 8;
+      const totalItems = result.length;
+      const pageCount = Math.ceil(totalItems / itemsPerPage);
+      setTotalPages(pageCount);
+      
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      
+      setProducts(result.slice(startIndex, endIndex));
     };
     fetchProducts();
-  }, []);
+  }, [currentPage]);
 
   // Calculate average rating
   const calculateAverageRating = (product: Item) => {
@@ -85,13 +96,12 @@ export default function ShopList() {
 
   const addToCart = (product: Item) => {
     setCart((prevCart) => {
-      // Check if item is already in the cart (prevCart is the latest state)
       const exist = prevCart.some((item) => item.id === product._id);
       if (exist) {
         alert("Item already added to cart!");
-        return prevCart; // Preserve the current cart
+        return prevCart;
       }
-  
+
       const newCartItem: CartItem = {
         ...product,
         id: product._id,
@@ -99,14 +109,19 @@ export default function ShopList() {
         quantity: 1,
         total: product.price - (product.price * product.discountPercentage) / 100,
       };
-  
-      const updatedCart = [...prevCart, newCartItem]; // Append new item
-      localStorage.setItem("cart", JSON.stringify(updatedCart)); // Save to localStorage
-      window.dispatchEvent(new Event("storage")); // Notify other components
+
+      const updatedCart = [...prevCart, newCartItem];
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      window.dispatchEvent(new Event("storage"));
       return updatedCart;
     });
   };
-  
+
+  const handlePageChange = (page: number) => {
+    if (page > 0 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
 
   return (
     <div className="flex flex-col lg:flex-row lg:mx-44 md:mx-20 mx-2 my-28">
@@ -117,74 +132,88 @@ export default function ShopList() {
 
       {/* Shop List */}
       <div className="lg:w-3/4 w-full">
-        {products.map((item, i) => (
-          // <Link href={`/products/${item._id}`} key={item._id}>
-            <div key={item._id} className="flex justify-center">
-              <div className="lg:flex md:flex gap-8 items-center mb-16 shadow-md">
-                <div>
-                  {/* Ensure images fit within their container */}
-                  <img
-                    src={item.image?.asset?.url}
-                    alt={item.name}
-                    className="h-52 w-80 object-contain"
-                  />
-                </div>
-                <div>
-                  <div className="flex items-center justify-between w-80">
-                    <h1 className="font-bold text-lg text-purple-900">
-                      {item.name}
-                    </h1>
-                    <div>
-                      <ul className="flex justify-center gap-2">
-                        {/* Display product colors dynamically */}
-                        {item.colors?.map((color, index) => (
-                          <li
-                            key={index}
-                            className="h-3 w-3 rounded-full"
-                            style={{ backgroundColor: color.hex }}
-                          ></li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between w-80 mt-4">
-                    {/* Display product price */}
-                    <p>${item.price - (item.price * item.discountPercentage / 100)}</p>
-                    <p className="line-through text-red-600">{item.price}</p>
-                    <div>
-                      {/* Render rating stars dynamically */}
-                      {Array.from({ length: 5 }, (_, i) => (
-                        <i
-                          key={i}
-                          className={`fa-solid fa-star ${
-                            i < calculateAverageRating(item)
-                              ? 'text-yellow-400'
-                              : 'text-gray-400'
-                          }`}
-                        ></i>
+        {products.map((item) => (
+          <div key={item._id} className="flex justify-center">
+            <div className="lg:flex md:flex gap-8 items-center mb-16 shadow-md">
+              <div>
+                <img
+                  src={item.image?.asset?.url}
+                  alt={item.name}
+                  className="h-52 w-80 object-contain"
+                />
+              </div>
+              <div>
+                <div className="flex items-center justify-between w-80">
+                  <h1 className="font-bold text-lg text-purple-900">{item.name}</h1>
+                  <div>
+                    <ul className="flex justify-center gap-2">
+                      {item.colors?.map((color, index) => (
+                        <li
+                          key={index}
+                          className="h-3 w-3 rounded-full"
+                          style={{ backgroundColor: color.hex }}
+                        ></li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
-                  <div className="lg:w-[600px] mt-4 w-80 md:w-[450px]">
-                    {/* Display product description */}
-                    <h1 className="text-purple-400">{item.description}</h1>
+                </div>
+                <div className="flex items-center justify-between w-80 mt-4">
+                  <p>${item.price - (item.price * item.discountPercentage) / 100}</p>
+                  <p className="line-through text-red-600">{item.price}</p>
+                  <div>
+                    {Array.from({ length: 5 }, (_, i) => (
+                      <i
+                        key={i}
+                        className={`fa-solid fa-star ${i < calculateAverageRating(item) ? 'text-yellow-400' : 'text-gray-400'}`}
+                      ></i>
+                    ))}
                   </div>
-                  <div className="flex gap-10 mx-3 mt-8 mb-4 text-lg">
-                    <button onClick={()=>{addToCart(item); console.log(item)}}>
-                      <i className="fa-solid fa-cart-shopping hover:cursor-pointer"></i>
-                    </button>
-                    <a>
-                      <i className="fa-regular fa-heart hover:cursor-pointer"></i>
-                    </a>
-                    <a>
-                      <i className="fa-solid fa-magnifying-glass hover:cursor-pointer"></i>
-                    </a>
-                  </div>
+                </div>
+                <div className="lg:w-[600px] mt-4 w-80 md:w-[450px]">
+                  <h1 className="text-purple-400">{item.description}</h1>
+                </div>
+                <div className="flex gap-10 mx-3 mt-8 mb-4 text-lg">
+                  <button onClick={() => { addToCart(item); console.log(item); }}>
+                    <i className="fa-solid fa-cart-shopping hover:cursor-pointer"></i>
+                  </button>
+                  <a>
+                    <i className="fa-regular fa-heart hover:cursor-pointer"></i>
+                  </a>
+                  <a>
+                    <i className="fa-solid fa-magnifying-glass hover:cursor-pointer"></i>
+                  </a>
                 </div>
               </div>
             </div>
-          // </Link>
+          </div>
         ))}
+
+        {/* Pagination */}
+        <div className="flex justify-center mt-8">
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="px-4 py-2 bg-gray-200 rounded-lg mx-2"
+          >
+            Previous
+          </button>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i + 1}
+              onClick={() => handlePageChange(i + 1)}
+              className={`px-4 py-2 mx-1 ${currentPage === i + 1 ? 'bg-purple-900 text-white' : 'bg-gray-100'}`}
+            >
+              {i + 1}
+            </button>
+          ))}
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 bg-gray-200 rounded-lg mx-2"
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );

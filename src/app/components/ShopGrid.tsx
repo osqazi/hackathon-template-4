@@ -31,6 +31,8 @@ interface Item {
 
 export default function ShopGrid() {
   const [products, setProducts] = useState<Item[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -54,6 +56,7 @@ export default function ShopGrid() {
       // Sort by highest average rating first
       result.sort((a, b) => calculateAverageRating(b) - calculateAverageRating(a));
       setProducts(result);
+      setTotalPages(Math.ceil(result.length / 12));
     };
     fetchProducts();
   }, []);
@@ -66,75 +69,115 @@ export default function ShopGrid() {
     return totalRatings > 0 ? totalStars / totalRatings : 0;
   };
 
+  // Get products for the current page
+  const getPaginatedProducts = (page: number) => {
+    const startIndex = (page - 1) * 12;
+    const endIndex = startIndex + 12;
+    return products.slice(startIndex, endIndex);
+  };
+
+  // Handle pagination click
+  const handlePageClick = (page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
-    <div className="flex flex-col lg:flex-row lg:mx-44 md:mx-20 mx-2 my-28">
-      {/* Sidebar */}
-      <div className="lg:w-1/4 w-full">
-        <ShopSidebar />
-      </div>
+    <div>
+      <div className="flex flex-col lg:flex-row lg:mx-44 md:mx-20 mx-2 mt-10">
+        {/* Sidebar */}
+        <div className="lg:w-1/4 w-full">
+          <ShopSidebar />
+        </div>
 
-      {/* Shop Grid */}
-      <div className="lg:w-3/4 w-full grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
-        {products.map((item, i) => (
-          <Link href={`/products/${item._id}`} key={item._id}>
-            <div className="col-span-1">
-              <div className="flex flex-col h-full shadow-md p-4 rounded-md">
-                
-                {/* Image Section */}
-                <div className="bg-stone-100 p-6 lg:p-4 md:p-6 rounded-md flex items-center justify-center h-64">
-                  <img
-                    src={item.image?.asset?.url}
-                    alt={item.name}
-                    className="object-contain max-h-full max-w-full"
-                  />
-                </div>
+        {/* Shop Grid */}
+        <div className="lg:w-3/4 w-full grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
+          {getPaginatedProducts(currentPage).map((item) => (
+            <Link href={`/products/${item._id}`} key={item._id}>
+              <div className="col-span-1">
+                <div className="flex flex-col h-full shadow-md p-2 rounded-md">
+                  {/* Image Section */}
+                  <div className="bg-stone-100 p-6 lg:p-4 md:p-6 rounded-md flex items-center justify-center">
+                    <img
+                      src={item.image?.asset?.url}
+                      alt={item.name}
+                      className="object-contain max-h-full max-w-full"
+                    />
+                  </div>
 
-                {/* Product Info Section */}
-                <div className="flex flex-col items-center justify-between flex-grow">
-                  
-                  {/* Product Name */}
-                  <p className="text-center font-bold p-2 text-[14px] break-words whitespace-normal min-h-[3rem]">
-                    {item.name}
-                  </p>
+                  {/* Product Info Section */}
+                  <div className="flex flex-col items-center justify-between flex-grow">
+                    {/* Product Name */}
+                    <p className="text-center font-bold p-2 text-[14px] break-words whitespace-normal min-h-[3rem]">
+                      {item.name}
+                    </p>
 
-                  {/* Product Colors */}
-                  <div>
-                    <ul className="flex justify-center gap-2">
-                      {item.colors?.map((color, index) => (
-                        <li
-                          key={index}
-                          className="h-3 w-3 rounded-full"
-                          style={{ backgroundColor: color.hex }}
-                        ></li>
+                    {/* Product Colors */}
+                    <div>
+                      <ul className="flex justify-center gap-2">
+                        {item.colors?.map((color, index) => (
+                          <li
+                            key={index}
+                            className="h-3 w-3 rounded-full"
+                            style={{ backgroundColor: color.hex }}
+                          ></li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Price Section */}
+                    <div className="flex justify-center gap-6 pt-1 text-[14px]">
+                      <p>{`$${item.price - (item.price * item.discountPercentage / 100)}`}</p>
+                      <p className="text-red-600 line-through">{`$${item.price}`}</p>
+                    </div>
+
+                    {/* Rating Stars */}
+                    <div className="mt-2">
+                      {Array.from({ length: 5 }, (_, i) => (
+                        <i
+                          key={i}
+                          className={`fa-solid fa-star ${
+                            i < calculateAverageRating(item)
+                              ? 'text-yellow-400'
+                              : 'text-gray-400'
+                          }`}
+                        ></i>
                       ))}
-                    </ul>
+                    </div>
                   </div>
-
-                  {/* Price Section */}
-                  <div className="flex justify-center gap-6 pt-1 text-[14px]">
-                    <p>{`$${item.price - (item.price * item.discountPercentage / 100)}`}</p>
-                    <p className="text-red-600 line-through">{`$${item.price}`}</p>
-                  </div>
-
-                  {/* Rating Stars */}
-                  <div className="mt-2">
-                    {Array.from({ length: 5 }, (_, i) => (
-                      <i
-                        key={i}
-                        className={`fa-solid fa-star ${
-                          i < calculateAverageRating(item)
-                            ? 'text-yellow-400'
-                            : 'text-gray-400'
-                        }`}
-                      ></i>
-                    ))}
-                  </div>
-                  
                 </div>
               </div>
-            </div>
-          </Link>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Pagination */}
+      <div className="flex justify-center gap-4 mt-6">
+        <button
+          onClick={() => handlePageClick(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="px-4 py-2 bg-gray-300 text-white rounded-md disabled:bg-gray-400"
+        >
+          Previous
+        </button>
+        {[...Array(totalPages)].map((_, i) => (
+          <button
+            key={i}
+            onClick={() => handlePageClick(i + 1)}
+            className={`px-4 py-2 rounded-md ${
+              currentPage === i + 1 ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700'
+            }`}
+          >
+            {i + 1}
+          </button>
         ))}
+        <button
+          onClick={() => handlePageClick(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 bg-gray-300 text-white rounded-md disabled:bg-gray-400"
+        >
+          Next
+        </button>
       </div>
     </div>
   );
