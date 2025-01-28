@@ -23,7 +23,7 @@ export default function Checkout() {
     }, []);
 
     const calculateTotal = () => {
-        return cart.reduce((total, item) => (total + item.price) * item.quantity, 0).toFixed(2);
+        return cart.reduce((total, item) => total +  Number(item.price) * item.quantity, 0).toFixed(2);
     };
 
     return (
@@ -123,11 +123,7 @@ export default function Checkout() {
                                 <hr className="border-gray-300 border-2" />
                             </div>
                             <label className="flex items-center space-x-2 pt-10 pb-8">
-                                <input 
-                                    type="checkbox" 
-                                    className="h-4 w-4 rounded text-green-600 border-gray-300"
-                                />
-                                <span>Shipping and Taxes calculated at checkout</span>
+                                
                             </label>
                             <div className="form-group">
                                 <input

@@ -1,7 +1,7 @@
 "use client"
 import Hero2 from "../components/Hero2";
-import { cartAtom } from "../store/cartAtom";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function ShoppingCart() {
     
@@ -150,11 +150,11 @@ export default function ShoppingCart() {
                   <span>Shipping and Taxes calculated at checkout</span>
                 </label>
                 <div className="form-group">
-                <input
+                <Link href={'/checkout'}><input
                   type="button"
                   className="form-control py-3 px-3 border border-gray-200 rounded-md text-white bg-green-500 w-full  hover:bg-green-400 hover:cursor-pointer"
                   value="Proceed to Checkout"
-                />
+                /></Link>
               </div>
           </div>
           <div>
