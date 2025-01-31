@@ -1,6 +1,7 @@
 "use client"
 import Hero2 from "../components/Hero2";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function Checkout() {
     
@@ -98,11 +99,13 @@ export default function Checkout() {
                                 />
                             </div>
                             <div className="form-group">
+                                
                                 <input
-                                    type="button"
+                                    type="text"
                                     className="form-control py-3 px-3 border border-gray-200 rounded-md text-white bg-pink-600 w-full lg:w-44 md:w-36 hover:bg-pink-400 hover:cursor-pointer"
                                     value="Place Order"
                                 />
+                                
                             </div>
                         </form>
                     </div>
@@ -126,11 +129,13 @@ export default function Checkout() {
                                 
                             </label>
                             <div className="form-group">
+                                <Link href={`/makepayment`}>
                                 <input
-                                    type="button"
+                                    type="text"
                                     className="form-control py-3 px-3 border border-gray-200 rounded-md text-white bg-green-500 w-full hover:bg-green-400 hover:cursor-pointer"
                                     value="Proceed to Payment"
                                 />
+                                </Link>
                             </div>
                         </div>
                     </div>
