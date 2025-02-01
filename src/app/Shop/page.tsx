@@ -7,6 +7,7 @@ import ShopList from "../components/ShopList";
 
 export default function Shop() {
   const [gridView, setGridView] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <div>
@@ -73,7 +74,10 @@ export default function Shop() {
                   type="text"
                   name="blank"
                   required
-                  className="border border-gray-300 lg:w-48 text-center p-1"
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="border border-gray-300 lg:w-48  p-1 px-2"
                 />
               </div>
             </div>
@@ -81,7 +85,7 @@ export default function Shop() {
         </div>
 
         {/* Conditionally render either ShopGrid or ShopList */}
-        {gridView ? <ShopGrid /> : <ShopList />}
+        {gridView ? <ShopGrid searchQuery={searchQuery} /> : <ShopList searchQuery={searchQuery} />}
 
         {/* Brand Image */}
         <div className="flex justify-center p-8 sm:p-16">

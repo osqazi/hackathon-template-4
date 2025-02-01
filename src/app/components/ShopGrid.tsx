@@ -29,7 +29,7 @@ interface Item {
   createdOn: string;
 }
 
-export default function ShopGrid() {
+export default function ShopGrid({ searchQuery }: { searchQuery: string }) {
   const [products, setProducts] = useState<Item[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
@@ -61,6 +61,10 @@ export default function ShopGrid() {
     fetchProducts();
   }, []);
 
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   // Calculate average rating
   const calculateAverageRating = (product: Item) => {
     const { rating_5, rating_4, rating_3, rating_2, rating_1 } = product;
@@ -73,7 +77,7 @@ export default function ShopGrid() {
   const getPaginatedProducts = (page: number) => {
     const startIndex = (page - 1) * 12;
     const endIndex = startIndex + 12;
-    return products.slice(startIndex, endIndex);
+    return filteredProducts.slice(startIndex, endIndex);
   };
 
   // Handle pagination click
