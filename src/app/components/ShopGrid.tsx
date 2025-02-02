@@ -27,12 +27,31 @@ interface Item {
   rating_2: number;
   rating_1: number;
   createdOn: string;
+  brand: string;
+  category: string;
 }
 
 export default function ShopGrid({ searchQuery }: { searchQuery: string }) {
   const [products, setProducts] = useState<Item[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
+
+  const [filters, setFilters] = useState({
+    brands: [] as string[],
+    discountOffers: [] as string[],
+    ratings: [] as number[],
+    categories: [] as string[],
+  });
+
+  // Calculate average rating
+  const calculateAverageRating = (product: Item) => {
+    const { rating_5, rating_4, rating_3, rating_2, rating_1 } = product;
+    const totalRatings = rating_5 + rating_4 + rating_3 + rating_2 + rating_1;
+    const totalStars = rating_5 * 5 + rating_4 * 4 + rating_3 * 3 + rating_2 * 2 + rating_1;
+    return totalRatings > 0 ? totalStars / totalRatings : 0;
+  };
+
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -61,19 +80,23 @@ export default function ShopGrid({ searchQuery }: { searchQuery: string }) {
     fetchProducts();
   }, []);
 
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredProducts = products.filter((product) => {
+    const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesBrand = filters.brands.length === 0 || filters.brands.includes(product.brand);
+    const matchesCategory =
+      filters.categories.length === 0 || filters.categories.includes(product.category);
+    const matchesDiscount =
+      filters.discountOffers.length === 0 ||
+      filters.discountOffers.some((discount) => product.discountPercentage >= parseInt(discount));
+    const matchesRating =
+      filters.ratings.length === 0 ||
+      filters.ratings.some((rating) => calculateAverageRating(product) >= rating);
 
-  // Calculate average rating
-  const calculateAverageRating = (product: Item) => {
-    const { rating_5, rating_4, rating_3, rating_2, rating_1 } = product;
-    const totalRatings = rating_5 + rating_4 + rating_3 + rating_2 + rating_1;
-    const totalStars = rating_5 * 5 + rating_4 * 4 + rating_3 * 3 + rating_2 * 2 + rating_1;
-    return totalRatings > 0 ? totalStars / totalRatings : 0;
-  };
+    return matchesSearch && matchesBrand && matchesCategory && matchesDiscount && matchesRating;
+  });
 
-  // Get products for the current page
+
+    // Get products for the current page
   const getPaginatedProducts = (page: number) => {
     const startIndex = (page - 1) * 12;
     const endIndex = startIndex + 12;
@@ -90,7 +113,7 @@ export default function ShopGrid({ searchQuery }: { searchQuery: string }) {
       <div className="flex flex-col lg:flex-row lg:mx-44 md:mx-20 mx-2 mt-10">
         {/* Sidebar */}
         <div className="lg:w-1/4 w-full">
-          <ShopSidebar />
+        <ShopSidebar filters={filters} setFilters={setFilters} />
         </div>
 
         {/* Shop Grid */}

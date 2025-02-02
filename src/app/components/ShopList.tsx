@@ -49,7 +49,21 @@ export default function ShopList({ searchQuery }: { searchQuery: string }) {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [filters, setFilters] = useState({
+    brands: [] as string[],
+    discountOffers: [] as string[],
+    ratings: [] as number[],
+    categories: [] as string[],
+  });
   
+  // Calculate average rating
+  const calculateAverageRating = (product: Item) => {
+    const { rating_5, rating_4, rating_3, rating_2, rating_1 } = product;
+    const totalRatings = rating_5 + rating_4 + rating_3 + rating_2 + rating_1;
+    const totalStars = rating_5 * 5 + rating_4 * 4 + rating_3 * 3 + rating_2 * 2 + rating_1;
+    return totalRatings > 0 ? totalStars / totalRatings : 0;
+  };
+
   useEffect(() => {
     const fetchProducts = async () => {
       const query = `*[_type == "products"] {
@@ -79,7 +93,33 @@ export default function ShopList({ searchQuery }: { searchQuery: string }) {
           product.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
       }
-      
+
+      // Brand filter
+      if (filters.brands.length > 0) {
+        filteredProducts = filteredProducts.filter((product) =>
+          filters.brands.includes(product.name)
+        );
+      }
+
+      // Discount filter
+      if (filters.discountOffers.length > 0) {
+        filteredProducts = filteredProducts.filter((product) =>
+          filters.discountOffers.some((offer) => {
+            if (offer === "20% Cashback") return product.discountPercentage >= 20;
+            if (offer === "5% Cashback Offer") return product.discountPercentage >= 5;
+            if (offer === "25% Discount Offer") return product.discountPercentage >= 25;
+            return false;
+          })
+        );
+      }
+
+      // Ratings filter
+      if (filters.ratings.length > 0) {
+        filteredProducts = filteredProducts.filter((product) =>
+          filters.ratings.some((rating) => calculateAverageRating(product) >= rating)
+        );
+      }
+
       const itemsPerPage = 8;
       const totalItems = filteredProducts.length;
       const pageCount = Math.ceil(totalItems / itemsPerPage);
@@ -91,17 +131,7 @@ export default function ShopList({ searchQuery }: { searchQuery: string }) {
       setProducts(paginatedProducts);
     };
     fetchProducts();
-  }, [currentPage, searchQuery]);
-
-  
-
-  // Calculate average rating
-  const calculateAverageRating = (product: Item) => {
-    const { rating_5, rating_4, rating_3, rating_2, rating_1 } = product;
-    const totalRatings = rating_5 + rating_4 + rating_3 + rating_2 + rating_1;
-    const totalStars = rating_5 * 5 + rating_4 * 4 + rating_3 * 3 + rating_2 * 2 + rating_1;
-    return totalRatings > 0 ? totalStars / totalRatings : 0;
-  };
+  }, [currentPage, searchQuery, filters]);
 
   const addToCart = (product: Item) => {
     setCart((prevCart) => {
@@ -136,7 +166,7 @@ export default function ShopList({ searchQuery }: { searchQuery: string }) {
     <div className="flex flex-col lg:flex-row lg:mx-44 md:mx-20 mx-2 my-28">
       {/* Sidebar */}
       <div className="lg:w-1/4 w-full">
-        <ShopSidebar />
+      <ShopSidebar filters={filters} setFilters={setFilters} />
       </div>
 
       {/* Shop List */}
@@ -173,7 +203,7 @@ export default function ShopList({ searchQuery }: { searchQuery: string }) {
                     {Array.from({ length: 5 }, (_, i) => (
                       <i
                         key={i}
-                        className={`fa-solid fa-star ${i < calculateAverageRating(item) ? 'text-yellow-400' : 'text-gray-400'}`}
+                        className={`fa-solid fa-star ${i < calculateAverageRating(item) ? 'text-yellow-400' : 'text-gray-400'}` }
                       ></i>
                     ))}
                   </div>
@@ -182,7 +212,7 @@ export default function ShopList({ searchQuery }: { searchQuery: string }) {
                   <h1 className="text-purple-400">{item.description}</h1>
                 </div>
                 <div className="flex gap-10 mx-3 mt-8 mb-4 text-lg">
-                  <button onClick={() => { addToCart(item); console.log(item); }}>
+                  <button onClick={() => { addToCart(item); console.log(item); }} >
                     <i className="fa-solid fa-cart-shopping hover:cursor-pointer"></i>
                   </button>
                   <a>

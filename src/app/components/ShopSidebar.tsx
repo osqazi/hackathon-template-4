@@ -1,7 +1,20 @@
+"use client"
 import { useState } from "react";
 import Link from "next/link";
 
-const ShopSidebar = () => {
+const ShopSidebar = ({ filters, setFilters }: any) => {
+
+  const handleFilterChange = (type: any, value: any) => {
+    setFilters((prev: any) => {
+      const updatedFilters = { ...prev };
+      if (updatedFilters[type].includes(value)) {
+        updatedFilters[type] = updatedFilters[type].filter((item: any) => item !== value);
+      } else {
+        updatedFilters[type] = [...updatedFilters[type], value];
+      }
+      return updatedFilters;
+    });
+  };
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -57,6 +70,7 @@ const ShopSidebar = () => {
                     type="checkbox"
                     id={`brand-${brand}`}
                     className="mr-2"
+                    onChange={() => handleFilterChange("brands", brand)}
                   />
                   <label
                     htmlFor={`brand-${brand}`}
@@ -82,6 +96,7 @@ const ShopSidebar = () => {
                       type="checkbox"
                       id={`discount-${offer}`}
                       className="mr-2"
+                      onChange={() => handleFilterChange("discountOffers", offer)}
                     />
                     <label
                       htmlFor={`discount-${offer}`}
@@ -107,6 +122,7 @@ const ShopSidebar = () => {
                     type="checkbox"
                     id={`rating-${rating}`}
                     className="mr-2"
+                    onChange={() => handleFilterChange("ratings", rating)}
                   />
                   <label
                     htmlFor={`rating-${rating}`}
@@ -141,6 +157,7 @@ const ShopSidebar = () => {
                     type="checkbox"
                     id={`category-${category}`}
                     className="mr-2"
+                    onChange={() => handleFilterChange("catagories", category)}
                   />
                   <label
                     htmlFor={`category-${category}`}
