@@ -12,6 +12,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAtomValue } from "jotai";
 import { cartAtom } from "../store/cartAtom";
+import {
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton
+} from '@clerk/nextjs'
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -101,6 +107,12 @@ const Navbar = () => {
                 </span>
               </Link>
             </span>
+            <SignedOut>
+            <SignInButton />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
           </div>
         </div>
       </div>

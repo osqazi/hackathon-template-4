@@ -4,6 +4,11 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { Analytics } from "@vercel/analytics/react"
+import {
+  ClerkProvider,
+  
+} from '@clerk/nextjs'
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ClerkProvider>
     <html lang="en">
       <link rel="icon" href="favicon.png"></link>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"></link>
@@ -27,11 +33,13 @@ export default function RootLayout({
         <Navbar/>
       </header>
       <div className="pt-28">
+         
         {children}
         </div>
         <Analytics />
         <Footer/>
         </body>
     </html>
+    </ClerkProvider>
   );
 }
