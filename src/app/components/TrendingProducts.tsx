@@ -40,7 +40,7 @@ const TrendingProduct: React.FC = () => {
   }, []);
 
   return (
-    <section className="py-16 bg-light-gray">
+    <section className="py-24 px-24 bg-light-gray mx-0">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-center text-dark-blue mb-6">Trending Products</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

@@ -39,13 +39,13 @@ const LatestProduct: React.FC = () => {
   }, []);
 
   return (
-    <section className="py-16 bg-light-gray">
+    <section className="py-16 bg-light-gray lg:mx-44 md:mx-30 mx-4">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-center text-dark-blue mb-6">Latest Products</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((product) => (
             <Link href={`/products/${product._id}`} key={product._id}>
-              <div className="border rounded-md shadow-md p-4 bg-white relative group">
+              <div className="border rounded-md shadow-md p-4 bg-white relative group lg:h-[450px]">
                 <div className="relative">
                   <img src={product.img} alt={product.name} className="w-full h-auto object-cover rounded-md" />
                   {product.onSale && (

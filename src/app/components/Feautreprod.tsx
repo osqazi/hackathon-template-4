@@ -19,7 +19,7 @@ const FeaturedProducts: React.FC = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const query = `*[_type == "products" && isFeaturedProduct == true] {
+      const query = `*[_type == "products" && isFeaturedProduct == true] [0...6] {
         _id, name, image
       }`;
       const data = await client.fetch(query);
