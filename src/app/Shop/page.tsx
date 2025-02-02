@@ -8,6 +8,8 @@ import ShopList from "../components/ShopList";
 export default function Shop() {
   const [gridView, setGridView] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const [sorting, setSorting] = useState("bm");
+
 
   return (
     <div>
@@ -47,6 +49,7 @@ export default function Shop() {
                   name="sortBy"
                   required
                   className="border border-gray-300 text-lg p-2"
+                  onChange={(e) => setSorting(e.target.value)}
                 >
                   <option value="bm">Best Match</option>
                   <option value="pl">Price Low</option>
@@ -85,7 +88,7 @@ export default function Shop() {
         </div>
 
         {/* Conditionally render either ShopGrid or ShopList */}
-        {gridView ? <ShopGrid searchQuery={searchQuery} /> : <ShopList searchQuery={searchQuery} />}
+        {gridView ? <ShopGrid searchQuery={searchQuery} sorting={sorting} /> : <ShopList searchQuery={searchQuery} sorting={sorting} />}
 
         {/* Brand Image */}
         <div className="flex justify-center p-8 sm:p-16">

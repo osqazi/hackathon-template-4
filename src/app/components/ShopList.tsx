@@ -38,7 +38,7 @@ interface CartItem extends Item {
   total: number;
 }
 
-export default function ShopList({ searchQuery }: { searchQuery: string }) {
+export default function ShopList({ searchQuery, sorting }: { searchQuery: string, sorting: string }) {
   const [products, setProducts] = useState<Item[]>([]);
   const [cart, setCart] = useState<CartItem[]>(() => {
     if (typeof window !== "undefined") {
@@ -85,7 +85,16 @@ export default function ShopList({ searchQuery }: { searchQuery: string }) {
 
       const result = await client.fetch<Item[]>(query);
       // Sort by highest average rating first
-      result.sort((a, b) => calculateAverageRating(b) - calculateAverageRating(a));
+      if(sorting === "bm"){
+        result.sort((a, b) => calculateAverageRating(b) - calculateAverageRating(a));  
+      }
+      if(sorting === "pl"){
+        result.sort((a, b) => a.price - b.price);
+      } 
+      if(sorting === "ph"){
+        result.sort((a, b) => b.price - a.price);
+      } 
+      
       
       let filteredProducts = result;
       if (searchQuery) {
@@ -131,7 +140,7 @@ export default function ShopList({ searchQuery }: { searchQuery: string }) {
       setProducts(paginatedProducts);
     };
     fetchProducts();
-  }, [currentPage, searchQuery, filters]);
+  }, [currentPage, searchQuery, filters, sorting]);
 
   const addToCart = (product: Item) => {
     setCart((prevCart) => {

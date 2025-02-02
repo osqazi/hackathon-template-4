@@ -31,7 +31,7 @@ interface Item {
   category: string;
 }
 
-export default function ShopGrid({ searchQuery }: { searchQuery: string }) {
+export default function ShopGrid({ searchQuery, sorting }: { searchQuery: string, sorting: string }) {
   const [products, setProducts] = useState<Item[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
@@ -73,12 +73,20 @@ export default function ShopGrid({ searchQuery }: { searchQuery: string }) {
       }`;
       const result = await client.fetch<Item[]>(query);
       // Sort by highest average rating first
-      result.sort((a, b) => calculateAverageRating(b) - calculateAverageRating(a));
+      if (sorting === "bm") {
+        result.sort((a, b) => calculateAverageRating(b) - calculateAverageRating(a));
+      } else if (sorting === "pl") {
+        result.sort((a, b) => a.price - b.price);
+      } else if (sorting === "ph") {
+        result.sort((a, b) => b.price - a.price);
+      }
+  
       setProducts(result);
-      setTotalPages(Math.ceil(result.length / 12));
+      setTotalPages(Math.ceil(result.length / 12)); // Adjust pages based on the total number of products
     };
+  
     fetchProducts();
-  }, []);
+  }, [sorting]); // Re-run when `sorting` changes
 
   const filteredProducts = products.filter((product) => {
     const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
