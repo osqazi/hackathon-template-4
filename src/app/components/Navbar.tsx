@@ -19,7 +19,7 @@ import {
   UserButton
 } from '@clerk/nextjs'
 
-const Navbar = () => {
+const Navbar =  () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const router = useRouter();
   const [cartCount, setCartCount] = useState(0);

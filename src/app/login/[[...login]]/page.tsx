@@ -1,4 +1,6 @@
-import Hero2 from "../components/Hero2";
+import Link from "next/link";
+import Hero2 from "../../components/Hero2";
+import { SignIn } from "@clerk/nextjs";
 
 export default function Login() {
   return (
@@ -7,7 +9,7 @@ export default function Login() {
 
       <div className="flex justify-center items-center w-full px-0 sm:px-16 lg:px-0 mt-32 mb-16">
         {/* Form Section */}
-        <div className="w-full sm:w-[90%] md:w-[50%] lg:w-[30%] text-center">
+        {/* <div className="w-full sm:w-[90%] md:w-[50%] lg:w-[30%] text-center">
           <div className="text-3xl font-extrabold py-8 px-4 sm:px-8">
             <h1 className="mb-2">Login</h1>
             <p className="font-normal text-sm text-gray-400 mb-6">Please login using account detail below.</p>
@@ -32,16 +34,20 @@ export default function Login() {
               </div>
               <a href="#" className="hover:cursor-pointer"><p className="font-normal text-sm text-gray-400 mb-6 text-left">Forgot your password?</p></a>
               <div className="form-group">
+                <Link href={'https://feasible-shad-50.accounts.dev/sign-in'}>
                 <input
                   type="button"
                   className="form-control py-3 px-4 border border-gray-200 rounded-md text-white bg-pink-600 w-full hover:bg-pink-400 hover:cursor-pointer"
                   value={"Sign In"}
                   required
                 />
+                </Link>
               </div>
             </form>
+            
           </div>
-        </div>
+        </div> */}
+        <SignIn/>
       </div>
 
       {/* Brand Image */}
@@ -52,6 +58,8 @@ export default function Login() {
           className="w-full max-w-[70rem] h-auto"
         />
       </div>
+
+      
     </div>
   );
 }
