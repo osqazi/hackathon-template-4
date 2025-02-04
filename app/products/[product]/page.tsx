@@ -27,16 +27,20 @@ interface ProductDet {
   createdOn: string;
 }
 
-interface PageProps {
-  params: Promise<{ product: string }>;
-  searchParams?: { [key: string]: string | string[] | undefined };
+// Generate static params
+export async function generateStaticParams() {
+  const query = `*[_type == "products"]{ _id }`;
+  const products = await client.fetch(query);
+  
+  return products.map((product: { _id: string }) => ({
+    product: product._id,
+  }));
 }
 
-export default async function ProductPage({ params, searchParams }: PageProps) {
-  // Await the params
-  const resolvedParams = await params;
+// Fetch product data
+async function getProduct(productId: string): Promise<ProductDet> {
+  'use server';
   
-  // Fetch data on the server side
   const query = `*[_type == "products" && _id == $id][0] {
     _id,
     name,
@@ -54,9 +58,31 @@ export default async function ProductPage({ params, searchParams }: PageProps) {
     createdOn
   }`;
 
-  const product: ProductDet = await client.fetch(query, { id: resolvedParams.product });
-
-  return <ProductDetailClient product={product} />;
+  return client.fetch(query, { id: productId });
 }
 
-// ProductDetailClient.tsx remains exactly the same as in the previous version
+interface PageProps {
+  params: { product: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
+
+export default async function ProductPage(props: PageProps) {
+  const { params } = props;
+  
+  try {
+    const product = await getProduct(params.product);
+
+    if (!product) {
+      return <div className="text-center p-8">Product not found</div>;
+    }
+
+    return <ProductDetailClient product={product} />;
+  } catch (error) {
+    console.error('Error fetching product:', error);
+    return <div className="text-center p-8">Error loading product</div>;
+  }
+}
+
+// Opt into dynamic behavior
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
