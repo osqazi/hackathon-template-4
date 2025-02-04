@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { useStripe, useElements, PaymentElement } from "@stripe/react-stripe-js";
+import { useRouter } from "next/navigation";
 
 const CheckoutForm = ({ amount }: { amount: number }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [clientSecret, setClientSecret] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     fetch("/api/checkout/session", {
@@ -24,11 +26,15 @@ const CheckoutForm = ({ amount }: { amount: number }) => {
 
     const result = await stripe.confirmPayment({
       elements,
-      confirmParams: { return_url: window.location.origin },
+      confirmParams: {
+        return_url: `${window.location.origin}/orderComp`, // ✅ Stripe redirects here after payment
+      },
     });
 
     if (result.error) {
       alert(result.error.message);
+    } else {
+      router.push("/orderComp"); // ✅ Redirect programmatically
     }
   };
 

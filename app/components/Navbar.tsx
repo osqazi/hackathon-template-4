@@ -7,11 +7,11 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "../components/ui/select";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useAtomValue } from "jotai";
-import { cartAtom } from "../store/cartAtom";
+// import { useAtomValue } from "jotai";
+// import { cartAtom } from "../store/cartAtom";
 import {
   SignInButton,
   SignedIn,
@@ -23,6 +23,12 @@ const Navbar =  () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const router = useRouter();
   const [cartCount, setCartCount] = useState(0);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
 
   const NavLinks = [
     { name: "Home", href: "../", specialSelect: true },

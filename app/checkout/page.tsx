@@ -1,8 +1,7 @@
-"use client";
+"use client"
 import Hero2 from "../components/Hero2";
 import { useState, useEffect } from "react";
-import { useAuth } from "@clerk/nextjs";
-import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function Checkout() {
     
@@ -16,8 +15,6 @@ export default function Checkout() {
     }
 
     const [cart, setCart] = useState<Cart[]>([]);
-    const { isSignedIn } = useAuth(); // Already destructured here
-    const router = useRouter(); // Fixed to use 'router' instead of 'route'
 
     useEffect(() => {
         const storedCart = localStorage.getItem("cart");
@@ -27,17 +24,7 @@ export default function Checkout() {
     }, []);
 
     const calculateTotal = () => {
-        return cart.reduce((total, item) => total + Number(item.price) * item.quantity, 0).toFixed(2);
-    };
-
-    const handlePaymentProceed = () => {
-        if (!isSignedIn) {
-            // Redirect to login page if not signed in
-            router.push("https://feasible-shad-50.accounts.dev/sign-in");
-        } else {
-            // Redirect to the payment page if signed in
-            router.push("/makepayment");
-        }
+        return cart.reduce((total, item) => total +  Number(item.price) * item.quantity, 0).toFixed(2);
     };
 
     return (
@@ -48,7 +35,6 @@ export default function Checkout() {
                     <div className="col-span-1 lg:w-[600px] md:w-[400px]">
                         <h2 className="text-2xl font-bold mb-8">Billing Details</h2>
                         <form className="text-sm font-normal py-12 bg-gray-100 rounded-sm px-8">
-                            {/* Form fields */}
                             <div className="form-group mb-6">
                                 <input
                                     type="text"
@@ -58,13 +44,68 @@ export default function Checkout() {
                                     required
                                 />
                             </div>
-                            {/* Other form fields */}
+                            <div className="form-group mb-6">
+                                <input
+                                    type="text"
+                                    className="form-control py-4 px-2 bg-transparent border-b-4 rounded-md w-full"
+                                    id="last_name"
+                                    placeholder="Last Name"
+                                    required
+                                />
+                            </div>
+                            <div className="form-group mb-6">
+                                <input
+                                    type="email"
+                                    className="form-control py-4 px-2 bg-transparent border-b-4 rounded-md w-full"
+                                    id="email"
+                                    placeholder="Email"
+                                    required
+                                />
+                            </div>
+                            <div className="form-group mb-6">
+                                <input
+                                    type="text"
+                                    className="form-control py-4 px-2 bg-transparent border-b-4 rounded-md w-full"
+                                    id="address"
+                                    placeholder="Address"
+                                    required
+                                />
+                            </div>
+                            <div className="form-group mb-6">
+                                <input
+                                    type="text"
+                                    className="form-control py-4 px-2 bg-transparent border-b-4 rounded-md w-full"
+                                    id="city"
+                                    placeholder="City"
+                                    required
+                                />
+                            </div>
+                            <div className="form-group mb-6">
+                                <input
+                                    type="text"
+                                    className="form-control py-4 px-2 bg-transparent border-b-4 rounded-md w-full"
+                                    id="postal_code"
+                                    placeholder="Postal Code"
+                                    required
+                                />
+                            </div>
+                            <div className="form-group mb-6">
+                                <input
+                                    type="text"
+                                    className="form-control py-4 px-2 bg-transparent border-b-4 rounded-md w-full"
+                                    id="country"
+                                    placeholder="Country"
+                                    required
+                                />
+                            </div>
                             <div className="form-group">
+                                
                                 <input
                                     type="text"
                                     className="form-control py-3 px-3 border border-gray-200 rounded-md text-white bg-pink-600 w-full lg:w-44 md:w-36 hover:bg-pink-400 hover:cursor-pointer"
                                     value="Place Order"
                                 />
+                                
                             </div>
                         </form>
                     </div>
@@ -84,13 +125,17 @@ export default function Checkout() {
                             <div className="my-4">
                                 <hr className="border-gray-300 border-2" />
                             </div>
+                            <label className="flex items-center space-x-2 pt-10 pb-8">
+                                
+                            </label>
                             <div className="form-group">
+                                <Link href={`/makepayment`}>
                                 <input
-                                    type="button"
+                                    type="text"
                                     className="form-control py-3 px-3 border border-gray-200 rounded-md text-white bg-green-500 w-full hover:bg-green-400 hover:cursor-pointer"
                                     value="Proceed to Payment"
-                                    onClick={handlePaymentProceed}
                                 />
+                                </Link>
                             </div>
                         </div>
                     </div>

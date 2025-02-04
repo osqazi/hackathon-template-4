@@ -1,6 +1,6 @@
 import { Heading } from "lucide-react";
 import Image from "next/image";
-import pagePic from "../../../public/images/contactpgpic.png";
+import pagePic from "../../public/images/contactpgpic.png";
 import Hero2 from "../components/Hero2";
 
 export default function Contact() {
