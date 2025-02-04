@@ -30,7 +30,7 @@ interface ProductDet {
 }
 
 interface ProductPageProps {
-  params: { product: string };
+  params: { product: any };
 }
 
 // Ensure it's a synchronous function
