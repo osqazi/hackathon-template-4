@@ -31,8 +31,9 @@ interface ProductDet {
 
 // @ts-nocheck
 
-export default function ProductDetail({ params }: { params: { product: string } }) {
-  const prodID = params.product;
+export default function ProductDetail({ params }: { params: { products: string } }) {
+  const { products } = params;
+  const prodID = products
   const [product, setProduct] = useState<ProductDet | null>(null);
 
   // Fetch Product Data
