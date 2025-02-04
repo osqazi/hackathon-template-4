@@ -29,12 +29,16 @@ interface ProductDet {
   createdOn: string;
 }
 
-export default function ProductDetail({
-  params,
-}: {
-  params: { product: string };
-}) {
+interface ProductPageProps {
+  params: {
+    product: string;
+  };
+}
+
+export default function ProductDetail({ params }: ProductPageProps) {
   const prodID = params.product;
+
+
   const [product, setProduct] = useState<ProductDet | null>(null);
 
   // Fetch Product Data
