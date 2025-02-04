@@ -30,14 +30,12 @@ interface ProductDet {
 }
 
 interface ProductPageProps {
-  params: {
-    product: string;
-  };
+  params: { product: string };
 }
 
+// Ensure it's a synchronous function
 export default function ProductDetail({ params }: ProductPageProps) {
   const prodID = params.product;
-
 
   const [product, setProduct] = useState<ProductDet | null>(null);
 
