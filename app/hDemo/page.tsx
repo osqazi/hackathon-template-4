@@ -62,11 +62,11 @@ export default function HektoDemo() {
           <div className="bg-blue-50 text-2xl font-bold py-16 px-6 sm:px-12 mx-2 lg:mx-0 md:mx-0">
             <div className="lg:flex lg:justify-between text-center text-nowrap">
               <h1 className="mb-8 text-purple-900">Contact Information</h1>
-              <a href="/login">
+              <Link href="/login">
                 <p className="font-normal text-sm text-gray-400">
                   Already have an account? Login.
                 </p>
-              </a>
+              </Link>
             </div>
             <form className="text-sm font-normal">
               <div className="form-group mb-6">

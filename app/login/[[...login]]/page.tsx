@@ -1,4 +1,4 @@
-import Link from "next/link";
+
 import Hero2 from "../../components/Hero2";
 import { SignIn } from "@clerk/nextjs";
 
