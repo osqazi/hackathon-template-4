@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     console.log("Updating order with _id:", order._id, "New Status:", status);
 
     // Update order's paymentStatus
-    await client.patch(order._id, order.orderId)
+    await client.patch(order._id)
       .set({ paymentStatus: status })
       .commit()
       .then((res) => console.log("Sanity update response:", res))
