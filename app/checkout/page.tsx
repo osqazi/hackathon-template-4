@@ -1,7 +1,10 @@
+
 "use client"
 import Hero2 from "../components/Hero2";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
+
 
 export default function Checkout() {
     
@@ -15,17 +18,83 @@ export default function Checkout() {
     }
 
     const [cart, setCart] = useState<Cart[]>([]);
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [phone, setPhone] = useState("");
+    const [address, setAddress] = useState("");
+    const [city, setCity] = useState("");
+    const [postalCode, setPostalCode] = useState("");
+    const [country, setCountry] = useState("");
+    const {user, isSignedIn} = useUser();
 
     useEffect(() => {
         const storedCart = localStorage.getItem("cart");
         if (storedCart) {
             setCart(JSON.parse(storedCart));
+            console.log(cart)
         }
     }, []);
 
     const calculateTotal = () => {
         return cart.reduce((total, item) => total +  Number(item.price) * item.quantity, 0).toFixed(2);
     };
+    
+
+    const handleOrderSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (!isSignedIn) {
+            return alert("Please sign in to place an order");
+          } else {
+            const orderData = {
+                username: user.emailAddresses[0].emailAddress, // Or use a logged-in username
+                firstName,
+                lastName,
+                phone,
+                address,
+                city,
+                postalCode,
+                country,
+                orderId: `ORD-${Date.now()}`,
+                orderDate: new Date().toISOString(),
+                orderStatus: "Pending",
+                paymentStatus: "Pending",
+                totalAmount: Number(calculateTotal()),
+                products: cart.map((item) => ({
+                    _key: item.id,
+                    productId: item.id,
+                    productName: item.name,
+                    productImage: item.pic,
+                    productPrice: Number(item.price),
+                    productQuantity: item.quantity,
+                })),
+            };
+    
+            try {
+                const response = await fetch("/api/createOrder", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(orderData),
+                });
+    
+                if (response.ok) {
+                    localStorage.removeItem("cart");
+                    setCart([]);
+                    window.location.href = "/orderComp"; // Redirect to a Thank You page
+                } else {
+                    console.error("Failed to create order");
+                }
+            } catch (error) {
+                console.error("Error creating order:", error);
+            }
+        };
+
+          }
+        
+
+        
 
     return (
         <div>
@@ -34,7 +103,7 @@ export default function Checkout() {
                 <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-72">
                     <div className="col-span-1 lg:w-[600px] md:w-[400px]">
                         <h2 className="text-2xl font-bold mb-8">Billing Details</h2>
-                        <form className="text-sm font-normal py-12 bg-gray-100 rounded-sm px-8">
+                        <form onSubmit={handleOrderSubmit} className="text-sm font-normal py-12 bg-gray-100 rounded-sm px-8">
                             <div className="form-group mb-6">
                                 <input
                                     type="text"
@@ -42,6 +111,8 @@ export default function Checkout() {
                                     id="first_name"
                                     placeholder="First Name"
                                     required
+                                    value={firstName}
+                                    onChange={(e) => setFirstName(e.target.value)}
                                 />
                             </div>
                             <div className="form-group mb-6">
@@ -51,15 +122,19 @@ export default function Checkout() {
                                     id="last_name"
                                     placeholder="Last Name"
                                     required
+                                    value={lastName}
+                                    onChange={(e) => setLastName(e.target.value)}
                                 />
                             </div>
                             <div className="form-group mb-6">
                                 <input
-                                    type="email"
+                                    type="text"
                                     className="form-control py-4 px-2 bg-transparent border-b-4 rounded-md w-full"
-                                    id="email"
-                                    placeholder="Email"
+                                    id="phone"
+                                    placeholder="Phone / Mobile Number"
                                     required
+                                    value={phone}
+                                    onChange={(e) => setPhone(e.target.value)}
                                 />
                             </div>
                             <div className="form-group mb-6">
@@ -69,6 +144,8 @@ export default function Checkout() {
                                     id="address"
                                     placeholder="Address"
                                     required
+                                    value={address}
+                                    onChange={(e) => setAddress(e.target.value)}
                                 />
                             </div>
                             <div className="form-group mb-6">
@@ -78,6 +155,8 @@ export default function Checkout() {
                                     id="city"
                                     placeholder="City"
                                     required
+                                    value={city}
+                                    onChange={(e) => setCity(e.target.value)}
                                 />
                             </div>
                             <div className="form-group mb-6">
@@ -87,6 +166,8 @@ export default function Checkout() {
                                     id="postal_code"
                                     placeholder="Postal Code"
                                     required
+                                    value={postalCode}
+                                    onChange={(e) => setPostalCode(e.target.value)}
                                 />
                             </div>
                             <div className="form-group mb-6">
@@ -96,16 +177,16 @@ export default function Checkout() {
                                     id="country"
                                     placeholder="Country"
                                     required
+                                    value={country}
+                                    onChange={(e) => setCountry(e.target.value)}
                                 />
                             </div>
                             <div className="form-group">
-                                
                                 <input
-                                    type="text"
+                                    type="submit"
                                     className="form-control py-3 px-3 border border-gray-200 rounded-md text-white bg-pink-600 w-full lg:w-44 md:w-36 hover:bg-pink-400 hover:cursor-pointer"
                                     value="Place Order"
                                 />
-                                
                             </div>
                         </form>
                     </div>
@@ -126,15 +207,14 @@ export default function Checkout() {
                                 <hr className="border-gray-300 border-2" />
                             </div>
                             <label className="flex items-center space-x-2 pt-10 pb-8">
-                                
                             </label>
                             <div className="form-group">
                                 <Link href={`/makepayment`}>
-                                <input
-                                    type="text"
-                                    className="form-control py-3 px-3 border border-gray-200 rounded-md text-white bg-green-500 w-full hover:bg-green-400 hover:cursor-pointer"
-                                    value="Proceed to Payment"
-                                />
+                                    <input
+                                        type="text"
+                                        className="form-control py-3 px-3 border border-gray-200 rounded-md text-white bg-green-500 w-full hover:bg-green-400 hover:cursor-pointer"
+                                        value="Proceed to Payment"
+                                    />
                                 </Link>
                             </div>
                         </div>
