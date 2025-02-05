@@ -1,17 +1,15 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import { client } from "@/sanity/lib/client";
 
-
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ success: false, message: "Method Not Allowed" });
-  }
-
+export async function POST(req: NextRequest) {
   try {
-    const { orderId, paymentStatus } = req.body;
+    const { orderId, paymentStatus } = await req.json();
 
     if (!orderId || !paymentStatus) {
-      return res.status(400).json({ success: false, message: "Missing parameters" });
+      return NextResponse.json(
+        { success: false, message: "Missing parameters" },
+        { status: 400 }
+      );
     }
 
     // Step 1: Fetch the order's _id from Sanity using orderNumber
@@ -19,7 +17,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const order = await client.fetch(query);
 
     if (!order || !order._id) {
-      return res.status(404).json({ success: false, message: "Order not found" });
+      return NextResponse.json(
+        { success: false, message: "Order not found" },
+        { status: 404 }
+      );
     }
 
     // Step 2: Update the order's orderStatus field
@@ -28,9 +29,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .set({ paymentStatus: paymentStatus })
       .commit();
 
-    return res.status(200).json({ success: true, message: "Order status updated" });
+    return NextResponse.json({
+      success: true,
+      message: "Order status updated",
+    });
   } catch (error) {
     console.error("Sanity update error:", error);
-    return res.status(500).json({ success: false, message: "Internal Server Error" });
+    return NextResponse.json(
+      { success: false, message: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
