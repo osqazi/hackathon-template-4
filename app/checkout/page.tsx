@@ -200,14 +200,22 @@ const handleOrderSubmit = async (e: React.FormEvent) => {
                         <div className="py-12 bg-gray-100 rounded-sm px-8">
                             <div className="flex justify-between font-bold text-lg">
                                 <p>Subtotals:</p>
-                                <p>${calculateTotal()}</p>
+                                <p>${Number(calculateTotal()) - Number(cart.length * 15)}</p>
                             </div>
                             <div className="my-4">
                                 <hr className="border-gray-300 border-2" />
                             </div>
+                            <div className="flex justify-between font-bold text-lg">
+                                <p>Delivery/Shipping and Taxes:</p>
+                                <p>${cart.length * 15}</p>
+                            </div>
+                            <div className="my-4">
+                                <hr className="border-gray-300 border-2" />
+                            </div>
+                            
                             <div className="flex justify-between font-bold text-lg pt-10">
                                 <p>Totals:</p>
-                                <p>${calculateTotal()}</p>
+                                <p>${Number(calculateTotal()) + Number(cart.length * 15)}</p>
                             </div>
                             <div className="my-4">
                                 <hr className="border-gray-300 border-2" />

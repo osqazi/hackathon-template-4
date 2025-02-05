@@ -83,7 +83,7 @@ export default function OrdersPage() {
       <Hero2 name="Orders" add1="Home .Pages" add2=". Orders" />
 
       <div className="container mx-auto my-10 p-6">
-        <h2 className="text-2xl font-bold mb-6">Your Orders</h2>
+        <h2 className="text-2xl font-bold mb-6 w-full text-center">Your Orders</h2>
 
         {loading ? (
           <p>Loading orders...</p>
@@ -98,7 +98,7 @@ export default function OrdersPage() {
                 {orders.map((order) => (
                   <li
                     key={order.orderId}
-                    className={`p-4 space-y-2 border-b cursor-pointer bg-gray-200 ${
+                    className={`mt-4 p-4 space-y-2 border-b cursor-pointer bg-gray-200 ${
                       selectedOrder?.orderId === order.orderId ? "bg-gray-300" : ""
                     }`}
                     onClick={() => setSelectedOrder(order)}
@@ -137,7 +137,7 @@ export default function OrdersPage() {
             </div>
 
             {/* Order Details */}
-            <div className="bg-gray-100 p-4 rounded-lg">
+            <div className="bg-gray-300 p-4 rounded-lg">
               <h3 className="text-lg font-semibold mb-4">Order Details</h3>
               {selectedOrder ? (
                 <>
@@ -146,7 +146,7 @@ export default function OrdersPage() {
                     {selectedOrder.products.map((product) => (
                       <li
                         key={product._key}
-                        className="p-4 border-b flex justify-between items-center"
+                        className="my-4 space-y-4 p-4 border-b flex justify-between items-center bg-gray-100"
                       >
                         <div>
                           <p>

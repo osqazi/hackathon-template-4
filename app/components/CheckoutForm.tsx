@@ -13,6 +13,7 @@ const CheckoutForm = ({ amount, orderID }: { amount: number; orderID: string }) 
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  // Fetch the client secret for Stripe
   useEffect(() => {
     fetch("/api/checkout/session", {
       method: "POST",
@@ -34,6 +35,27 @@ const CheckoutForm = ({ amount, orderID }: { amount: number; orderID: string }) 
       });
   }, [amount, orderID]);
 
+  // Function to update order status in Sanity
+  const updateOrderStatus = async (orderID: string) => {
+    try {
+      const response = await fetch("/api/orderpaid", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId: orderID, paymentStatus: "Paid" }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        toast.success("Order status updated!");
+      } else {
+        toast.error("Failed to update order status.");
+      }
+    } catch (error) {
+      console.error("Error updating order status:", error);
+      toast.error("Order update failed.");
+    }
+  };
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!stripe || !elements) return;
@@ -52,6 +74,11 @@ const CheckoutForm = ({ amount, orderID }: { amount: number; orderID: string }) 
       toast.error(result.error.message);
     } else {
       toast.success("Payment successful!");
+
+      // Update order status in Sanity
+      await updateOrderStatus(orderID);
+
+      // Redirect user
       router.push("/orderComp");
     }
   };
