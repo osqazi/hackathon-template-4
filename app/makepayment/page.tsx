@@ -16,7 +16,7 @@ export default function CheckoutPage({searchParams}:any) {
     fetch("/api/checkout/session", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount: orderAmount, orderID: orderID }), // $10 (in cents)
+      body: JSON.stringify({ amount: (orderAmount * 100), orderID: orderID }), // $10 (in cents)
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret))
