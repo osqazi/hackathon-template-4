@@ -41,7 +41,7 @@ const CheckoutForm = ({ amount, orderID }: { amount: number; orderID: string }) 
       const response = await fetch("/api/orderpaid", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orderId: orderID, paymentStatus: "Paid" }),
+        body: JSON.stringify({ orderID, status: "Paid" }),
       });
 
       const result = await response.json();

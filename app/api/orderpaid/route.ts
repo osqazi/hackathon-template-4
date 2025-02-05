@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { client } from "@/sanity/lib/client";
+import { stat } from "fs";
 
 export async function POST(req: NextRequest) {
   try {
-    const { orderId, paymentStatus } = await req.json();
+    const { orderID, status } = await req.json();
 
-    if (!orderId || !paymentStatus) {
+    if (!orderID || !status) {
       return NextResponse.json(
         { success: false, message: "Missing parameters" },
         { status: 400 }
@@ -13,8 +14,8 @@ export async function POST(req: NextRequest) {
     }
 
     // Step 1: Fetch the order's _id from Sanity using orderNumber
-    const query = `*[_type == "orders" && orderId == "${orderId}"][0]{ _id }`;
-    const order = await client.fetch(query);
+    const query = `*[_type == "orders" && orderId == $id][0]{ _id }`;
+    const order = await client.fetch(query, { id: orderID });
 
     if (!order || !order._id) {
       return NextResponse.json(
@@ -26,7 +27,7 @@ export async function POST(req: NextRequest) {
     // Step 2: Update the order's orderStatus field
     await client
       .patch(order._id) // Use the actual _id from Sanity
-      .set({ paymentStatus: paymentStatus })
+      .set({ paymentStatus: status })
       .commit();
 
     return NextResponse.json({
