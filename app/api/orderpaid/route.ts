@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { client } from "@/sanity/lib/client";
-import { stat } from "fs";
 
 export async function POST(req: NextRequest) {
   try {
@@ -13,31 +12,43 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Step 1: Fetch the order's _id from Sanity using orderNumber
-    const query = `*[_type == "order" && orderId == $id]`;
-    const order = await client.fetch(query, { id: orderID });
+    console.log("Received orderID:", orderID, "Status:", status);
 
-    if (!order || !order._id) {
+    // Fetch order _id using orderId
+    const query = `*[_type == "order" && orderId == $id]{_id, orderId, paymentStatus}`;
+    const orders = await client.fetch(query, { id: orderID });
+
+    console.log("Fetched orders:", orders);
+
+    if (!orders || orders.length === 0) {
       return NextResponse.json(
-        { success: false, message: "Order not found" },
+        { success: false, message: "Order not found", debug: orders },
         { status: 404 }
       );
     }
 
-    // Step 2: Update the order's orderStatus field
-    await client
-      .patch(order._id) // Use the actual _id from Sanity
+    const order = orders[0];
+
+    console.log("Updating order with _id:", order._id, "New Status:", status);
+
+    // Update order's paymentStatus
+    await client.patch(order._id, order.orderId)
       .set({ paymentStatus: status })
-      .commit();
+      .commit()
+      .then((res) => console.log("Sanity update response:", res))
+      .catch((err) => {
+        console.error("Sanity update error:", err);
+        throw new Error("Sanity update failed");
+      });
 
     return NextResponse.json({
       success: true,
       message: "Order status updated",
     });
-  } catch (error) {
+  } catch (error:any) {
     console.error("Sanity update error:", error);
     return NextResponse.json(
-      { success: false, message: "Internal Server Error" },
+      { success: false, message: "Internal Server Error", details: error.message },
       { status: 500 }
     );
   }
