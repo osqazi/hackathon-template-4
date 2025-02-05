@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import { Analytics } from "@vercel/analytics/react"
 import {ClerkProvider} from "@clerk/nextjs";
 import React from "react";
+import { ToastContainer } from "react-toastify";
 
 
 
@@ -32,6 +33,7 @@ export default function RootLayout({
       <header>
         <Navbar/>
       </header>
+      <ToastContainer position="top-right" autoClose={3000} />
       <div className="pt-28">
          
         {children}

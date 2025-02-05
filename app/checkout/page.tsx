@@ -36,62 +36,68 @@ export default function Checkout() {
     }, []);
 
     const calculateTotal = () => {
-        return cart.reduce((total, item) => total +  Number(item.price) * item.quantity, 0).toFixed(2);
+        return cart.reduce((total, item) => total +  Number(item.price) * item.quantity + 15, 0).toFixed(2);
     };
     
 
-    const handleOrderSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const [loading, setLoading] = useState(false); // Loading state
 
-        if (!isSignedIn) {
-            return alert("Please sign in to place an order");
-          } else {
-            const orderData = {
-                username: user.emailAddresses[0].emailAddress, // Or use a logged-in username
-                firstName,
-                lastName,
-                phone,
-                address,
-                city,
-                postalCode,
-                country,
-                orderId: `ORD-${Date.now()}`,
-                orderDate: new Date().toISOString(),
-                orderStatus: "Pending",
-                paymentStatus: "Pending",
-                totalAmount: Number(calculateTotal()),
-                products: cart.map((item) => ({
-                    _key: item.id,
-                    productId: item.id,
-                    productName: item.name,
-                    productImage: item.pic,
-                    productPrice: Number(item.price),
-                    productQuantity: item.quantity,
-                })),
-            };
-    
-            try {
-                const response = await fetch("/api/createOrder", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(orderData),
-                });
-    
-                if (response.ok) {
-                    localStorage.removeItem("cart");
-                    setCart([]);
-                    window.location.href = "/orderComp"; // Redirect to a Thank You page
-                } else {
-                    console.error("Failed to create order");
-                }
-            } catch (error) {
-                console.error("Error creating order:", error);
-            }
-        };
+const handleOrderSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-          }
+    if (!isSignedIn) {
+        return alert("Please sign in to place an order");
+    }
+
+    setLoading(true); // Start loading
+    document.body.style.cursor = "wait"; // Change cursor to waiting
+
+    const orderData = {
+        username: user.emailAddresses[0].emailAddress,
+        firstName,
+        lastName,
+        phone,
+        address,
+        city,
+        postalCode,
+        country,
+        orderId: `ORD-${Date.now()}`,
+        orderDate: new Date().toISOString(),
+        orderStatus: "Pending",
+        paymentStatus: "Pending",
+        totalAmount: Number(calculateTotal()),
+        products: cart.map((item) => ({
+            _key: item.id,
+            productId: item.id,
+            productName: item.name,
+            productImage: item.pic,
+            productPrice: Number(item.price),
+            productQuantity: item.quantity,
+        })),
+    };
+
+    try {
+        const response = await fetch("/api/createOrder", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(orderData),
+        });
+
+        if (response.ok) {
+            localStorage.removeItem("cart");
+            setCart([]);
+            window.location.href = "/orderComp"; // Redirect to Thank You page
+        } else {
+            console.error("Failed to create order");
+        }
+    } catch (error) {
+        console.error("Error creating order:", error);
+    } finally {
+        setLoading(false); // Stop loading
+        document.body.style.cursor = "default"; // Restore cursor
+    }
+};
+
         
 
         
@@ -208,7 +214,7 @@ export default function Checkout() {
                             </div>
                             <label className="flex items-center space-x-2 pt-10 pb-8">
                             </label>
-                            <div className="form-group">
+                            {/* <div className="form-group">
                                 <Link href={`/makepayment`}>
                                     <input
                                         type="text"
@@ -216,7 +222,7 @@ export default function Checkout() {
                                         value="Proceed to Payment"
                                     />
                                 </Link>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

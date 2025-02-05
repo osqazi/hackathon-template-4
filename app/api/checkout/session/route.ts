@@ -7,12 +7,13 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 
 export async function POST(req: Request) {
   try {
-    const { amount, currency } = await req.json();
+    const { amount, orderID, currency } = await req.json();
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount, // Amount in cents (e.g., $10 = 1000)
       currency: currency || "usd",
       payment_method_types: ["card"],
+      metadata: {orderID},
     });
 
     return NextResponse.json({ clientSecret: paymentIntent.client_secret });

@@ -3,6 +3,7 @@ import Hero2 from "../components/Hero2";
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Link from "next/link";
+import { useUser} from "@clerk/nextjs";
 const newProduct = {
   name: "Example Product",
   price: 100,
@@ -10,7 +11,11 @@ const newProduct = {
 };
 
 
+
 export default function ShoppingCart() {
+
+  const {isSignedIn } = useUser();
+
   interface Cart {
     id: string;
     name: string;
@@ -72,7 +77,7 @@ export default function ShoppingCart() {
   // Calculate total for all items
   const calculateTotal = () => {
     return cart
-      .reduce((total, item) => total + Number(item.price) * item.quantity, 0)
+      .reduce((total, item) => total + Number(item.price) * item.quantity + 15, 0)
       .toFixed(2);
   };
 
@@ -81,6 +86,17 @@ export default function ShoppingCart() {
     localStorage.removeItem("cart"); // Remove cart data from localStorage
     window.dispatchEvent(new Event("storage"));
   };
+
+
+  const handleOrderPage = ()=>{
+    if (!isSignedIn) {
+      return alert("Please sign in to Check your Orders History");
+    } else {
+      window.location.href = "/orders";
+    }
+
+
+  }
 
   // const handleCheckout = async () => {
   //     if (cart.length === 0) {
@@ -204,6 +220,12 @@ export default function ShoppingCart() {
                 className="form-control py-3 px-3 border border-gray-200 rounded-md text-white bg-pink-600 w-full lg:w-44 md:w-36 hover:bg-pink-400 hover:cursor-pointer"
                 value="Update Cart"
               />
+              <div
+                className="form-control text-center py-3 px-3 border border-gray-200 rounded-md text-white bg-pink-600 w-full lg:w-44 md:w-36 hover:bg-pink-400 hover:cursor-pointer"
+                onClick={handleOrderPage}
+              >Orders History
+              </div>
+              
               <input
                 type="button"
                 className="form-control py-3 px-3 border border-gray-200 rounded-md text-white bg-pink-600 w-full lg:w-44 md:w-36 hover:bg-pink-400 hover:cursor-pointer"
@@ -216,14 +238,21 @@ export default function ShoppingCart() {
             <div className="py-12 bg-gray-100 rounded-sm px-8">
               <div className="flex justify-between font-bold text-lg">
                 <p>Subtotals:</p>
-                <p>${calculateTotal()}</p>
+                <p>${Number(calculateTotal()) - Number(cart.length * 15)}</p>
+              </div>
+              <div className="my-4">
+                <hr className="border-gray-300 border-2" />
+              </div>
+              <div className="flex justify-between font-bold text-lg">
+                <p>Delivery/Shipping and Taxes:</p>
+                <p>${cart.length * 15}</p>
               </div>
               <div className="my-4">
                 <hr className="border-gray-300 border-2" />
               </div>
               <div className="flex justify-between font-bold text-lg pt-10">
                 <p>Totals:</p>
-                <p>${calculateTotal()}</p>
+                <p>${Number(calculateTotal()) + Number(cart.length * 15)}</p>
               </div>
               <div className="my-4">
                 <hr className="border-gray-300 border-2" />

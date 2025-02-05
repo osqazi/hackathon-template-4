@@ -80,6 +80,21 @@ const Navbar =  () => {
 
           {/* Action Items Section */}
           <div className="w-full lg:w-auto flex justify-between lg:justify-end items-center gap-3 mt-2 lg:mt-0">
+          <span>
+              {/* <Link
+                href={"/login"}
+                className="hover:cursor-pointer flex justify-center items-center gap-1"
+              >
+                Login <i className="fa-regular fa-user"></i>
+              </Link>
+               */}
+               <SignedOut>
+            <SignInButton />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+            </span>
             <span>
               <select className="w-auto bg-transparent focus:text-black hover:cursor-pointer">
                 <option value="English" className="bg-white text-black">
@@ -94,14 +109,7 @@ const Navbar =  () => {
                 <option value="PKR">PKR</option>
               </select>
             </span>
-            <span>
-              <Link
-                href={"/login"}
-                className="hover:cursor-pointer flex justify-center items-center gap-1"
-              >
-                Login <i className="fa-regular fa-user"></i>
-              </Link>
-            </span>
+            
             <span className="hover:cursor-pointer flex justify-center items-center gap-1">
               Wishlist <i className="fa-regular fa-heart"></i>
             </span>
@@ -113,12 +121,7 @@ const Navbar =  () => {
                 </span>
               </Link>
             </span>
-            <SignedOut>
-            <SignInButton />
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
+            
           </div>
         </div>
       </div>
@@ -229,6 +232,14 @@ const Navbar =  () => {
                                     Order Completed
                                   </SelectItem>
                                 </Link>
+                                <Link href={"/orders"}>
+                                  <SelectItem
+                                    value="orderHist"
+                                    className="hover:cursor-pointer"
+                                  >
+                                    Orders History
+                                  </SelectItem>
+                                </Link>
                               </SelectGroup>
                             </SelectContent>
                           </Select>
@@ -269,6 +280,7 @@ const Navbar =  () => {
                       if (e === "Faq") router.push("/faq");
                       if (e === "hDemo") router.push("/hDemo");
                       if (e === "orderComp") router.push("/orderComp");
+                      if (e === "orderHist") router.push("/orders");
                       if (e === "cart") router.push("/cart");
                       if (e === "aboutus") router.push("/aboutus");
                     }}
@@ -285,6 +297,9 @@ const Navbar =  () => {
                         <SelectItem value="hDemo">HK Demo</SelectItem>
                         <SelectItem value="orderComp">
                           Order Completed
+                        </SelectItem>
+                        <SelectItem value="orderHist">
+                          Orders History
                         </SelectItem>
                       </SelectGroup>
                     </SelectContent>
