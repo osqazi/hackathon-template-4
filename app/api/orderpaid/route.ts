@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Step 1: Fetch the order's _id from Sanity using orderNumber
-    const query = `*[_type == "orders" && orderId == $id][0]{ _id }`;
+    const query = `*[_type == "order" && orderId == $id][0]{ _id }`;
     const order = await client.fetch(query, { id: orderID });
 
     if (!order || !order._id) {
