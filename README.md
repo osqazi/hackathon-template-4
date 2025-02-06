@@ -4,7 +4,11 @@ Hekta Furniture is a fully functional E-Commerce Marketplace built with Next.js 
 
 Features
 
-✅ Product Listing & Filtering - Fetches and displays products from Sanity CMS with category-based filtering.✅ Shopping Cart & Checkout - Implements Jotai for global state management and integrates Stripe for secure payments.✅ Authentication - Clerk authentication for login and protected routes.✅ Performance Optimizations - Uses Next.js image optimization, lazy loading, and caching.✅ SEO Friendly - Lighthouse-tested for optimized performance and accessibility.✅ Admin Panel (WIP) - Custom admin panel for managing products in Sanity CMS.
+✅ Product Listing & Filtering - Fetches and displays products from Sanity CMS with category-based filtering.
+✅ Shopping Cart & Checkout - Implements Jotai for global state management and integrates Stripe for secure payments.✅ Authentication - Clerk authentication for login and protected routes.
+✅ Performance Optimizations - Uses Next.js image optimization, lazy loading, and caching.
+✅ SEO Friendly - Lighthouse-tested for optimized performance and accessibility.
+
 
 Tech Stack
 
