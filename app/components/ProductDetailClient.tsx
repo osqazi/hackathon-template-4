@@ -3,6 +3,7 @@
 import Hero2 from "@/app/components/Hero2";
 import RelatedProducts from "@/app/components/RelatedProducts";
 
+
 interface ProductDetailClientProps {
   product: {
     _id: string;
@@ -23,6 +24,7 @@ interface ProductDetailClientProps {
     rating_2: number;
     rating_1: number;
     createdOn: string;
+    category: string;
   };
 }
 
@@ -110,10 +112,12 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                 <i className="fa-regular fa-heart hover:cursor-pointer"></i>
               </a>
             </div>
+            <p className="lg:pl-12 md:pl-8"><span className="font-bold">Category : </span>   {product.category}</p>
           </div>
         </div>
       </div>
-      <RelatedProducts />
+      <RelatedProducts category={product.category}/>
+      
     </div>
   );
 }

@@ -25,6 +25,7 @@ interface ProductDet {
   rating_2: number;
   rating_1: number;
   createdOn: string;
+  category: string;
 }
 
 // Generate static params
@@ -55,7 +56,8 @@ async function getProduct(productId: string): Promise<ProductDet> {
     rating_3,
     rating_2,
     rating_1,
-    createdOn
+    createdOn,
+    category
   }`;
 
   return client.fetch(query, { id: productId });
