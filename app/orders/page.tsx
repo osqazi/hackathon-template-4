@@ -7,6 +7,7 @@ import Hero2 from "../components/Hero2";
 
 interface ordersType {
   username: string;
+  _id: string;
   orderId: string;
   orderDate: string;
   orderStatus: string;
@@ -72,8 +73,8 @@ export default function OrdersPage() {
     fetchOrders();
   }, [user, isSignedIn]); // Added dependencies
 
-  const handlePayment = (totalAmount: number, orderId: string) => {
-    window.location.href = `/makepayment?amount=${totalAmount}&orderId=${orderId}`;
+  const handlePayment = (totalAmount: number, orderId: string, _id: string) => {
+    window.location.href = `/makepayment?amount=${totalAmount}&orderId=${orderId}&_id=${_id}`;
   }
 
 
@@ -126,7 +127,7 @@ export default function OrdersPage() {
                     </p>
                     <button
                     className={`bg-pink-600 text-white font-bold p-1 rounded-md ${order.paymentStatus == 'Paid' ? "hidden":"block"}`}
-                    onClick={()=>handlePayment(order.totalAmount, order.orderId)}
+                    onClick={()=>handlePayment(order.totalAmount, order.orderId, order._id)}
                     > Make Payment</button>
                     </div>
 

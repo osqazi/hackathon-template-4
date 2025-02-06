@@ -1,11 +1,48 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
 import Link from "next/link";
+import { toast } from "react-toastify";
+
 
 interface FooterProps {
   // Add any custom props if needed
 }
 
 const Footer: React.FC<FooterProps> = () => {
+
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubscribe = async () => {
+    if (!email) {
+      toast.error("Please enter a valid email.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        toast.success("Subscription successful!");
+        setEmail(""); // Clear input field
+      } else {
+        toast.error(data.message || "Subscription failed.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <footer className="bg-gray-200 text-black pt-24">
       <div className="container mx-auto text-center md:text-left lg:text-left">
@@ -18,11 +55,17 @@ const Footer: React.FC<FooterProps> = () => {
                 <input
                   className="border border-gray-400 rounded px-1 py-1 w-auto mx-0"
                   type="email"
+                  value={email}
                   placeholder="Enter your email"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
-                <button className="bg-pink-500 hover:bg-pink-800 text-white px-4 py-2 mx-0 rounded ml-0 text-[.75rem]">
-                  Sign Up
-                </button>
+                <button
+        onClick={handleSubscribe}
+        disabled={loading}
+        className="bg-pink-500 hover:bg-pink-800 text-white px-4 py-2 mx-0 rounded ml-0 text-[.75rem]"
+      >
+        {loading ? "Subscribing..." : "Subscribe"}
+      </button>
               </p>
             </div>
             <p className="text-gray-750 mt-2">

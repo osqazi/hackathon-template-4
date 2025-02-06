@@ -13,6 +13,7 @@ import Blog from "./components/Blogs";
 
 
 
+
 const Home: React.FC = () => {
   return (
     <div>

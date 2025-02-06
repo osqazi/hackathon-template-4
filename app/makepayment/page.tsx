@@ -9,14 +9,15 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY 
 
 export default function CheckoutPage({searchParams}:any) {
   const orderAmount = searchParams.amount;
-  const orderID = searchParams.orderId
+  const orderID = searchParams.orderId;
+  const id = searchParams._id;
   const [clientSecret, setClientSecret] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/checkout/session", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount: (orderAmount * 100), orderID: orderID }), // $10 (in cents)
+      body: JSON.stringify({ amount: (orderAmount * 100), orderID: orderID, id: id }), // $10 (in cents)
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret))
@@ -29,7 +30,7 @@ export default function CheckoutPage({searchParams}:any) {
 
       {clientSecret ? (
         <Elements stripe={stripePromise} options={{ clientSecret }}>
-          <CheckoutForm amount={orderAmount} orderID={orderID}  />
+          <CheckoutForm amount={orderAmount} orderID={orderID} id={id}  />
         </Elements>
       ) : (
         <p>Loading payment details...</p>

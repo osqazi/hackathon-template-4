@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const CheckoutForm = ({ amount, orderID }: { amount: number; orderID: string }) => {
+const CheckoutForm = ({ amount, orderID, id }: { amount: number; orderID: string, id: string}) => {
   const stripe = useStripe();
   const elements = useElements();
   const [clientSecret, setClientSecret] = useState("");
@@ -18,7 +18,7 @@ const CheckoutForm = ({ amount, orderID }: { amount: number; orderID: string }) 
     fetch("/api/checkout/session", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount, orderID }),
+      body: JSON.stringify({ amount, orderID, id }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -36,12 +36,12 @@ const CheckoutForm = ({ amount, orderID }: { amount: number; orderID: string }) 
   }, [amount, orderID]);
 
   // Function to update order status in Sanity
-  const updateOrderStatus = async (orderID: string) => {
+  const updateOrderStatus = async (id: string) => {
     try {
       const response = await fetch("/api/orderpaid", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orderID, status: "Paid" }),
+        body: JSON.stringify({ id, paymentStatus: "Paid"}),
       });
 
       const result = await response.json();
@@ -76,7 +76,7 @@ const CheckoutForm = ({ amount, orderID }: { amount: number; orderID: string }) 
       toast.success("Payment successful!");
 
       // Update order status in Sanity
-      await updateOrderStatus(orderID);
+      await updateOrderStatus(id);
 
       // Redirect user
       router.push("/orderComp");
