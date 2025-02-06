@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Project Overview
 
-## Getting Started
+Hekta Furniture is a fully functional E-Commerce Marketplace built with Next.js 14.2.2, integrated with Sanity CMS for content management, Stripe for payments, Clerk Auth for authentication, and Tailwind CSS for styling.
 
-First, run the development server:
+Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+✅ Product Listing & Filtering - Fetches and displays products from Sanity CMS with category-based filtering.✅ Shopping Cart & Checkout - Implements Jotai for global state management and integrates Stripe for secure payments.✅ Authentication - Clerk authentication for login and protected routes.✅ Performance Optimizations - Uses Next.js image optimization, lazy loading, and caching.✅ SEO Friendly - Lighthouse-tested for optimized performance and accessibility.✅ Admin Panel (WIP) - Custom admin panel for managing products in Sanity CMS.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Frontend: Next.js 14.2.2, React, Tailwind CSS, ShadCN UI
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Backend: Sanity CMS, Clerk Authentication, Prisma, PostgreSQL
 
-## Learn More
+Deployment: Vercel
 
-To learn more about Next.js, take a look at the following resources:
+Payments: Stripe API
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Clone the Repository
+    git clone [your-repo-url]
+    cd hekta-furniture
 
-## Deploy on Vercel
+2. Install Dependencies
+    npm install
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Set Up Environment Variables
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    Create a .env.local file and add:
+        NEXT_PUBLIC_SANITY_PROJECT_ID=your_sanity_project_id
+        NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_key
+        NEXT_PUBLIC_STRIPE_PUBLIC_KEY=your_stripe_key
+
+4. Run the Development Server
+    npm run dev
+
+5. Deployment
+    The project is deployed on Vercel. For production builds:
+        npm run build
+        npm start
+
+Project Folder Structure
+
+    /
+    ├── /src           # Main Application Code
+    ├── /public        # Static Assets
+    ├── /docs          # Documentation
+    ├── /testing-reports  # Test Reports
+    ├── .env.local     # Environment Variables (Not Committed)
+    ├── README.md      # Project Documentation
+    └── package.json   # Dependencies
+
+License
+
+    This project is open-source and available under the MIT License.
+
+
+Thank you for choosing this GIT! Happy Coding.
